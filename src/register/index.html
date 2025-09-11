@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <link rel="stylesheet" href="/register/register.css" />
+        <title>Lumo</title>
+    </head>
+<body>
+    <header>
+        <nav id="menu">
+            <div class="logo">Lumo</div>
+            <ul class="links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about/">About us</a></li>
+            </ul>
+            <div class="login-btn">
+                <a href="/login/" role="button">Log in</a>
+            </div>
+        </nav>
+    </header>
+
+  <main class="main-register">
+    <!-- Si quieres conservar el título <h1>Registro, puedes dejarlo o quitarlo -->
+    <h1 class="sr-only">Registro</h1>
+
+    <div class="register-layout">
+      <aside class="left-brand">
+        <!-- Aquí puedes mostrar el logo o el link 'Previous' si los usas -->
+        <a href="#" class="previous">← Previous</a>
+        <div class="brand">
+          <img src="/vite.svg" alt="Lumo logo" class="brand-logo" />
+          <div class="brand-name">Lumo</div>
+        </div>
+      </aside>
+
+      <section class="card register-card" aria-labelledby="form-title">
+        <h2 id="form-title" class="card-title">Create an account</h2>
+
+        <form id="registerForm" class="form" novalidate>
+          <label class="field" for="firstName">
+            <span class="field-label">First name</span>
+            <input
+              id="firstName"
+              name="firstName"
+              type="text"
+              placeholder="Less or equal to 10 characters"
+              maxlength="10"
+              required
+            />
+          </label>
+
+          <label class="field" for="lastName">
+            <span class="field-label">Last name</span>
+            <input
+              id="lastName"
+              name="lastName"
+              type="text"
+              placeholder="Less or equal to 10 characters"
+              maxlength="10"
+              required
+            />
+          </label>
+
+          <label class="field" for="age">
+            <span class="field-label">Age</span>
+            <input
+              id="age"
+              name="age"
+              type="number"
+              placeholder="Natural value between 10 and 112"
+              min="10"
+              max="112"
+              required
+            />
+          </label>
+
+          <label class="field" for="email">
+            <span class="field-label">Email</span>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="example@domain.com"
+              required
+            />
+          </label>
+
+          <label class="field" for="password">
+            <span class="field-label">Password</span>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder=""
+              required
+            />
+          </label>
+
+          <button type="submit" class="btn primary">Register</button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-col">
+        <div class="logo">Lumo</div>
+        <p>© 2025 JSquad</p>
+        <p>All rights reserved</p>
+    </div>
+    <div class="footer-col">
+        <p>Created by JSquad</p>
+        <ul>
+            <li><a href="/about/">About us</a></li>
+            <li><a href="/blog.html">Blog</a></li>
+        </ul>
+    </div>
+    <div class="footer-col">
+        <p>Support</p>
+        <ul>
+            <li><a href="/contact/">Contact us</a></li>
+            <li><a href="/service-terms">Terms of Service</a></li>
+            <li><a href="/policies">Privacy policies</a></li>
+        </ul>
+    </div>
+  </footer>
+</body>
+</html>

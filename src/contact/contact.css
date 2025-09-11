@@ -1,0 +1,273 @@
+/* ============= NAVBAR & FOOTER (copiado de tu index.css) ============= */
+* { padding:0; margin:0; box-sizing:border-box; }
+
+#menu{
+  background:#fff;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 3rem;
+  border-bottom: 2px solid #f7c873;
+}
+.logo{
+  font-size:2rem;
+  color:orange;
+  font-weight:bold;
+}
+.links{
+  display:flex;
+  gap:2rem;
+  list-style:none;
+}
+.links a{ text-decoration:none; color:#333; font-size:1rem; }
+.login-btn a{
+  background:orange; color:#fff; padding:10px 2rem; border-radius:4px; text-decoration:none; font-weight:500;
+}
+
+/* footer */
+footer {
+  background-color: #152138;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  text-align: center;
+  padding: 2rem 6rem;
+  margin-top: 3rem;
+}
+.footer-col {
+  min-width: 200px;
+  margin-bottom: 1.5rem;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.footer-col .logo { color: orange; font-size: 2rem; font-weight: bold; margin-bottom: 0.5rem; }
+.footer-col p:first-child { font-size:1.5rem; font-weight:bold; color:#fff; margin-bottom:6px; }
+.footer-col p, .footer-col a { color:#fff; font-size:1.1rem; text-decoration:none; }
+
+/* ============= CONTACT PAGE STYLES ============= */
+
+/* Variables */
+:root{
+  --bg: #f3f5f7;
+  --card: #ffffff;
+  --muted: #8f9aa0;
+  --accent1: #ff9f1a;
+  --accent2: #ff7a00;
+  --glass: rgba(255,255,255,0.7);
+  --radius: 14px;
+}
+
+/* page base */
+body{
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: #333;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Main wrapper */
+.contact-main{
+  min-height: calc(100vh - 140px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px 20px;
+}
+
+/* Layout grid: left = card, right = side info (mirrors register layout) */
+.contact-wrap{
+  width:100%;
+  max-width: 1100px;
+  display:grid;
+  grid-template-columns: 1fr 380px;
+  gap: 32px;
+  align-items: start;
+  position: relative;
+}
+
+/* decorative moving blob behind the card */
+.decor-blob{
+  position:absolute;
+  top: -40px;
+  left: 8%;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient( circle at 20% 30%, rgba(255,159,26,0.16), transparent 25%),
+              radial-gradient( circle at 80% 70%, rgba(128,0,255,0.06), transparent 25% );
+  filter: blur(28px);
+  transform: translateY(0);
+  z-index:0;
+  pointer-events:none;
+  animation: floaty 8s ease-in-out infinite;
+}
+
+@keyframes floaty{
+  0%{ transform: translateY(0) rotate(0deg); }
+  50%{ transform: translateY(6px) rotate(2deg); }
+  100%{ transform: translateY(0) rotate(0deg); }
+}
+
+/* Card */
+.contact-card{
+  position:relative;
+  z-index: 2; /* above the blob */
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: 0 24px 50px rgba(15,23,29,0.09);
+  border: 1px solid rgba(0,0,0,0.03);
+}
+
+/* top brand inside card */
+.card-top{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom: 6px;
+}
+.card-logo{
+  width:72px;
+  height:72px;
+}
+.card-brand{
+  font-weight:700;
+  font-size:20px;
+  color:#222;
+}
+
+/* title & subtitle */
+.contact-title{
+  text-align:left;
+  font-size:24px;
+  margin:10px 0 8px 0;
+  color:#222;
+}
+.contact-sub{
+  color:var(--muted);
+  margin-bottom:16px;
+  font-size:14px;
+}
+
+/* form layout */
+.contact-form{ display:flex; flex-direction:column; gap:12px; }
+.two-col{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+
+.field{ display:flex; flex-direction:column; gap:6px; }
+.label{ font-size:13px; color:var(--muted); }
+
+/* inputs & textarea */
+input[type="text"], input[type="email"], textarea{
+  width:100%;
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid rgba(36,41,46,0.07);
+  background:#fff;
+  font-size:14px;
+  outline:none;
+  transition: box-shadow .18s ease, border-color .12s ease;
+}
+textarea{ resize:vertical; min-height:120px; max-height:260px; }
+
+input:focus, textarea:focus{
+  border-color: rgba(255,139,0,0.7);
+  box-shadow: 0 8px 28px rgba(255,152,0,0.06);
+}
+
+/* small hint text */
+.hint{ font-size:12px; color:#9aa1a6; margin-top:4px; }
+
+/* action buttons */
+.form-actions{ display:flex; gap:12px; align-items:center; margin-top:8px; }
+.btn{
+  padding:12px 16px; border-radius:10px; cursor:pointer; font-weight:700; border:none;
+}
+.btn.submit{
+  background: linear-gradient(180deg, var(--accent1), var(--accent2));
+  color:#fff;
+  box-shadow: 0 10px 28px rgba(255,122,0,0.12);
+  flex: 1;
+}
+.btn.ghost{
+  background: transparent;
+  color: #333;
+  border: 1px solid rgba(0,0,0,0.06);
+  padding:10px 14px;
+  border-radius:10px;
+}
+
+/* micro-note under form */
+.micro-note{ margin-top:10px; color:var(--muted); font-size:13px; }
+
+/* ------------------- Side column (info + logo) ------------------- */
+.contact-side{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:22px;
+  padding: 8px;
+  justify-self:center;
+}
+
+/* previous link like register */
+.previous{
+  color:#333; text-decoration:none; font-size:14px; opacity:0.9; align-self:flex-start;
+}
+
+/* big logo / title on side */
+.side-logo{ display:flex; flex-direction:column; align-items:center; gap:10px; }
+.side-logo img{ width:140px; height:140px; object-fit:contain; }
+.side-title{ font-weight:700; font-size:22px; color:#222; }
+
+/* info cards with subtle entrance animation */
+.contact-cards{ display:flex; flex-direction:column; gap:12px; width:100%; margin-top:6px; }
+.info-card{
+  display:flex; align-items:center; gap:12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
+  border-radius:10px; padding:12px;
+  box-shadow: 0 8px 20px rgba(15,23,29,0.04);
+  border:1px solid rgba(0,0,0,0.03);
+  transform: translateY(14px);
+  opacity: 0;
+  animation: slideIn .45s forwards;
+}
+.info-card:nth-child(1){ animation-delay: 0.12s; }
+.info-card:nth-child(2){ animation-delay: 0.22s; }
+.info-card:nth-child(3){ animation-delay: 0.32s; }
+
+@keyframes slideIn{
+  to { transform:none; opacity:1; }
+}
+
+/* icon circle */
+.info-card .ic{
+  width:44px; height:44px; border-radius:10px; display:grid; place-items:center;
+  background: linear-gradient(180deg, rgba(255,159,26,0.12), rgba(255,122,0,0.06));
+  font-size:18px;
+}
+.info-title{ font-weight:700; font-size:13px; color:#222; }
+.info-text{ font-size:13px; color:var(--muted); }
+
+/* -------------- responsiveness -------------- */
+@media (max-width: 1000px){
+  .contact-wrap{ grid-template-columns: 1fr 320px; gap:20px; max-width:920px; }
+  .decor-blob{ left:3%; width:320px; height:320px; }
+  .card-logo{ width:64px; height:64px; }
+}
+@media (max-width: 820px){
+  .contact-wrap{ grid-template-columns: 1fr; max-width:640px; }
+  .contact-side{ order: -1; flex-direction:row; justify-content:center; gap:18px; }
+  .decor-blob{ display:none; }
+  .side-logo img{ width:96px; height:96px; }
+  .two-col{ grid-template-columns: 1fr; }
+}
+@media (max-width: 480px){
+  .side-logo img{ width:72px; height:72px; }
+  #menu{ padding: 10px 1rem; }
+  footer{ padding: 2rem 1rem; }
+}
