@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <!-- Enlaza el CSS combinado -->
+    <link rel="stylesheet" href="/login/login.css" />
+    <title>Lumo</title>
+  </head>
+<body>
+  <!-- HEADER: no tocar -->
+  <header>
+    <header>
+        <nav id="menu">
+            <div class="logo">Lumo</div>
+            <ul class="links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about/">About us</a></li>
+            </ul>
+            <div class="login-btn">
+                <a href="/login/" role="button">Log in</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-login">
+      <h1 class="sr-only">Login</h1>
+  
+      <div class="login-layout">
+        <!-- Columna izquierda: tarjeta de login -->
+        <section class="card login-card" aria-labelledby="login-title">
+          <h2 id="login-title" class="card-title">Login</h2>
+  
+          <form id="loginForm" class="login-form" novalidate>
+            <label class="field" for="email">
+              <span class="field-label">Email</span>
+              <input id="email" type="email" name="email" placeholder="example@domain.com" required />
+            </label>
+  
+            <label class="field" for="password">
+              <span class="field-label">Password</span>
+              <input id="password" type="password" name="password" placeholder="Contraseña" required />
+            </label>
+  
+            <div class="form-row remember-row">
+              <label class="remember" for="login_remember">
+                <input id="login_remember" type="checkbox" name="remember" />
+                <span>Remember me</span>
+              </label>
+              <a class="forgot" href="/forgot-password/">Forgot password?</a>
+            </div>
+  
+            <button type="submit" class="btn primary">Login</button>
+  
+            <div class="bottom-links">
+              <p class="no-account">Don’t have an account? <a href="/register/">Create an account</a></p>
+            </div>
+          </form>
+        </section>
+  
+        <!-- Columna derecha: logo grande + Previous (fuera de la card) -->
+        <aside class="side-brand">
+          <a class="previous" href="#" onclick="history.back(); return false;">← Previous</a>
+  
+          <div class="brand">
+            <img src="/vite.svg" alt="Lumo logo" class="brand-logo" />
+            <div class="brand-name">Lumo</div>
+          </div>
+        </aside>
+      </div>
+    </main>
+  
+
+  <!-- FOOTER: no tocar -->
+  <footer>
+    <div class="footer-col">
+        <div class="logo">Lumo</div>
+        <p>© 2025 JSquad</p>
+        <p>All rights reserved</p>
+    </div>
+    <div class="footer-col">
+        <p>Created by JSquad</p>
+        <ul>
+            <li><a href="/about/">About us</a></li>
+            <li><a href="/blog.html">Blog</a></li>
+        </ul>
+    </div>
+    <div class="footer-col">
+        <p>Support</p>
+        <ul>
+            <li><a href="/contact/">Contact us</a></li>
+            <li><a href="/service-terms">Terms of Service</a></li>
+            <li><a href="/policies">Privacy policies</a></li>
+        </ul>
+    </div>
+</footer>
+</body>
+</html>
