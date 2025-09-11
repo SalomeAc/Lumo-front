@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" href="/contact/contact.css" />
+    <title>Contact — Lumo</title>
+  </head>
+<body>
+  <!-- HEADER: deja exactamente como lo tienes en el proyecto -->
+  <header>
+    <nav id="menu">
+      <div class="logo">Lumo</div>
+      <ul class="links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About us</a></li>
+      </ul>
+      <div class="login-btn">
+        <a href="/login/" role="button">Log in</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN: Contact page -->
+  <main class="contact-main">
+    <div class="contact-wrap">
+      <!-- Animated decorative blob (no content, solo visual) -->
+      <div class="decor-blob" aria-hidden="true"></div>
+
+      <!-- Card: formulario -->
+      <section class="card contact-card" aria-labelledby="contact-title">
+        <div class="card-top">
+          <img src="/vite.svg" alt="Lumo logo" class="card-logo" />
+          <div class="card-brand">Lumo</div>
+        </div>
+
+        <h1 id="contact-title" class="contact-title">Contáctanos</h1>
+        <p class="contact-sub">¿Tienes una duda, sugerencia o quieres trabajar con nosotros? Escríbenos y te respondemos pronto.</p>
+
+        <form id="contactForm" class="contact-form" novalidate>
+          <div class="two-col">
+            <label class="field" for="firstName">
+              <span class="label">First name</span>
+              <input id="firstName" name="firstName" type="text" placeholder="Tu nombre" required />
+            </label>
+
+            <label class="field" for="lastName">
+              <span class="label">Last name</span>
+              <input id="lastName" name="lastName" type="text" placeholder="Tu apellido" required />
+            </label>
+          </div>
+
+          <label class="field" for="email">
+            <span class="label">Email</span>
+            <input id="email" name="email" type="email" placeholder="tucorreo@dominio.com" required />
+          </label>
+
+          <label class="field" for="subject">
+            <span class="label">Asunto</span>
+            <input id="subject" name="subject" type="text" placeholder="¿Sobre qué quieres escribir?" />
+          </label>
+
+          <label class="field" for="message">
+            <span class="label">Mensaje</span>
+            <textarea id="message" name="message" rows="6" placeholder="Escribe tu mensaje..." maxlength="200"></textarea>
+            <small class="hint">Máx. 200 caracteres</small>
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" class="btn submit">Enviar mensaje</button>
+            <button type="button" class="btn ghost" onclick="location.href='/'">Volver</button>
+          </div>
+
+          <div class="micro-note">También puedes escribirnos directamente a <a href="mailto:info@example.com">info@example.com</a></div>
+        </form>
+      </section>
+
+      <!-- Side: info de contacto + botones (toque extra) -->
+      <aside class="contact-side">
+        <a class="previous" href="#" onclick="history.back(); return false;">← Previous</a>
+
+        <div class="side-logo">
+          <img src="/vite.svg" alt="Lumo logo" />
+          <div class="side-title">Lumo</div>
+        </div>
+
+        <div class="contact-cards">
+          <div class="info-card">
+            <div class="ic">📞</div>
+            <div class="info">
+              <div class="info-title">Teléfono</div>
+              <div class="info-text">+57 300 000 0000</div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="ic">✉️</div>
+            <div class="info">
+              <div class="info-title">Email</div>
+              <div class="info-text">support@lumo.example</div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="ic">📍</div>
+            <div class="info">
+              <div class="info-title">Oficina</div>
+              <div class="info-text">Cali, Colombia</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- FOOTER: conserva el tuyo -->
+  <footer>
+    <div class="footer-col">
+        <div class="logo">Lumo</div>
+        <p>© 2025 JSquad</p>
+        <p>All rights reserved</p>
+    </div>
+    <div class="footer-col">
+        <p>Created by JSquad</p>
+        <ul>
+            <li><a href="/about/">About us</a></li>
+            <li><a href="/blog.html">Blog</a></li>
+        </ul>
+    </div>
+    <div class="footer-col">
+        <p>Support</p>
+        <ul>
+            <li><a href="/contact/">Contact us</a></li>
+            <li><a href="/service-terms">Terms of Service</a></li>
+            <li><a href="/policies">Privacy policies</a></li>
+        </ul>
+    </div>
+  </footer>
+</body>
+</html>
