@@ -13,11 +13,12 @@
     <nav id="menu">
       <div class="logo">Lumo</div>
       <ul class="links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/about/">About us</a></li>
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/about/">Sobre nosotros</a></li>
+        <li><a href="/contact/">Contáctanos</a></li>
       </ul>
       <div class="login-btn">
-        <a href="/login/" role="button">Log in</a>
+        <a href="/login/" role="button">Iniciar sesión</a>
       </div>
     </nav>
   </header>
@@ -31,8 +32,7 @@
       <!-- Card: formulario -->
       <section class="card contact-card" aria-labelledby="contact-title">
         <div class="card-top">
-          <img src="/vite.svg" alt="Lumo logo" class="card-logo" />
-          <div class="card-brand">Lumo</div>
+          <!-- Imagen eliminada, sin texto de Lumo -->
         </div>
 
         <h1 id="contact-title" class="contact-title">Contáctanos</h1>
@@ -41,18 +41,18 @@
         <form id="contactForm" class="contact-form" novalidate>
           <div class="two-col">
             <label class="field" for="firstName">
-              <span class="label">First name</span>
+                <span class="label">Nombre</span>
               <input id="firstName" name="firstName" type="text" placeholder="Tu nombre" required />
             </label>
 
             <label class="field" for="lastName">
-              <span class="label">Last name</span>
+                <span class="label">Apellido</span>
               <input id="lastName" name="lastName" type="text" placeholder="Tu apellido" required />
             </label>
           </div>
 
           <label class="field" for="email">
-            <span class="label">Email</span>
+              <span class="label">Correo electrónico</span>
             <input id="email" name="email" type="email" placeholder="tucorreo@dominio.com" required />
           </label>
 
@@ -76,15 +76,13 @@
         </form>
       </section>
 
-      <!-- Side: info de contacto + botones (toque extra) -->
-      <aside class="contact-side">
+      <!-- Side: info de contacto, se muestra debajo del formulario en móvil -->
+      <aside class="contact-side contact-side-responsive">
         <a class="previous" href="#" onclick="history.back(); return false;">← Previous</a>
-
         <div class="side-logo">
-          <img src="/vite.svg" alt="Lumo logo" />
-          <div class="side-title">Lumo</div>
+          <img src="/Lumo3.png" alt="Lumo logo" class="side-logo-img-big" />
+          <div class="side-contact-label">O contáctanos a:</div>
         </div>
-
         <div class="contact-cards">
           <div class="info-card">
             <div class="ic">📞</div>
@@ -93,15 +91,13 @@
               <div class="info-text">+57 300 000 0000</div>
             </div>
           </div>
-
           <div class="info-card">
             <div class="ic">✉️</div>
             <div class="info">
-              <div class="info-title">Email</div>
+                <div class="info-title">Correo electrónico</div>
               <div class="info-text">support@lumo.example</div>
             </div>
           </div>
-
           <div class="info-card">
             <div class="ic">📍</div>
             <div class="info">
@@ -119,21 +115,21 @@
     <div class="footer-col">
         <div class="logo">Lumo</div>
         <p>© 2025 JSquad</p>
-        <p>All rights reserved</p>
+          <p>Todos los derechos reservados</p>
     </div>
     <div class="footer-col">
-        <p>Created by JSquad</p>
+          <p>Creado por JSquad</p>
         <ul>
-            <li><a href="/about/">About us</a></li>
-            <li><a href="/blog.html">Blog</a></li>
+              <li><a href="/about/">Sobre nosotros</a></li>
+              <li><a href="/blog.html">Blog</a></li>
         </ul>
     </div>
     <div class="footer-col">
-        <p>Support</p>
+          <p>Soporte</p>
         <ul>
-            <li><a href="/contact/">Contact us</a></li>
-            <li><a href="/service-terms">Terms of Service</a></li>
-            <li><a href="/policies">Privacy policies</a></li>
+              <li><a href="/contact/">Contáctanos</a></li>
+              <li><a href="/service-terms">Términos de servicio</a></li>
+              <li><a href="/policies">Políticas de privacidad</a></li>
         </ul>
     </div>
   </footer>
