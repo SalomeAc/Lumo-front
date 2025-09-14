@@ -15,6 +15,7 @@ export default defineConfig({
       input: {
         main: resolve(ROOT, "index.html"),
         about: resolve(ROOT, "about", "index.html"),
+        dashboard: resolve(ROOT, "dashboard", "dashboard.html"),
       },
     },
   },
