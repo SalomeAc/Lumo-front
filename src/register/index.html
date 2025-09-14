@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,95 +11,111 @@
     <header>
         <nav id="menu">
             <div class="logo">Lumo</div>
-            <ul class="links">
-                <li><a href="/">Home</a></li>
-                <li><a href="/about/">About us</a></li>
-            </ul>
+      <ul class="links">
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/about/">Sobre nosotros</a></li>
+        <li><a href="/contact/">Contáctanos</a></li>
+      </ul>
             <div class="login-btn">
-                <a href="/login/" role="button">Log in</a>
+                <a href="/login/" role="button">Iniciar sesión</a>
             </div>
         </nav>
     </header>
 
   <main class="main-register">
     <!-- Si quieres conservar el título <h1>Registro, puedes dejarlo o quitarlo -->
-    <h1 class="sr-only">Registro</h1>
+  <h1 class="sr-only">Registro</h1>
 
     <div class="register-layout">
       <aside class="left-brand">
-        <!-- Aquí puedes mostrar el logo o el link 'Previous' si los usas -->
-        <a href="#" class="previous">← Previous</a>
-        <div class="brand">
-          <img src="/vite.svg" alt="Lumo logo" class="brand-logo" />
-          <div class="brand-name">Lumo</div>
+        <a href="#" class="previous">← Anterior</a>
+        <div class="brand brand-img-only">
+          <img src="/Lumo1.png" alt="Lumo" class="brand-img-responsive" />
         </div>
       </aside>
 
       <section class="card register-card" aria-labelledby="form-title">
-        <h2 id="form-title" class="card-title">Create an account</h2>
-
-        <form id="registerForm" class="form" novalidate>
+  <h2 id="form-title" class="card-title">Crea una cuenta</h2>
+  <div id="register-message" aria-live="polite"></div>
+  <form id="registerForm" class="form" novalidate>
           <label class="field" for="firstName">
-            <span class="field-label">First name</span>
+            <span class="field-label">Nombre</span>
             <input
               id="firstName"
               name="firstName"
               type="text"
-              placeholder="Less or equal to 10 characters"
               maxlength="10"
               required
             />
+            <span class="input-desc">Escribe tu nombre (máximo 10 caracteres, solo letras).</span>
           </label>
 
           <label class="field" for="lastName">
-            <span class="field-label">Last name</span>
+            <span class="field-label">Apellido</span>
             <input
               id="lastName"
               name="lastName"
               type="text"
-              placeholder="Less or equal to 10 characters"
               maxlength="10"
               required
             />
+            <span class="input-desc">Escribe tu apellido (máximo 10 caracteres, solo letras).</span>
           </label>
 
           <label class="field" for="age">
-            <span class="field-label">Age</span>
+            <span class="field-label">Edad</span>
             <input
               id="age"
               name="age"
               type="number"
-              placeholder="Natural value between 10 and 112"
               min="10"
               max="112"
               required
             />
+            <span class="input-desc">Contiene solo dígitos y es ≥ 13.</span>
           </label>
 
           <label class="field" for="email">
-            <span class="field-label">Email</span>
+            <span class="field-label">Correo electrónico</span>
             <input
               id="email"
               name="email"
               type="email"
-              placeholder="example@domain.com"
               required
             />
+            <span class="input-desc">Ingresa un correo válido (ejemplo: usuario@ejemplo.com).</span>
           </label>
 
           <label class="field" for="password">
-            <span class="field-label">Password</span>
+            <span class="field-label">Contraseña</span>
             <input
               id="password"
               name="password"
               type="password"
-              placeholder=""
               required
+              autocomplete="new-password"
             />
+            <span class="input-desc">≥ 8 caracteres, al menos una mayúscula, una minúscula, un número y un carácter especial.</span>
           </label>
 
-          <button type="submit" class="btn primary">Register</button>
+          <label class="field" for="confirmPassword">
+            <span class="field-label">Confirmar contraseña</span>
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              required
+              autocomplete="new-password"
+            />
+            <span class="input-desc">Debe ser igual a la contraseña.</span>
+          </label>
+
+          <button type="submit" class="btn primary" id="register-submit">Registrarse</button>
         </form>
+        <div class="bottom-links" style="margin-top: 1.2em; text-align: center; font-size: 1em;">
+          <label style="margin-right: 0.5em;">¿Ya tiene una cuenta con nosotros?</label>
+          <a href="/login/" style="color: #f7a600; font-weight: bold; text-decoration: underline;">Inicie Sesión</a>
+        </div>
       </section>
     </div>
   </main>
@@ -108,23 +124,24 @@
     <div class="footer-col">
         <div class="logo">Lumo</div>
         <p>© 2025 JSquad</p>
-        <p>All rights reserved</p>
+  <p>Todos los derechos reservados</p>
     </div>
     <div class="footer-col">
-        <p>Created by JSquad</p>
+  <p>Creado por JSquad</p>
         <ul>
-            <li><a href="/about/">About us</a></li>
+            <li><a href="/about/">Sobre nosotros</a></li>
             <li><a href="/blog.html">Blog</a></li>
         </ul>
     </div>
     <div class="footer-col">
-        <p>Support</p>
+  <p>Soporte</p>
         <ul>
-            <li><a href="/contact/">Contact us</a></li>
-            <li><a href="/service-terms">Terms of Service</a></li>
-            <li><a href="/policies">Privacy policies</a></li>
+            <li><a href="/contact/">Contáctanos</a></li>
+            <li><a href="/service-terms">Términos de servicio</a></li>
+            <li><a href="/policies">Políticas de privacidad</a></li>
         </ul>
     </div>
   </footer>
 </body>
+<script src="register.js"></script>
 </html>
