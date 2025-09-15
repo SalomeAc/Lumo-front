@@ -75,14 +75,14 @@ button:hover {
 
 #previous {
     position: absolute;
-    top: 0.5rem; /* más cerca del borde superior */
-    left: 0.5rem; /* más cerca del borde izquierdo */
+    top: 0.2rem; 
     display: flex;
     align-items: center;
     justify-content: center;
     width: 1.5rem; /* tamaño más pequeño */
     height: 1.5rem;
 }
+
 
 #previous img {
     width: 100%;

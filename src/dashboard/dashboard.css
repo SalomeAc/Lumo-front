@@ -346,6 +346,29 @@
         border-radius: 8px;
     }
 
+    .edit-btn {
+        border: none;
+        padding: 6px 8px;
+        border-radius: 8px;
+        text-decoration: none;
+    }
+    .edit-btn:hover {
+        background: #d6d8dd;
+    }
+
+    .delete-btn {
+        border: none;
+        padding: 6px 8px;
+        border-radius: 8px;
+        background: transparent;
+    }
+
+    .delete-btn:hover {
+        background: #f8d7da;
+        color: #721c24;
+        cursor: pointer;
+    }
+
 
     @media (max-width:900px) {
         aside.sidebar {
