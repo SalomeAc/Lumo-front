@@ -16,6 +16,8 @@ export default defineConfig({
         main: resolve(ROOT, "index.html"),
         about: resolve(ROOT, "about", "index.html"),
         dashboard: resolve(ROOT, "dashboard", "index.html"),
+        "create-task": resolve(ROOT, "create-task", "index.html"),
+        "create-list": resolve(ROOT, "create-list", "index.html"),
       },
     },
   },

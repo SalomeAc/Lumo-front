@@ -12,10 +12,10 @@
     <button class="menu-toggle" id="menuToggle">☰</button>
     <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
     <div class="app">
-        <aside class="sidebar" id="sidebar" aria-label="Sidebar">
-            <a href="/user-profile" class="user-block-link">
+        <aside class="sidebar" id="sidebar" aria-label="Panel lateral de navegación"> 
+            <a href="/user-profile/" class="user-block-link">
                 <div class="user-block">
-                    <div class="user-info">
+                    <div class="user-info" id="user-info">
                         <div class="name">Bienvenido, </div>
                         <div class="name">Usuario</div> <!-- Reemplazar -->
 
@@ -35,7 +35,7 @@
             </ul>
 
 
-            <button class="btn" onclick="location.href='#/crear-lista'">
+            <button class="btn" id="create-list-btn" onclick="location.href='/create-list/'">
                 Crear nueva lista
             </button>
 
@@ -49,13 +49,14 @@
             <div class="topbar">
                 <div class="title">
                     <h1>Lista 1 </h1> <!-- Reemplazar -->
-                    <div class="quantity"># tareas</div> <!-- Opcional -->
+                    <div id="task-quantity" class="quantity"># tareas</div> <!-- Opcional -->
                 </div>
                 <div class="actions">
 
 
                     <button class="ghost">Filtrar</button> <!-- Opcional -->
-                    <button class="btn">+ Nueva Tarea</button>
+
+                    <button class="btn" id="new-task-btn" onclick="location.href='/create-task/'">+ Nueva Tarea</button>
                 </div>
             </div>
 
@@ -78,8 +79,9 @@
                     </div>
                     <div class="task-actions">
                         <div class="buttons">
-                            <button class="edit-btn">✏️</button>
-                            <button class="delete-btn">🗑️</button>
+                            <a href="/edit-task/" class="edit-btn" id="edit-task">✏️</a>
+                            
+                            <button class="delete-btn" id="delete-task">🗑️</button>
                         </div>
                     <div class="task-status doing" id="task-status">Haciendo</div> <!-- Reemplazar -->
 
@@ -95,6 +97,7 @@
     </main>
     </div>
 
+    <script src="./dashboard.js"></script>
 
 </body>
 
