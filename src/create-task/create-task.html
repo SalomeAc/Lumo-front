@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./create-task.css">
+    <meta charset="UTF-8">
+    <title>Lumo</title>
+</head>
+
+<div id="modal-overlay" class="modal-overlay">
+    <div class="box">
+        <div class="modal-window">
+            <a href="#/dashboard" id="previous">
+                <img src="/previous.png" alt="Previous Page" />
+            </a>
+            <h2>Crear nueva tarea</h2>
+            <form id="taskForm">
+                <div class="row">
+                    <label for="task-title">Título:</label>
+                    <input
+                        type="text"
+                        id="task-title"
+                        name="task-title"
+                        required
+                    />
+                </div>
+                <div class="row">
+                    <label for="task-desc">Descripción:</label>
+                    <textarea
+                        id="task-desc"
+                        name="task-desc"
+                        rows="3"
+                        required
+                    ></textarea>
+                </div>
+                <div class="row">
+                    <label for="task-date">Fecha:</label>
+                    <input
+                        type="date"
+                        id="task-date"
+                        name="task-date"
+                        required
+                    />
+                </div>
+                <div class="row">
+                    <label for="task-time">Hora:</label>
+                    <input
+                        type="time"
+                        id="task-time"
+                        name="task-time"
+                        required
+                    />
+                </div>
+                <div class="row">
+                    <label for="task-status">Estado:</label>
+                    <select id="task-status" name="task-status" required>
+                        <option value="Unassigned">Por hacer</option>
+                        <option value="Ongoing">Haciendo</option>
+                        <option value="Done">Completada</option>
+                    </select>
+                </div>
+                <button type="submit">Crear</button>
+            </form>
+        </div>
+    </div>
+</div>
