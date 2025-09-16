@@ -17,11 +17,6 @@ if (!listId) {
 
 
 const taskForm = document.getElementById('taskForm');
-const taskList = document.getElementById('taskList');
-
-if (!taskList) {
-  console.error('No se encontró #taskList en el DOM. Revisa el id en el HTML.');
-}
 
 
 taskForm.addEventListener('submit', async (event) => {
@@ -55,7 +50,6 @@ taskForm.addEventListener('submit', async (event) => {
 async function loadTasks() {
   try {
     const tasks = await getTasks(token, listId);
-    renderTasks(tasks);
   } catch (err) {
     console.error('Error cargando tareas:', err);
     if (taskList) taskList.innerHTML = '<li>Error cargando tareas (ver consola)</li>';

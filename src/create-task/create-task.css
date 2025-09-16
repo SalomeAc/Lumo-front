@@ -173,9 +173,13 @@ button:hover {
 }
 
 /* Móviles pequeños */
-@media (max-width: 320px) {
+@media (max-width: 400px) {
     .box {
-        padding: 1.2rem;
+        max-width: 80%;
+        margin: 0.5rem;
+        border-radius: 12px;
+        margin-left: auto;
+        margin-right: 2rem;
     }
     
     .modal-window h2 {
