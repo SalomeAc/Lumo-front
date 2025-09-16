@@ -1,3 +1,44 @@
+@media (max-width: 900px) {
+  .contact-side-responsive {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    padding: 18px 10px 18px 10px;
+    margin: 0 auto 18px auto;
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  
+  .side-logo-img-big {
+    margin-bottom: 0.2em;
+  }
+  .side-contact-label {
+    margin-top: 0.2em;
+    margin-bottom: 0.5em;
+  }
+  .contact-cards {
+    gap: 10px;
+    margin-top: 0.5em;
+  }
+}
+@media (max-width: 900px) {
+  .side-logo-img-big {
+    display: none !important;
+  }
+}
+.side-contact-label {
+  margin-top: 0.1em;
+  margin-bottom: 0.3em;
+  font-size: 1.1em;
+  text-align: center;
+  color: #222;
+  font-weight: 500;
+}
 /* ============= NAVBAR & FOOTER (copiado de tu index.css) ============= */
 * { padding:0; margin:0; box-sizing:border-box; }
 
@@ -10,10 +51,11 @@
   padding:18px 3rem;
   border-bottom: 2px solid #f7c873;
 }
-.logo{
+.logo a{
   font-size:2rem;
   color:orange;
   font-weight:bold;
+  text-decoration: none;
 }
 .links{
   display:flex;
@@ -43,9 +85,28 @@ footer {
   flex-direction: column;
   align-items: center;
 }
-.footer-col .logo { color: orange; font-size: 2rem; font-weight: bold; margin-bottom: 0.5rem; }
-.footer-col p:first-child { font-size:1.5rem; font-weight:bold; color:#fff; margin-bottom:6px; }
-.footer-col p, .footer-col a { color:#fff; font-size:1.1rem; text-decoration:none; }
+.footer-col .logo { 
+  color: orange; 
+  font-size: 2rem; 
+  font-weight: bold; 
+  margin-bottom: 0.5rem; 
+}
+.footer-col p:first-child { 
+  font-size:1.5rem; 
+  font-weight:bold; 
+  color:#fff; 
+  margin-bottom:6px; 
+}
+.footer-col p, .footer-col a { 
+  color:#fff; 
+  font-size:1.1rem; 
+  text-decoration:none; 
+}
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 
 /* ============= CONTACT PAGE STYLES ============= */
 
@@ -87,6 +148,37 @@ body{
   gap: 32px;
   align-items: start;
   position: relative;
+}
+
+@media (max-width: 900px) {
+  .contact-wrap {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    max-width: 98vw;
+  }
+  .contact-card, .contact-side {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+  .contact-side {
+    align-items: center;
+    margin: 0 auto;
+    padding: 0 0 12px 0;
+    gap: 14px;
+  }
+  .side-logo-img-big {
+    margin-bottom: 0.2em;
+  }
+  .side-contact-label {
+    margin-top: 0.2em;
+    margin-bottom: 0.5em;
+  }
+  .contact-cards {
+    gap: 10px;
+    margin-top: 0.5em;
+  }
 }
 
 /* decorative moving blob behind the card */
@@ -209,9 +301,20 @@ input:focus, textarea:focus{
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:22px;
-  padding: 8px;
+  gap:8px;
+  padding: 4px 0 0 0;
   justify-self:center;
+}
+.contact-side .previous {
+  margin: 0;
+  display: flex;
+  
+}
+
+.contact-side .previous img {
+  width: 12%;
+  height: auto;
+  cursor: pointer;
 }
 
 /* previous link like register */
@@ -220,12 +323,19 @@ input:focus, textarea:focus{
 }
 
 /* big logo / title on side */
-.side-logo{ display:flex; flex-direction:column; align-items:center; gap:10px; }
+.side-logo{ display:flex; flex-direction:column; align-items:center; gap:2px; margin-bottom: 0.2em; }
 .side-logo img{ width:140px; height:140px; object-fit:contain; }
+.side-logo-img-big {
+  width: 360px !important;
+  height: 360px !important;
+  max-width: 100%;
+  object-fit: contain;
+  margin-bottom: 0.1em;
+}
 .side-title{ font-weight:700; font-size:22px; color:#222; }
 
 /* info cards with subtle entrance animation */
-.contact-cards{ display:flex; flex-direction:column; gap:12px; width:100%; margin-top:6px; }
+.contact-cards{ display:flex; flex-direction:column; gap:6px; width:100%; margin-top:0.2em; }
 .info-card{
   display:flex; align-items:center; gap:12px;
   background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
