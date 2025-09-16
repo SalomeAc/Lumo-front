@@ -13,10 +13,11 @@
     padding: 18px 3rem;
     border-bottom: 2px solid #f7c873;
 }
-.logo {
+.logo a{
     font-size: 2rem;
     color: orange;
     font-weight: bold;
+    text-decoration: none;
 }
 .links {
     display: flex;
@@ -36,8 +37,8 @@
     text-decoration: none;
     font-weight: 500;
     font-size: 1rem;
-}
 
+}
 body {
     background: #f3f5f7;
     font-family: "Segoe UI", Arial, sans-serif;
@@ -53,9 +54,12 @@ body {
     align-items: center;
     box-sizing: border-box;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1rem;
+    margin-bottom: 1
+    
 }
-
+.text-left .register-btn {
+  margin-left: 15rem;
+}
 .text-left {
     display: flex;
     flex-direction: column;
@@ -215,9 +219,7 @@ footer {
         margin: 1rem 0;
         font-size: 2rem;
     }
-    .text-left a {
-        margin: 1rem auto 0 auto;
-    }
+
     #principal img {
         margin: 1rem auto 0 auto;
         max-width: 100%;

@@ -48,10 +48,11 @@
     padding: 18px 3rem;
     border-bottom: 2px solid #f7c873;
   }
-  .logo {
+  .logo a{
     font-size: 2rem;
     color: orange;
     font-weight: bold;
+    text-decoration: none;
   }
   .links {
     display: flex;
@@ -235,15 +236,12 @@
   .form-row.remember-row{
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    justify-content:center;
+ 
   }
   
-  .remember{
-    display:flex;
-    gap:8px;
-    align-items:center;
+  .form-row a{
     font-size:14px;
-    color:#444;
   }
   
   /* Primary button */
@@ -291,23 +289,35 @@
   }
   
   /* Previous link */
-  .side-brand .previous{
-    color:#333;
-    text-decoration:none;
-    font-size:14px;
-    opacity:0.85;
-    align-self:flex-start;
-    margin-left: 6px;
-  }
-  
-  /* brand block */
-  .side-brand .brand{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:12px;
-    text-align:center;
-  }
+
+.side-brand .previous {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: background 0.2s;
+  align-self: flex-start; 
+
+}
+
+.side-brand .previous:hover {
+  background: #f7f7f7;
+}
+
+.side-brand .previous img {
+  width: 60%;
+  height: auto;
+}
+
+.side-brand .previous-wrapper {
+  align-self: flex-start;
+  margin-bottom: 2px;
+}
   
   /* Big logo (match register) */
   /* Imagen de login igual a registro */

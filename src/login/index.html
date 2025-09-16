@@ -12,7 +12,9 @@
   <!-- HEADER: no tocar -->
   <header>
     <nav id="menu">
-      <div class="logo">Lumo</div>
+      <div class="logo">
+                    <a href="/">Lumo</a>
+                </div>
       <ul class="links">
         <li><a href="/">Inicio</a></li>
         <li><a href="/about/">Sobre nosotros</a></li>
@@ -46,12 +48,8 @@
             </label>
   
             <div class="form-row remember-row">
-              <label class="remember" for="login_remember">
-              </label>
-              <a class="forgot" href="/forgot-password/">¿Olvidaste tu contraseña?</a>
+              <a class="forgot" href="/recover-password/">¿Olvidaste tu contraseña?</a>
             </div>
-            <!-- Eliminado Remember me -->
-            <!-- Eliminado checkbox -->
   
             <button type="submit" class="btn primary" id="login-submit">Login</button>
   
@@ -64,7 +62,10 @@
   
         <!-- Columna derecha: imagen grande (Lumo2.png) igual a registro, sin texto) -->
         <aside class="side-brand">
-          <a class="previous" href="#" onclick="history.back(); return false;">← Anterior</a>
+          <a class="previous" href="#" onclick="history.back(); return false;">
+            <img src="/previous_black.png" >
+          </a>
+         
           <div class="brand brand-img-only">
             <img src="/Lumo2.png" alt="Lumo" class="brand-img-responsive" />
           </div>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/recover-password/index.css" />
+    <title>Recuperar contraseña</title>
+  </head>
+  <body>
+    <header>
+      <nav id="menu">
+        <div class="logo">
+          <a href="/">Lumo</a>
+        </div>
+        <ul class="links">
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/about/">Sobre nosotros</a></li>
+          <li><a href="/contact/">Contáctanos</a></li>
+        </ul>
+        <div class="login-btn">
+          <a href="/login/" role="button">Iniciar sesión</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="main-recover">
+      <div class="recover-layout">
+        <aside class="left-brand">
+  <div class="previous-wrapper">
+    <a href="/login" class="previous">
+      <img src="/previous_black.png" alt="Volver" />
+    </a>
+  </div>
+
+  <div class="brand brand-img-only">
+    <img src="/Lumo1.png" alt="Lumo" class="brand-img-responsive" />
+  </div>
+</aside>
+
+
+        <section class="card recover-card" aria-labelledby="recover-title">
+          <h2 id="recover-title" class="card-title">Recuperar contraseña</h2>
+          <p class="card-subtitle">
+            Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña.
+          </p>
+
+          <div id="recover-message" aria-live="polite"></div>
+
+          <form id="recoverForm" class="form" novalidate>
+            <label class="field" for="email">
+              <span class="field-label">Correo electrónico</span>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                placeholder="usuario@ejemplo.com"
+              />
+              <span class="input-desc">Escribe un correo válido.</span>
+            </label>
+
+            <button type="submit" class="btn primary" id="recover-submit">
+              Enviar enlace
+            </button>
+          </form>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-col">
+        <div class="logo">Lumo</div>
+        <p>© 2025 JSquad</p>
+        <p>Todos los derechos reservados</p>
+      </div>
+      <div class="footer-col">
+        <p>Creado por JSquad</p>
+        <ul>
+          <li><a href="/about/">Sobre nosotros</a></li>
+          <li><a href="/blog.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>Soporte</p>
+        <ul>
+          <li><a href="/contact/">Contáctanos</a></li>
+          <li><a href="/service-terms">Términos de servicio</a></li>
+          <li><a href="/policies">Políticas de privacidad</a></li>
+        </ul>
+      </div>
+    </footer>
+
+    <script src="recover.js"></script>
+  </body>
+</html>
