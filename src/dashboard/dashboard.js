@@ -73,30 +73,63 @@ window.addEventListener('resize', function() {
 
 import { getUserLists } from '../../services/listService.js';
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Yzg5ZWZjOTAxMDc0YTEwMTA0MWFiNyIsImVtYWlsIjoic2Fsb21lQHRlc3QuY29tIiwiaWF0IjoxNzU3OTc4OTMyLCJleHAiOjE3NTc5ODI1MzJ9.SGg9ePKLsTSDn8bswV4Vpc4golM4NdKXX6V6bc7gl2s';
 
 // Referencia al contenedor UL
 const listsContainer = document.getElementById('lists-container');
 
-// Función para renderizar listas
 function renderLists(lists) {
-  listsContainer.innerHTML = ''; // Limpiar primero
-
+  console.log('Listas recibidas:', lists);
+  listsContainer.innerHTML = ''; 
   lists.forEach(list => {
+    const title = list.title || list.name || 'Sin título';
+    const id = list._id || list.id;
     const li = document.createElement('li');
     li.innerHTML = `
-      <a href="#/" data-list-id="${list.id}">
-        <span class="list-name">${list.title}</span>
+      <a href="#" class="list-link" data-list-id="${id}" data-list-title="${title}">
+        <span class="list-name">${title}</span>
       </a>
     `;
     listsContainer.appendChild(li);
   });
+
+  // Evento para cada lista
+  document.querySelectorAll('.list-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const selectedListId = link.dataset.listId;
+      const selectedListTitle = link.dataset.listTitle;
+
+      console.log('Click en lista:', selectedListId, selectedListTitle);
+
+      localStorage.setItem('currentListId', selectedListId);
+      localStorage.setItem('currentListTitle', selectedListTitle);
+
+      if (currentListTitle) {
+        currentListTitle.textContent = selectedListTitle;
+      } else {
+        console.warn('No se encontró currentListTitle en el DOM');
+      }
+    });
+  });
 }
+
+// Botón + Nueva tarea
+document.getElementById('new-task-btn').addEventListener('click', () => {
+  const listId = localStorage.getItem('currentListId');
+  if (!listId) {
+    alert('Selecciona primero una lista para crear tarea.');
+    return;
+  }
+  window.location.href = `/create-task/?listId=${listId}`;
+});
 
 // Al cargar documento
 document.addEventListener('DOMContentLoaded', async () => {
-  const lists = await getUserLists(token);
-  renderLists(lists);
+    const token = localStorage.getItem('token');
+    if (token) {
+        const lists = await getUserLists(token);
+        renderLists(lists);
+    }
 });
 
 const createListBtn = document.getElementById('create-list-btn');
@@ -112,3 +145,21 @@ if (createListBtn) {
 } else {
   console.warn('create-list-btn not found in DOM (dashboard.js)');
 }
+
+const currentListTitle = document.getElementById('current-list-title');
+
+// Renderizar listas en sidebar
+
+
+// Al cargar documento, si ya hay list seleccionada, mostrar su título
+document.addEventListener('DOMContentLoaded', async () => {
+  const lists = await getUserLists(token);
+  renderLists(lists);
+
+  // Si hay título guardado de sesión anterior
+  const savedTitle = localStorage.getItem('currentListTitle');
+  if (savedTitle) {
+    currentListTitle.textContent = savedTitle;
+  }
+});
+

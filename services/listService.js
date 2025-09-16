@@ -25,3 +25,31 @@ export async function getUserLists(token) {
     return [];
   }
 }
+
+/**
+ * Create a new list for the current user.
+ * @param {string} title - The title of the list.
+ * @param {string} token - JWT token for authentication.
+ * @returns {Promise<Object>} The created list object.
+ */
+export async function createList(title, token) {
+  try {
+    const response = await fetch(`${API_BASE_URL}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ title })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error creating list:', error);
+    throw error;
+  }
+}
