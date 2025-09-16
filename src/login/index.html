@@ -10,21 +10,15 @@
   </head>
 <body>
   <!-- HEADER: no tocar -->
-  <header>
-    <nav id="menu">
-      <div class="logo">
-                    <a href="/">Lumo</a>
-                </div>
-      <ul class="links">
-        <li><a href="/">Inicio</a></li>
-        <li><a href="/about/">Sobre nosotros</a></li>
-        <li><a href="/contact/">Contáctanos</a></li>
-      </ul>
-      <div class="login-btn">
-        <a href="/login/" role="button">Iniciar sesión</a>
-      </div>
-    </nav>
-  </header>
+  <div id="barnav-container"></div>
+  <script type="module">
+    fetch('/components/barnav.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('barnav-container').innerHTML = html;
+        import('/components/barnav.js');
+      });
+  </script>
 
     <main class="main-login">
       <h1 class="sr-only">Login</h1>

@@ -1,3 +1,8 @@
+// Bloquear acceso si ya está logeado
+if (localStorage.getItem('token')) {
+  alert('Ya tienes una sesión activa. Cierra sesión para acceder al login.');
+  window.location.href = '/dashboard/';
+}
 import { loginUser } from "../services/userServices.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -31,8 +36,34 @@ document.addEventListener("DOMContentLoaded", () => {
       if (data && data.token) {
         localStorage.setItem("token", data.token);
       }
-      showSpinner('¡Login exitoso! Redirigiendo...');
-      setTimeout(() => { window.location.href = '/dashboard/'; }, 1500);
+      // Forzar overlay visible y centrado
+      let overlay = document.getElementById("spinner-overlay");
+      if (overlay) {
+        overlay.style.display = "flex";
+        overlay.style.position = "fixed";
+        overlay.style.top = 0;
+        overlay.style.left = 0;
+        overlay.style.right = 0;
+        overlay.style.bottom = 0;
+        overlay.style.alignItems = "center";
+        overlay.style.justifyContent = "center";
+        overlay.style.background = "rgba(255,255,255,0.85)";
+        overlay.style.zIndex = 1000;
+        const spinnerImg = overlay.querySelector('.spinner-img');
+        if (spinnerImg) {
+          spinnerImg.style.width = '60px';
+          spinnerImg.style.height = '60px';
+          spinnerImg.style.objectFit = 'contain';
+        }
+        const spinnerMsg = overlay.querySelector('.spinner-msg');
+        if (spinnerMsg) {
+          spinnerMsg.style.fontSize = '1.2em';
+          spinnerMsg.style.color = '#333';
+          spinnerMsg.style.textAlign = 'center';
+          spinnerMsg.textContent = '¡Login exitoso! Redirigiendo...';
+        }
+      }
+  setTimeout(() => { window.location.href = '/dashboard/'; }, 500);
     } catch (err) {
       hideSpinner();
       showMessage(err.message || "No se pudo conectar al servidor.", "error");
@@ -62,15 +93,26 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!overlay) {
       overlay = document.createElement("div");
       overlay.id = "spinner-overlay";
+      overlay.style.position = "fixed";
+      overlay.style.top = 0;
+      overlay.style.left = 0;
+      overlay.style.right = 0;
+      overlay.style.bottom = 0;
+      overlay.style.display = "flex";
+      overlay.style.alignItems = "center";
+      overlay.style.justifyContent = "center";
+      overlay.style.background = "rgba(255,255,255,0.85)";
+      overlay.style.zIndex = 1000;
       overlay.innerHTML = `
-        <div class="spinner-center">
-          <img src="/spinner.gif" alt="Loading..." class="spinner-img" />
-          <div class="spinner-msg"></div>
+        <div class="spinner-center" style="display:flex;flex-direction:column;align-items:center;gap:1.5em;">
+          <img src="/spinner.gif" alt="Loading..." class="spinner-img" style="width:60px;height:60px;object-fit:contain;" />
+          <div class="spinner-msg" style="font-size:1.2em;color:#333;text-align:center;"></div>
         </div>
       `;
       document.body.appendChild(overlay);
     }
-    overlay.querySelector(".spinner-msg").textContent = msg;
+    const spinnerMsg = overlay.querySelector(".spinner-msg");
+    if (spinnerMsg) spinnerMsg.textContent = msg;
     overlay.style.display = "flex";
     form.style.display = "none";
   }

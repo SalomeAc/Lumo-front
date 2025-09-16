@@ -3,12 +3,14 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/index.css">
     <link rel="stylesheet" href="./dashboard.css">
     <meta charset="UTF-8">
     <title>Dashboard</title>
 </head>
 
 <body>
+    <div id="barnav-container"></div>
     <button class="menu-toggle" id="menuToggle">☰</button>
     <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
     <div class="app">
@@ -96,7 +98,18 @@
     </main>
     </div>
 
-    <script type="module" src="./dashboard.js"></script>
+
+        <script type="module">
+            // Cargar el barnav reutilizable y luego ejecutar su JS
+            fetch('/components/barnav.html')
+                .then(r => r.text())
+                .then(html => {
+                    document.getElementById('barnav-container').innerHTML = html;
+                    // Ejecutar barnav.js manualmente después de insertar el HTML
+                    import('/components/barnav.js');
+                });
+        </script>
+        <script type="module" src="./dashboard.js"></script>
 
 
 </body>
