@@ -81,7 +81,7 @@ button:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1.5rem; /* tamaño más pequeño */
+    width: 1.5rem; 
     height: 1.5rem;
     border-radius: 50%;
     transition: background-color 0.3s ease;
@@ -107,16 +107,16 @@ button:hover {
     flex-direction: column;
     gap: 1.2rem;
     width: 100%;
-    max-width: 780px; /* ancho mayor para escritorio */
+    max-width: 780px; 
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
-    margin: 0 auto; /* Centrado horizontal */
+    margin: 0 auto; 
     transition: max-width 0.25s ease;
 }
 
 .modal-window h2 {
     text-align: center;
-    margin: 0; /* elimina márgenes extra */
-    font-size: 1.2rem; /* mantiene tu tamaño */
+    margin: 0; 
+    font-size: 1.2rem; 
     margin-bottom: 1rem;
 }
 
@@ -134,7 +134,6 @@ button:hover {
     }
 }
 
-/* Móviles */
 @media (max-width: 480px) {
     body {
         padding: 0.8rem;
@@ -172,7 +171,6 @@ button:hover {
     
 }
 
-/* Móviles pequeños */
 @media (max-width: 400px) {
     .box {
         max-width: 80%;

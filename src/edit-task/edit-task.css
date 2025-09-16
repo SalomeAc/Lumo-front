@@ -68,8 +68,8 @@ button:hover {
 }
 
 .modal-window {
-    position: relative; /* para que #previous se posicione dentro */
-    padding-top: 2rem; /* deja espacio para el botón */
+    position: relative; 
+    padding-top: 2rem; 
 
 }
 
@@ -79,7 +79,7 @@ button:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1.5rem; /* tamaño más pequeño */
+    width: 1.5rem; 
     height: 1.5rem;
 }
 
@@ -108,8 +108,8 @@ button:hover {
 
 .modal-window h2 {
     text-align: center;
-    margin: 0; /* elimina márgenes extra */
-    font-size: 1.2rem; /* mantiene tu tamaño */
+    margin: 0; 
+    font-size: 1.2rem; 
     margin-bottom: 1rem;
 }
 

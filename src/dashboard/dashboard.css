@@ -37,7 +37,6 @@ aside.sidebar {
     flex-shrink: 0;
 }
 
-/* Botón hamburguesa OCULTO por defecto */
 .menu-toggle {
     display: none;
     position: fixed;
@@ -371,7 +370,7 @@ main {
     color: #721c24;
 }
 
-/* Backdrop - oculto por defecto */
+/* Backdrop */
 .sidebar-backdrop {
     display: none;
     position: fixed;
@@ -390,7 +389,6 @@ main {
     opacity: 1;
 }
 
-/* Media Queries */
 @media (max-width: 900px) {
     aside.sidebar {
         width: 200px;
@@ -406,12 +404,10 @@ main {
 }
 
 @media (max-width: 640px) {
-    /* Mostrar botón hamburguesa */
     .menu-toggle {
         display: block;
     }
     
-    /* Sidebar para móviles */
     aside.sidebar {
         position: fixed;
         top: 0;
@@ -428,11 +424,10 @@ main {
         transform: translateX(0);
     }
     
-    /* Ajustar contenido principal */
     main {
         margin-left: 0;
         padding: 16px;
-        padding-top: 70px; /* Espacio para el botón hamburguesa */
+        padding-top: 70px; 
     }
     
     .title {
@@ -455,4 +450,42 @@ main {
         margin-top: 10px;
     }
 
+}
+
+/* --- Toast styles --- */
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  background: #333;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  animation: fadeInOut 3s ease forwards;
+  font-size: 14px;
+}
+
+.toast.success { background: #28a745; }
+.toast.error   { background: #dc3545; }
+.toast.info    { background: #17a2b8; }
+
+@keyframes fadeInOut {
+  0%   { opacity: 0; transform: translateY(20px); }
+  10%  { opacity: 1; transform: translateY(0); }
+  90%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(20px); }
+}
+@media (max-width: 480px) {
+    .toast {
+        width: 90%;
+        max-width: 300px;
+    }
 }

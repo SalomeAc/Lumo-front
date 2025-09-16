@@ -3,8 +3,8 @@
  * Módulo principal del dashboard: listas, título, tareas y navegación.
  */
 
-import { getUserLists } from '../../services/listService.js';
-import { getTasks as getTasksByList } from '../../services/taskService.js';
+import { getUserLists } from '../services/listService.js';
+import { getTasks as getTasksByList, deleteTask } from '../services/taskService.js';
 
 
 /* --------- Sidebar toggle (tu código original) --------- */
@@ -125,9 +125,14 @@ async function selectList(listId, listTitle, { loadTasks = true } = {}) {
 /* ----------------- Render tasks ----------------- */
 function renderTasks(tasks) {
   if (!tasksContainer) {
+    tasksContainer.innerHTML = '';
     console.warn('No tasksContainer en DOM');
     return;
   }
+
+  
+
+  
   clearChildren(tasksContainer);
   if (!Array.isArray(tasks) || tasks.length === 0) {
     tasksContainer.innerHTML = '<p style="color: gray; text-align: center;">¡Crea una tarea! </p>';
@@ -161,6 +166,14 @@ function renderTasks(tasks) {
     fragment.appendChild(article);
   });
   tasksContainer.appendChild(fragment);
+   tasksContainer.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const taskId = btn.dataset.taskId;
+      localStorage.setItem('editTaskId', taskId); // guardamos en localStorage
+      window.location.href = '/edit-task/';       // redirigimos
+    });
+  });
+
 }
 
 /* ----------------- Delegated events: list click ----------------- */
@@ -200,11 +213,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     setupListClickDelegation();
     setupButtons();
+    setupTaskActionsDelegation();
 
     const token = localStorage.getItem('token');
     if (!token) {
       console.warn('No token en localStorage. Redirigiendo a login');
-      //window.location.href = '/login/';
+      
       return;
     }
 
@@ -252,3 +266,62 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('Error en init dashboard:', err);
   }
 });
+
+function showToast(message, type = "info") {
+  let container = document.querySelector('.toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.className = 'toast-container';
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.textContent = message;
+
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.remove();
+  }, 3000);
+}
+
+
+/* ----------------- Delegated events: task actions ----------------- */
+function setupTaskActionsDelegation() {
+  if (!tasksContainer) return;
+
+  tasksContainer.addEventListener('click', async (e) => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    // DELETE
+    const deleteBtn = e.target.closest('.delete-btn');
+    if (deleteBtn) {
+      e.preventDefault();
+      const taskId = deleteBtn.dataset.taskId;
+      if (!taskId) return;
+
+      if (!confirm('¿Seguro que deseas eliminar esta tarea?')) return;
+
+      try {
+        await deleteTask(token, taskId);
+        deleteBtn.closest('article.task').remove();
+        showToast("Tarea eliminada ", "success");
+      } catch (err) {
+        showToast("Error eliminando tarea.", "error");
+        console.error(err);
+      }
+      return;
+    }
+
+    const editBtn = e.target.closest('.edit-btn');
+    if (editBtn) {
+      e.preventDefault();
+      const taskId = editBtn.dataset.taskId;
+      if (!taskId) return;
+
+      window.location.href = `/edit-task/?taskId=${taskId}`;
+    }
+  });
+}

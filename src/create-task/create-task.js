@@ -1,4 +1,4 @@
-import { createTask, getTasks } from '../../services/taskService.js';
+import { createTask, getTasks } from '../services/taskService.js';
 
 const token = localStorage.getItem('token');
 if (!token) {

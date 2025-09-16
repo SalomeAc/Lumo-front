@@ -1,4 +1,4 @@
-import { createList } from '../../services/listService.js';
+import { createList } from '../services/listService.js';
 const listForm = document.getElementById('listForm');
 
 const token = localStorage.getItem('token');
@@ -16,7 +16,6 @@ listForm.addEventListener('submit', async (event) => {
 
   try {
     await createList(title, token);
-    // Redirigir al dashboard
     window.location.href = '/dashboard/';
   } catch (error) {
     alert('Error creando lista. Revisa la consola.');

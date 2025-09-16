@@ -78,7 +78,8 @@
                     </div>
                     <div class="task-actions">
                         <div class="buttons">
-                            <a href="/edit-task/" class="edit-btn" id="edit-task">✏️</a>
+                            <a href="/edit-task/?taskId=${task._id || task.id}" class="edit-btn">✏️</a>
+
 
                             <button class="delete-btn" id="delete-task">🗑️</button>
                         </div>
