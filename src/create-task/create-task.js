@@ -1,4 +1,4 @@
-import { createTask } from './services/taskService.js';
+import { createTask, getTasks } from '../../services/taskService.js';
 
 const token = localStorage.getItem('token');
 if (!token) {
@@ -15,7 +15,14 @@ if (!listId) {
   window.location.href = '/dashboard/';
 }
 
+
 const taskForm = document.getElementById('taskForm');
+const taskList = document.getElementById('taskList');
+
+if (!taskList) {
+  console.error('No se encontró #taskList en el DOM. Revisa el id en el HTML.');
+}
+
 
 taskForm.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -30,13 +37,32 @@ taskForm.addEventListener('submit', async (event) => {
     await createTask(token, listId, {
       title,
       description,
-      dueDate,
-      dueTime,
+      dueDate: dueDate && dueTime ? `${dueDate}T${dueTime}` : null,
       status
     });
-    window.location.href = `/dashboard/?listId=${listId}`;
+
+    // 👇 después de crear, vuelve al dashboard
+    window.location.href = '/dashboard/';
   } catch (err) {
     alert('Error creando tarea. Revisa consola.');
     console.error(err);
   }
 });
+
+
+
+/** Carga inicial/refresh de tareas */
+async function loadTasks() {
+  try {
+    const tasks = await getTasks(token, listId);
+    renderTasks(tasks);
+  } catch (err) {
+    console.error('Error cargando tareas:', err);
+    if (taskList) taskList.innerHTML = '<li>Error cargando tareas (ver consola)</li>';
+  }
+}
+
+
+
+// cargar al inicio
+window.addEventListener('DOMContentLoaded', loadTasks);

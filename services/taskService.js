@@ -1,25 +1,24 @@
-const API_BASE_URL = 'https://lumo-back-1.onrender.com/api/lists';
+const TASKS_API_URL = "https://lumo-back-1.onrender.com/api/tasks";
 
 /**
- * Create a new task inside a specific list.
- * @param {string} token - JWT token.
- * @param {string} listId - ID of the list where the task will be added.
- * @param {Object} taskData - Task fields (title, description, etc.).
- * @returns {Promise<Object>} - Created task object.
+ * Crear tarea nueva
  */
 export async function createTask(token, listId, taskData) {
-  const response = await fetch(`${API_BASE_URL}/${listId}/tasks`, {
-    method: 'POST',
+  const response = await fetch(TASKS_API_URL, {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
     },
-    body: JSON.stringify(taskData)
+    body: JSON.stringify({
+      list: listId, // 👈 el backend espera este campo
+      ...taskData
+    })
   });
 
   if (!response.ok) {
     const text = await response.text();
-    console.error('Backend response:', text);
+    console.error("❌ Error creando tarea:", text);
     throw new Error(`Error ${response.status}: ${response.statusText}`);
   }
 
@@ -27,24 +26,26 @@ export async function createTask(token, listId, taskData) {
 }
 
 /**
- * Get all tasks for a list.
- * @param {string} token - JWT token.
- * @param {string} listId - ID of the list.
- * @returns {Promise<Array>} - Array of tasks.
+ * Obtener tareas por lista
  */
 export async function getTasks(token, listId) {
-  const response = await fetch(`${API_BASE_URL}/get-tasks/${listId}`, {
-    method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${token}`
+  const response = await fetch(
+    `https://lumo-back-1.onrender.com/api/lists/get-tasks/${listId}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
     }
-  });
+  );
 
   if (!response.ok) {
     const text = await response.text();
-    console.error('Backend response:', text);
-    throw new Error(`Error ${response.status}: ${response.statusText}`);
+    console.error("❌ Error getTasks:", text);
+    throw new Error(`Error ${response.status}`);
   }
 
-  return await response.json();
+  const data = await response.json();
+  return data.tasks ?? data;
 }

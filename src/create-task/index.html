@@ -16,48 +16,31 @@
             </a>
             <h2>Crear nueva tarea</h2>
             <form id="taskForm">
+                <div id="taskListContainer">
+                </div>
+
                 <div class="row">
                     <label for="task-title">Título:</label>
-                    <input
-                        type="text"
-                        id="task-title"
-                        name="task-title"
-                        required
-                    />
+                    <input type="text" id="task-title" name="task-title" required />
                 </div>
                 <div class="row">
                     <label for="task-desc">Descripción:</label>
-                    <textarea
-                        id="task-desc"
-                        name="task-desc"
-                        rows="3"
-                        required
-                    ></textarea>
+                    <textarea id="task-desc" name="task-desc" rows="3" required></textarea>
                 </div>
                 <div class="row">
                     <label for="task-date">Fecha:</label>
-                    <input
-                        type="date"
-                        id="task-date"
-                        name="task-date"
-                        required
-                    />
+                    <input type="date" id="task-date" name="task-date" required />
                 </div>
                 <div class="row">
                     <label for="task-time">Hora:</label>
-                    <input
-                        type="time"
-                        id="task-time"
-                        name="task-time"
-                        required
-                    />
+                    <input type="time" id="task-time" name="task-time" required />
                 </div>
                 <div class="row">
                     <label for="task-status">Estado:</label>
                     <select id="task-status" name="task-status" required>
-                        <option value="Unassigned">Por hacer</option>
-                        <option value="Ongoing">Haciendo</option>
-                        <option value="Done">Completada</option>
+                        <option value="unassigned">Por hacer</option>
+                        <option value="ongoing">Haciendo</option>
+                        <option value="done">Completada</option>
                     </select>
                 </div>
                 <button type="submit">Crear</button>
@@ -65,3 +48,4 @@
         </div>
     </div>
 </div>
+<script type="module" src="./create-task.js"></script>

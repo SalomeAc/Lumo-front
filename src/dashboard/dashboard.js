@@ -1,165 +1,254 @@
 /**
- * Element that toggles the sidebar menu.
- * @type {HTMLElement}
+ * dashboard.js
+ * Módulo principal del dashboard: listas, título, tareas y navegación.
  */
-const menuToggle = document.getElementById('menuToggle');
-
-/**
- * Sidebar element.
- * @type {HTMLElement}
- */
-const sidebar = document.getElementById('sidebar');
-
-/**
- * Backdrop element for the sidebar.
- * @type {HTMLElement}
- */
-const backdrop = document.getElementById('sidebarBackdrop');
-
-/**
- * Toggles the sidebar and backdrop visibility.
- * Also prevents body scroll when sidebar is open.
- */
-function toggleSidebar() {
-    sidebar.classList.toggle('open');
-    backdrop.classList.toggle('active');
-    // Prevent body scroll when sidebar is open
-    document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
-}
-
-/**
- * Handles click event on menuToggle to open/close sidebar.
- * @param {MouseEvent} e
- */
-menuToggle.addEventListener('click', function(e) {
-    e.stopPropagation();
-    toggleSidebar();
-});
-
-/**
- * Handles click event on backdrop to close sidebar.
- * @param {MouseEvent} e
- */
-backdrop.addEventListener('click', function(e) {
-    e.stopPropagation();
-    toggleSidebar();
-});
-
-/**
- * Closes sidebar when clicking outside of it on mobile devices.
- * @param {MouseEvent} e
- */
-document.addEventListener('click', function(e) {
-    if (window.innerWidth <= 640 && 
-        sidebar.classList.contains('open') && 
-        !sidebar.contains(e.target) && 
-        e.target !== menuToggle) {
-        toggleSidebar();
-    }
-});
-
-/**
- * Closes sidebar when resizing window to desktop size.
- */
-window.addEventListener('resize', function() {
-    if (window.innerWidth > 640) {
-        sidebar.classList.remove('open');
-        backdrop.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-});
-
-/*---------------------------------------------------*/
 
 import { getUserLists } from '../../services/listService.js';
+import { getTasks as getTasksByList } from '../../services/taskService.js';
 
 
-// Referencia al contenedor UL
+/* --------- Sidebar toggle (tu código original) --------- */
+const menuToggle = document.getElementById('menuToggle');
+const sidebar = document.getElementById('sidebar');
+const backdrop = document.getElementById('sidebarBackdrop');
+
+function toggleSidebar() {
+  if (!sidebar || !backdrop) return;
+  sidebar.classList.toggle('open');
+  backdrop.classList.toggle('active');
+  document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+}
+
+if (menuToggle) menuToggle.addEventListener('click', e => { e.stopPropagation(); toggleSidebar(); });
+if (backdrop) backdrop.addEventListener('click', e => { e.stopPropagation(); toggleSidebar(); });
+document.addEventListener('click', function(e) {
+  if (window.innerWidth <= 640 && sidebar && sidebar.classList.contains('open') && !sidebar.contains(e.target) && e.target !== menuToggle) {
+    toggleSidebar();
+  }
+});
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 640 && sidebar) {
+    sidebar.classList.remove('open');
+    backdrop.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+/* ------------------------------------------------------- */
+
+/* --------- Elementos del DOM (verifica estos ids en tu HTML) --------- */
 const listsContainer = document.getElementById('lists-container');
+const currentListTitle = document.getElementById('current-list-title');
+const tasksContainer = document.getElementById('tasks-container');
+const createListBtn = document.getElementById('create-list-btn');
+const newTaskBtn = document.getElementById('new-task-btn');
 
+/* ----------------- Helpers ----------------- */
+function safeText(v) { return v === undefined || v === null ? '' : String(v); }
+
+function clearChildren(el) {
+  if (!el) return;
+  while (el.firstChild) el.removeChild(el.firstChild);
+}
+
+/* ----------------- Render lists ----------------- */
 function renderLists(lists) {
-  console.log('Listas recibidas:', lists);
-  listsContainer.innerHTML = ''; 
+  if (!listsContainer) {
+    console.warn('No listsContainer en DOM');
+    return;
+  }
+  console.log('renderLists -> listas recibidas:', lists);
+  clearChildren(listsContainer);
+
+  if (!Array.isArray(lists) || lists.length === 0) {
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="list-name" >No hay listas</span>`;
+    listsContainer.appendChild(li);
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
   lists.forEach(list => {
-    const title = list.title || list.name || 'Sin título';
-    const id = list._id || list.id;
+    const title = safeText(list.title || list.name || 'Sin título');
+    const id = list._id || list.id || '';
     const li = document.createElement('li');
     li.innerHTML = `
       <a href="#" class="list-link" data-list-id="${id}" data-list-title="${title}">
         <span class="list-name">${title}</span>
       </a>
     `;
-    listsContainer.appendChild(li);
+    fragment.appendChild(li);
   });
+  listsContainer.appendChild(fragment);
+}
 
-  // Evento para cada lista
-  document.querySelectorAll('.list-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const selectedListId = link.dataset.listId;
-      const selectedListTitle = link.dataset.listTitle;
+/* ----------------- Seleccionar lista ----------------- */
+async function selectList(listId, listTitle, { loadTasks = true } = {}) {
+  if (!listId) return;
+  localStorage.setItem('currentListId', listId);
+  localStorage.setItem('currentListTitle', listTitle || '');
 
-      console.log('Click en lista:', selectedListId, selectedListTitle);
+  // actualizar header
+  if (currentListTitle) currentListTitle.textContent = listTitle || 'Lista seleccionada';
 
-      localStorage.setItem('currentListId', selectedListId);
-      localStorage.setItem('currentListTitle', selectedListTitle);
-
-      if (currentListTitle) {
-        currentListTitle.textContent = selectedListTitle;
+  // marcar activa en sidebar
+  if (listsContainer) {
+    listsContainer.querySelectorAll('.list-link').forEach(a => {
+      if (a.dataset.listId === listId) {
+        a.classList.add('active');
+        // opcional: añadir clase al li padre
+        if (a.parentElement) a.parentElement.classList.add('active');
       } else {
-        console.warn('No se encontró currentListTitle en el DOM');
+        a.classList.remove('active');
+        if (a.parentElement) a.parentElement.classList.remove('active');
       }
     });
-  });
+  }
+
+  // cargar tareas si pedimos
+  if (loadTasks) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.warn('No token para cargar tareas');
+      return;
+    }
+    try {
+      const tasks = await getTasksByList(token, listId);
+      renderTasks(tasks);
+    } catch (err) {
+      console.error('Error al cargar tareas de la lista:', err);
+      // Mostrar mensaje en UI
+      if (tasksContainer) tasksContainer.innerHTML = '<p>Error cargando tareas.</p>';
+    }
+  }
 }
 
-// Botón + Nueva tarea
-document.getElementById('new-task-btn').addEventListener('click', () => {
-  const listId = localStorage.getItem('currentListId');
-  if (!listId) {
-    alert('Selecciona primero una lista para crear tarea.');
+/* ----------------- Render tasks ----------------- */
+function renderTasks(tasks) {
+  if (!tasksContainer) {
+    console.warn('No tasksContainer en DOM');
     return;
   }
-  window.location.href = `/create-task/?listId=${listId}`;
-});
+  clearChildren(tasksContainer);
+  if (!Array.isArray(tasks) || tasks.length === 0) {
+    tasksContainer.innerHTML = '<p style="color: gray; text-align: center;">¡Crea una tarea! </p>';
+    return;
+  }
 
-// Al cargar documento
-document.addEventListener('DOMContentLoaded', async () => {
-    const token = localStorage.getItem('token');
-    if (token) {
-        const lists = await getUserLists(token);
-        renderLists(lists);
-    }
-});
+  const fragment = document.createDocumentFragment();
+  tasks.forEach(task => {
+    const title = safeText(task.title || 'Sin título');
+    const desc = safeText(task.description || '');
+    const status = safeText(task.status || '');
+    const due = safeText(task.dueDate || task.createdAt || '');
 
-const createListBtn = document.getElementById('create-list-btn');
-
-if (createListBtn) {
-  createListBtn.addEventListener('click', function(e) {
-    // Prevent default to avoid form submit or unexpected behaviour
-    e.preventDefault();
-    // Redirect to the create-list page 
-    window.location.href = '/create-list/';
-    
+    const article = document.createElement('article');
+    article.classList.add('task');
+    article.innerHTML = `
+      <div class="left"><input type="checkbox" aria-label="Completar tarea"></div>
+      <div class="body">
+        <h3>${title}</h3>
+        <p>${desc}</p>
+        <div class="meta">Fecha: ${due}</div>
+      </div>
+      <div class="task-actions">
+        <div class="buttons">
+          <a href="/edit-task/" class="edit-btn" data-task-id="${task._id || task.id}">✏️</a>
+          <button class="delete-btn" data-task-id="${task._id || task.id}">🗑️</button>
+        </div>
+        <div class="task-status">${status}</div>
+      </div>
+    `;
+    fragment.appendChild(article);
   });
-} else {
-  console.warn('create-list-btn not found in DOM (dashboard.js)');
+  tasksContainer.appendChild(fragment);
 }
 
-const currentListTitle = document.getElementById('current-list-title');
+/* ----------------- Delegated events: list click ----------------- */
+function setupListClickDelegation() {
+  if (!listsContainer) return;
 
-// Renderizar listas en sidebar
+  listsContainer.addEventListener('click', (e) => {
+    const a = e.target.closest('.list-link');
+    if (!a) return;
+    e.preventDefault();
+    const id = a.dataset.listId;
+    const title = a.dataset.listTitle || a.textContent.trim();
+    selectList(id, title);
+  });
+}
 
+/* ----------------- Setup botones create/new task ----------------- */
+function setupButtons() {
+  if (createListBtn) {
+    createListBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.href = '/create-list/';
+    });
+  }
+  if (newTaskBtn) {
+    newTaskBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const listId = localStorage.getItem('currentListId');
+      if (!listId) return alert('Selecciona primero una lista para crear tarea.');
+      window.location.href = `/create-task/?listId=${listId}`;
+    });
+  }
+}
 
-// Al cargar documento, si ya hay list seleccionada, mostrar su título
+/* ----------------- Inicialización (único DOMContentLoaded) ----------------- */
 document.addEventListener('DOMContentLoaded', async () => {
-  const lists = await getUserLists(token);
-  renderLists(lists);
+  try {
+    setupListClickDelegation();
+    setupButtons();
 
-  // Si hay título guardado de sesión anterior
-  const savedTitle = localStorage.getItem('currentListTitle');
-  if (savedTitle) {
-    currentListTitle.textContent = savedTitle;
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.warn('No token en localStorage. Redirigiendo a login');
+      //window.location.href = '/login/';
+      return;
+    }
+
+    // Traer listas
+    let lists = [];
+    try {
+      lists = await getUserLists(token);
+    } catch (err) {
+      console.error('Error getUserLists:', err);
+      if (listsContainer) listsContainer.innerHTML = '<li>Error cargando listas</li>';
+      return;
+    }
+
+    renderLists(lists);
+
+    // Si existe currentListId guardado, restaurarlo; si no, seleccionar la primera lista disponible
+    const savedListId = localStorage.getItem('currentListId');
+    const savedListTitle = localStorage.getItem('currentListTitle');
+
+    if (savedListId) {
+      // asegúrate que esa lista exista en el conjunto recibido (por si fue borrada)
+      const exists = lists.find(l => (l._id || l.id) === savedListId);
+      if (exists) {
+        await selectList(savedListId, savedListTitle || (exists.title || exists.name), { loadTasks: true });
+        return;
+      } else {
+        // limpiar saved si no existe
+        localStorage.removeItem('currentListId');
+        localStorage.removeItem('currentListTitle');
+      }
+    }
+
+    // Si no había ninguna guardada, selecciona la primera lista disponible automáticamente
+    if (Array.isArray(lists) && lists.length > 0) {
+      const first = lists[0];
+      const id = first._id || first.id;
+      const title = first.title || first.name || 'Sin título';
+      await selectList(id, title, { loadTasks: true });
+    } else {
+      if (currentListTitle) currentListTitle.textContent = 'No hay listas';
+      if (tasksContainer) tasksContainer.innerHTML = '<p>No hay listas para mostrar tareas.</p>';
+    }
+
+  } catch (err) {
+    console.error('Error en init dashboard:', err);
   }
 });
-

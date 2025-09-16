@@ -8,6 +8,14 @@ body {
     background-color: #f5f5f5;
     padding: 1rem;
 }
+/* Asegurar que los textos no se peguen a los bordes */
+label, input, textarea, select, button {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+
+
 
 .row {
     display: flex;
@@ -68,7 +76,9 @@ button:hover {
     width: 100%;
     max-width: 450px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
-    margin: 0 auto; /* Centrado horizontal */
+    margin-left: auto;
+    margin-right: auto; 
+    box-sizing: border-box;
 }
 
 .modal-window {
@@ -109,7 +119,6 @@ button:hover {
     padding: 0 1rem; /* Añadido padding lateral */
 }
 
-/* SOLUCIÓN AL PROBLEMA: Ajustar el padding y alineación */
 .form-container {
     width: 100%;
 }
@@ -123,7 +132,6 @@ button:hover {
     text-align: left; /* Forzar alineación izquierda */
 }
 
-/* Para pantallas GRANDES */
 @media (min-width: 1024px) {
     .box {
         max-width: 500px;
@@ -201,20 +209,3 @@ button:hover {
     }
 }
 
-/* Asegurar que los textos no se peguen a los bordes */
-label, input, textarea, select, button {
-    margin-left: 0;
-    margin-right: 0;
-}
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.box {
-    margin-left: auto;
-    margin-right: auto; 
-    box-sizing: border-box;
-}

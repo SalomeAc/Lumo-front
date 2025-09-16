@@ -68,12 +68,14 @@ button:hover {
 }
 
 .modal-window {
-    position: relative; /* para que #previous se posicione dentro */
-    padding-top: 2rem; /* deja espacio para el botón */
-
+    position: relative;
+    padding-top: 2rem;
+    width: 100%;
 }
 
 #previous {
+    margin-top: -1rem;
+    margin-left: -1rem; 
     position: absolute;
     top: 0.2rem; 
     display: flex;
@@ -81,7 +83,10 @@ button:hover {
     justify-content: center;
     width: 1.5rem; /* tamaño más pequeño */
     height: 1.5rem;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
 }
+
 
 #previous img {
     width: 100%;
@@ -89,21 +94,23 @@ button:hover {
     display: block;
 }
 
-#previous:hover img {
-    filter: brightness(0.8);
+#previous:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .box {
     background-color: #0E2A36;
     color: #fff;
-    padding: 2rem;
+    padding: 2.5rem 3rem;
     border-radius: 16px;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.2rem;
     width: 100%;
-    max-width: 400px;
+    max-width: 780px; /* ancho mayor para escritorio */
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+    margin: 0 auto; /* Centrado horizontal */
+    transition: max-width 0.25s ease;
 }
 
 .modal-window h2 {
@@ -112,4 +119,69 @@ button:hover {
     font-size: 1.2rem; /* mantiene tu tamaño */
     margin-bottom: 1rem;
 }
+
+
+/* Tablets */
+@media (max-width: 768px) {
+    .box {
+        padding: 2rem;
+        max-width: 400px;
+    }
+    
+    .modal-window h2 {
+        font-size: 1.5rem;
+        padding: 0 0.5rem;
+    }
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+    body {
+        padding: 0.8rem;
+    }
+    #previous {
+            position: absolute;
+            margin-left: -0.6rem;
+            width: 2rem;
+            height: 2rem;
+        }
+    
+    .box {
+        padding: 1.5rem;
+        max-width: 100%;
+        margin: 0.5rem;
+        border-radius: 12px;
+    }
+    
+    .modal-window h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        padding: 0 0.5rem;
+    }
+    
+    input,
+    textarea,
+    select {
+        padding: 10px;
+    }
+    
+    button {
+        padding: 0.9rem;
+    }
+
+    
+}
+
+/* Móviles pequeños */
+@media (max-width: 320px) {
+    .box {
+        padding: 1.2rem;
+    }
+    
+    .modal-window h2 {
+        font-size: 1.1rem;
+        padding: 0 0.3rem;
+    }
+}
+
 
