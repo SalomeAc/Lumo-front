@@ -48,10 +48,11 @@
     padding: 18px 3rem;
     border-bottom: 2px solid #f7c873;
   }
-  .logo {
+  .logo a{
     font-size: 2rem;
     color: orange;
     font-weight: bold;
+    text-decoration: none;
   }
   .links {
     display: flex;
