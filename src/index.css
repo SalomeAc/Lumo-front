@@ -54,9 +54,12 @@ body {
     align-items: center;
     box-sizing: border-box;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1rem;
+    margin-bottom: 1
+    
 }
-
+.text-left .register-btn {
+  margin-left: 15rem;
+}
 .text-left {
     display: flex;
     flex-direction: column;
@@ -216,9 +219,7 @@ footer {
         margin: 1rem 0;
         font-size: 2rem;
     }
-    .text-left a {
-        margin: 1rem auto 0 auto;
-    }
+
     #principal img {
         margin: 1rem auto 0 auto;
         max-width: 100%;
