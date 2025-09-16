@@ -48,10 +48,11 @@
     padding: 18px 3rem;
     border-bottom: 2px solid #f7c873;
   }
-  .logo {
+  .logo a{
     font-size: 2rem;
     color: orange;
     font-weight: bold;
+    text-decoration: none;
   }
   .links {
     display: flex;
@@ -298,6 +299,11 @@
     opacity:0.85;
     align-self:flex-start;
     margin-left: 6px;
+  }
+  .side-brand .previous img{
+    width: 12%;
+    height: auto;
+    cursor: pointer;
   }
   
   /* brand block */
