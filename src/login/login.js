@@ -1,9 +1,10 @@
+
+import { loginUser } from '../services/userServices.js';
+
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('loginForm');
   const submitBtn = document.getElementById('login-submit');
   if (!form || !submitBtn) return;
-
-
 
   function allFieldsValid() {
     const email = form.email.value.trim();
@@ -24,22 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     showSpinner('Iniciando sesión...');
     try {
-      const response = await fetch('http://localhost:8080/api/login/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await response.json();
-      if (response.status === 200) {
-        showSpinner('¡Login exitoso! Redirigiendo...');
-        setTimeout(() => { window.location.href = '/'; }, 1500);
-      } else {
-        hideSpinner();
-        showMessage(data.message || 'Login failed.', 'error');
+      const data = await loginUser({ email, password });
+      if (data && data.token) {
+        localStorage.setItem('token', data.token);
       }
+      showSpinner('¡Login exitoso! Redirigiendo...');
+      setTimeout(() => { window.location.href = '/'; }, 1500);
     } catch (err) {
       hideSpinner();
-      showMessage('No se pudo conectar al servidor.', 'error');
+      showMessage(err.message || 'No se pudo conectar al servidor.', 'error');
     }
   });
 
