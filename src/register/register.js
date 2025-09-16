@@ -1,3 +1,6 @@
+
+import { registerUser } from '../services/userServices.js';
+
 document.addEventListener('DOMContentLoaded', () => {
 	const form = document.getElementById('registerForm');
 	const submitBtn = document.getElementById('register-submit');
@@ -7,9 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		var fn = form.firstName.value.trim();
 		var ln = form.lastName.value.trim();
 		var ageVal = Number(form.age.value);
-	var emailVal = form.email.value.trim();
-	var pw = form.password.value.trim();
-	var cpw = form.confirmPassword.value.trim();
+		var emailVal = form.email.value.trim();
+		var pw = form.password.value.trim();
+		var cpw = form.confirmPassword.value.trim();
 		if (!fn) return 'El nombre es obligatorio.';
 		if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ]+$/.test(fn)) return 'El nombre solo puede contener letras.';
 		if (fn.length > 10) return 'El nombre no puede tener más de 10 caracteres.';
@@ -20,16 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (!/^\d+$/.test(form.age.value)) return 'La edad debe ser un número.';
 		if (ageVal < 13 || ageVal > 112) return 'La edad debe ser entre 13 y 112.';
 		if (!emailVal) return 'El correo electrónico es obligatorio.';
-	if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailVal)) return 'El correo electrónico no es válido.';
-	console.log('Valor de contraseña:', JSON.stringify(pw));
-	if (!pw) return 'La contraseña es obligatoria.';
-	let errores = [];
-	if (pw.length < 8) errores.push('al menos 8 caracteres');
-	if (!/[A-Z]/.test(pw)) errores.push('una letra mayúscula');
-	if (!/[a-z]/.test(pw)) errores.push('una letra minúscula');
-	if (!/\d/.test(pw)) errores.push('un número');
-	if (!/[^\w\s]/.test(pw)) errores.push('un carácter especial');
-	if (errores.length > 0) return 'La contraseña debe contener: ' + errores.join(', ') + '.';
+		if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailVal)) return 'El correo electrónico no es válido.';
+		if (!pw) return 'La contraseña es obligatoria.';
+		let errores = [];
+		if (pw.length < 8) errores.push('al menos 8 caracteres');
+		if (!/[A-Z]/.test(pw)) errores.push('una letra mayúscula');
+		if (!/[a-z]/.test(pw)) errores.push('una letra minúscula');
+		if (!/\d/.test(pw)) errores.push('un número');
+		if (!/[^\w\s]/.test(pw)) errores.push('un carácter especial');
+		if (errores.length > 0) return 'La contraseña debe contener: ' + errores.join(', ') + '.';
 		if (!cpw) return 'Debes confirmar la contraseña.';
 		if (pw !== cpw) return 'Las contraseñas no coinciden.';
 		return null;
@@ -40,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const firstName = form.firstName.value.trim();
 		const lastName = form.lastName.value.trim();
 		const age = Number(form.age.value);
-	const email = form.email.value.trim();
+		const email = form.email.value.trim();
 		const password = form.password.value;
 		const confirmPassword = form.confirmPassword.value;
 
@@ -52,24 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		showSpinner('Registrando...');
 		try {
-			const response = await fetch('http://localhost:8080/api/users/', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ firstName, lastName, age, email, password, confirmPassword }),
-			});
-			const data = await response.json();
-			if (response.status === 201) {
-				showSpinner('¡Registrado exitosamente! Redirigiendo...');
-				setTimeout(() => { window.location.href = '/login/'; }, 1500);
-			} else {
-				hideSpinner();
-				if (data.message) {
-					showMessage(data.message, 'error');
-				}
-			}
+			const data = await registerUser({ firstName, lastName, age, email, password, confirmPassword });
+			showSpinner('¡Registrado exitosamente! Redirigiendo...');
+			setTimeout(() => { window.location.href = '/login/'; }, 1500);
 		} catch (err) {
 			hideSpinner();
-			showMessage('No se pudo conectar al servidor.', 'error');
+			showMessage(err.message || 'No se pudo conectar al servidor.', 'error');
 		}
 	});
 
