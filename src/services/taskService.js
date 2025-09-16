@@ -67,7 +67,15 @@ export async function getTasks(token, listId) {
   return data.tasks ?? data;
 }
 
-/** Update task by id */
+/**
+ * Update a task by its identifier.
+ *
+ * @param {string} token - JWT token for authorization.
+ * @param {string} taskId - The task identifier to update.
+ * @param {Partial<Pick<Task, 'title' | 'description' | 'status' | 'dueDate'>> & Record<string, any>} taskData - Fields to update.
+ * @returns {Promise<Task>} Resolves with the updated task object.
+ * @throws {Error} If the API responds with a non-OK status code.
+ */
 export async function updateTask(token, taskId, taskData) {
   const response = await fetch(`${TASKS_API_URL}/${taskId}`, {
     method: 'PUT',
@@ -87,7 +95,14 @@ export async function updateTask(token, taskId, taskData) {
   return await response.json();
 }
 
-/** Delete task by id */
+/**
+ * Delete a task by its identifier.
+ *
+ * @param {string} token - JWT token for authorization.
+ * @param {string} taskId - The task identifier to delete.
+ * @returns {Promise<Object>} Resolves with API response JSON (may include the deleted task or a status payload).
+ * @throws {Error} If the API responds with a non-OK status code.
+ */
 export async function deleteTask(token, taskId) {
   const response = await fetch(`${TASKS_API_URL}/${taskId}`, {
     method: 'DELETE',

@@ -1,12 +1,22 @@
+/**
+ * Create Task page script: handles form submission and initial load.
+ */
 import { createTask, getTasks } from '../services/taskService.js';
 
+/**
+ * JWT token stored after user login.
+ * @type {string|null}
+ */
 const token = localStorage.getItem('token');
 if (!token) {
   alert('No token found. Please login first.');
   window.location.href = '/login/';
 }
 
-// Obtiene listId de la URL (?listId=xxxx)
+/**
+ * Current list id, read from URL (?listId=...) or localStorage fallback.
+ * @type {string|null}
+ */
 const params = new URLSearchParams(window.location.search);
 const listId = params.get('listId') || localStorage.getItem('currentListId');
 
@@ -16,9 +26,18 @@ if (!listId) {
 }
 
 
+/**
+ * Task creation form element.
+ * @type {HTMLFormElement|null}
+ */
 const taskForm = document.getElementById('taskForm');
 
 
+/**
+ * Handle task form submission: builds payload and creates the task.
+ * Redirects to dashboard on success.
+ * @param {SubmitEvent} event
+ */
 taskForm.addEventListener('submit', async (event) => {
   event.preventDefault();
 
@@ -36,7 +55,6 @@ taskForm.addEventListener('submit', async (event) => {
       status
     });
 
-    // 👇 después de crear, vuelve al dashboard
     window.location.href = '/dashboard/';
   } catch (err) {
     alert('Error creando tarea. Revisa consola.');
@@ -46,10 +64,14 @@ taskForm.addEventListener('submit', async (event) => {
 
 
 
-/** Carga inicial/refresh de tareas */
+/**
+ * Optionally load tasks for the selected list (useful for validations or previews).
+ * Currently fetches tasks and logs/handles errors.
+ * @returns {Promise<void>}
+ */
 async function loadTasks() {
   try {
-    const tasks = await getTasks(token, listId);
+    await getTasks(token, listId);
   } catch (err) {
     console.error('Error cargando tareas:', err);
     if (taskList) taskList.innerHTML = '<li>Error cargando tareas (ver consola)</li>';
@@ -58,5 +80,4 @@ async function loadTasks() {
 
 
 
-// cargar al inicio
 window.addEventListener('DOMContentLoaded', loadTasks);

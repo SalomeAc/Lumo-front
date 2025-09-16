@@ -407,6 +407,11 @@ main {
     .menu-toggle {
         display: block;
     }
+
+    .toast {
+        width: 90%;
+        max-width: 300px;
+    }
     
     aside.sidebar {
         position: fixed;
@@ -482,10 +487,4 @@ main {
   10%  { opacity: 1; transform: translateY(0); }
   90%  { opacity: 1; }
   100% { opacity: 0; transform: translateY(20px); }
-}
-@media (max-width: 480px) {
-    .toast {
-        width: 90%;
-        max-width: 300px;
-    }
 }

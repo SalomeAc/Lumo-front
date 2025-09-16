@@ -15,7 +15,7 @@
                 <img src="/previous.png" alt="Previous Page" />
             </a>
             <h2>Editar tarea</h2>
-            <form id="">
+            <form id="EditTaskForm">
                 <div class="row">
                     <label for="task-title">Título:</label>
                     <input
@@ -55,9 +55,9 @@
                 <div class="row">
                     <label for="task-status">Estado:</label>
                     <select id="task-status" name="task-status" required>
-                        <option value="Unassigned">Por hacer</option>
-                        <option value="Ongoing">Haciendo</option>
-                        <option value="Done">Completada</option>
+                        <option value="unassigned">Por hacer</option>
+                        <option value="ongoing">Haciendo</option>
+                        <option value="done">Completada</option>
                     </select>
                 </div>
                 <button type="submit">Guardar</button>

@@ -1,17 +1,32 @@
 /**
- * dashboard.js
- * Módulo principal del dashboard: listas, título, tareas y navegación.
+ * Dashboard module: handles sidebar, list selection, task rendering, and actions.
+ * Initializes UI, fetches lists/tasks, and wires delegated events.
  */
-
 import { getUserLists } from '../services/listService.js';
 import { getTasks as getTasksByList, deleteTask } from '../services/taskService.js';
 
 
-/* --------- Sidebar toggle (tu código original) --------- */
+/* --------- Sidebar toggle --------- */
+/**
+ * Toggle button element for opening/closing the sidebar.
+ * @type {HTMLElement|null}
+ */
 const menuToggle = document.getElementById('menuToggle');
+/**
+ * Sidebar container element.
+ * @type {HTMLElement|null}
+ */
 const sidebar = document.getElementById('sidebar');
+/**
+ * Backdrop overlay element behind the sidebar.
+ * @type {HTMLElement|null}
+ */
 const backdrop = document.getElementById('sidebarBackdrop');
 
+/**
+ * Toggles sidebar visibility and page scrollability.
+ * Adds/removes CSS classes and locks body scroll when open.
+ */
 function toggleSidebar() {
   if (!sidebar || !backdrop) return;
   sidebar.classList.toggle('open');
@@ -21,7 +36,7 @@ function toggleSidebar() {
 
 if (menuToggle) menuToggle.addEventListener('click', e => { e.stopPropagation(); toggleSidebar(); });
 if (backdrop) backdrop.addEventListener('click', e => { e.stopPropagation(); toggleSidebar(); });
-document.addEventListener('click', function(e) {
+document.addEventListener('click', function (e) {
   if (window.innerWidth <= 640 && sidebar && sidebar.classList.contains('open') && !sidebar.contains(e.target) && e.target !== menuToggle) {
     toggleSidebar();
   }
@@ -35,22 +50,40 @@ window.addEventListener('resize', () => {
 });
 /* ------------------------------------------------------- */
 
-/* --------- Elementos del DOM (verifica estos ids en tu HTML) --------- */
+/** @type {HTMLElement|null} */
 const listsContainer = document.getElementById('lists-container');
+/** @type {HTMLElement|null} */
 const currentListTitle = document.getElementById('current-list-title');
+/** @type {HTMLElement|null} */
 const tasksContainer = document.getElementById('tasks-container');
+/** @type {HTMLButtonElement|null} */
 const createListBtn = document.getElementById('create-list-btn');
+/** @type {HTMLButtonElement|null} */
 const newTaskBtn = document.getElementById('new-task-btn');
 
 /* ----------------- Helpers ----------------- */
+/**
+ * Safely convert a value to string, avoiding 'null'/'undefined'.
+ * @param {unknown} v
+ * @returns {string}
+ */
 function safeText(v) { return v === undefined || v === null ? '' : String(v); }
 
+/**
+ * Remove all child nodes from an element.
+ * @param {HTMLElement|null} el
+ * @returns {void}
+ */
 function clearChildren(el) {
   if (!el) return;
   while (el.firstChild) el.removeChild(el.firstChild);
 }
 
 /* ----------------- Render lists ----------------- */
+/**
+ * Render the list of user lists into the sidebar container.
+ * @param {Array<{_id?:string,id?:string,title?:string,name?:string}>} lists
+ */
 function renderLists(lists) {
   if (!listsContainer) {
     console.warn('No listsContainer en DOM');
@@ -81,21 +114,23 @@ function renderLists(lists) {
   listsContainer.appendChild(fragment);
 }
 
-/* ----------------- Seleccionar lista ----------------- */
+/**
+ * Select a list, persist selection, update header and active styles, and optionally load tasks.
+ * @param {string} listId
+ * @param {string} listTitle
+ * @param {{loadTasks?: boolean}} [options]
+ */
 async function selectList(listId, listTitle, { loadTasks = true } = {}) {
   if (!listId) return;
   localStorage.setItem('currentListId', listId);
   localStorage.setItem('currentListTitle', listTitle || '');
 
-  // actualizar header
   if (currentListTitle) currentListTitle.textContent = listTitle || 'Lista seleccionada';
 
-  // marcar activa en sidebar
   if (listsContainer) {
     listsContainer.querySelectorAll('.list-link').forEach(a => {
       if (a.dataset.listId === listId) {
         a.classList.add('active');
-        // opcional: añadir clase al li padre
         if (a.parentElement) a.parentElement.classList.add('active');
       } else {
         a.classList.remove('active');
@@ -104,7 +139,6 @@ async function selectList(listId, listTitle, { loadTasks = true } = {}) {
     });
   }
 
-  // cargar tareas si pedimos
   if (loadTasks) {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -116,13 +150,16 @@ async function selectList(listId, listTitle, { loadTasks = true } = {}) {
       renderTasks(tasks);
     } catch (err) {
       console.error('Error al cargar tareas de la lista:', err);
-      // Mostrar mensaje en UI
       if (tasksContainer) tasksContainer.innerHTML = '<p>Error cargando tareas.</p>';
     }
   }
 }
 
 /* ----------------- Render tasks ----------------- */
+/**
+ * Render tasks for the currently selected list.
+ * @param {Array<{_id?:string,id?:string,title?:string,description?:string,status?:string,dueDate?:string,createdAt?:string}>} tasks
+ */
 function renderTasks(tasks) {
   if (!tasksContainer) {
     tasksContainer.innerHTML = '';
@@ -130,9 +167,6 @@ function renderTasks(tasks) {
     return;
   }
 
-  
-
-  
   clearChildren(tasksContainer);
   if (!Array.isArray(tasks) || tasks.length === 0) {
     tasksContainer.innerHTML = '<p style="color: gray; text-align: center;">¡Crea una tarea! </p>';
@@ -148,6 +182,22 @@ function renderTasks(tasks) {
 
     const article = document.createElement('article');
     article.classList.add('task');
+    function mapStatus(status) {
+      switch (status.toLowerCase()) {
+        case 'unassigned':
+          return { label: 'Por hacer', css: 'todo' };
+        case 'ongoing':
+          return { label: 'Haciendo', css: 'doing' };
+        case 'done':
+          return { label: 'Completada', css: 'done' };
+        default:
+          return { label: status, css: '' }; 
+
+      }
+    }
+    
+    const { label, css } = mapStatus(status);
+
     article.innerHTML = `
       <div class="left"><input type="checkbox" aria-label="Completar tarea"></div>
       <div class="body">
@@ -160,23 +210,28 @@ function renderTasks(tasks) {
           <a href="/edit-task/" class="edit-btn" data-task-id="${task._id || task.id}">✏️</a>
           <button class="delete-btn" data-task-id="${task._id || task.id}">🗑️</button>
         </div>
-        <div class="task-status">${status}</div>
+        <div class="task-status ${css}">${label}</div>
       </div>
     `;
+
     fragment.appendChild(article);
   });
   tasksContainer.appendChild(fragment);
-   tasksContainer.querySelectorAll('.edit-btn').forEach(btn => {
+  tasksContainer.querySelectorAll('.edit-btn').forEach(btn => {
+    /** On edit click, store task id and navigate to edit page. */
     btn.addEventListener('click', (e) => {
       const taskId = btn.dataset.taskId;
-      localStorage.setItem('editTaskId', taskId); // guardamos en localStorage
-      window.location.href = '/edit-task/';       // redirigimos
+      localStorage.setItem('editTaskId', taskId); 
+      window.location.href = '/edit-task/';       
     });
   });
 
 }
 
 /* ----------------- Delegated events: list click ----------------- */
+/**
+ * Setup delegated click handling on the lists container to select lists.
+ */
 function setupListClickDelegation() {
   if (!listsContainer) return;
 
@@ -190,7 +245,10 @@ function setupListClickDelegation() {
   });
 }
 
-/* ----------------- Setup botones create/new task ----------------- */
+/* ----------------- Setup buttons create/new task ----------------- */
+/**
+ * Attach handlers for creating lists and starting new task creation.
+ */
 function setupButtons() {
   if (createListBtn) {
     createListBtn.addEventListener('click', (e) => {
@@ -208,7 +266,9 @@ function setupButtons() {
   }
 }
 
-/* ----------------- Inicialización (único DOMContentLoaded) ----------------- */
+/**
+ * Wire events, validate token, fetch and render lists, restore selection.
+ */
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     setupListClickDelegation();
@@ -218,11 +278,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('token');
     if (!token) {
       console.warn('No token en localStorage. Redirigiendo a login');
-      
+
       return;
     }
 
-    // Traer listas
     let lists = [];
     try {
       lists = await getUserLists(token);
@@ -234,24 +293,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     renderLists(lists);
 
-    // Si existe currentListId guardado, restaurarlo; si no, seleccionar la primera lista disponible
+    // If there is a saved currentListId, restore it; otherwise select the first available list
     const savedListId = localStorage.getItem('currentListId');
     const savedListTitle = localStorage.getItem('currentListTitle');
 
     if (savedListId) {
-      // asegúrate que esa lista exista en el conjunto recibido (por si fue borrada)
       const exists = lists.find(l => (l._id || l.id) === savedListId);
       if (exists) {
         await selectList(savedListId, savedListTitle || (exists.title || exists.name), { loadTasks: true });
         return;
       } else {
-        // limpiar saved si no existe
         localStorage.removeItem('currentListId');
         localStorage.removeItem('currentListTitle');
       }
     }
 
-    // Si no había ninguna guardada, selecciona la primera lista disponible automáticamente
     if (Array.isArray(lists) && lists.length > 0) {
       const first = lists[0];
       const id = first._id || first.id;
@@ -267,6 +323,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
+/**
+ * Display a temporary toast notification.
+ * @param {string} message
+ * @param {"info"|"success"|"error"} [type="info"]
+ */
 function showToast(message, type = "info") {
   let container = document.querySelector('.toast-container');
   if (!container) {
@@ -288,6 +349,9 @@ function showToast(message, type = "info") {
 
 
 /* ----------------- Delegated events: task actions ----------------- */
+/**
+ * Setup delegated task action handlers (delete/edit) on the tasks container.
+ */
 function setupTaskActionsDelegation() {
   if (!tasksContainer) return;
 
