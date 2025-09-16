@@ -12,6 +12,8 @@
     align-items: center;
     gap: 12px;
   }
+
+  
   .side-logo-img-big {
     margin-bottom: 0.2em;
   }
@@ -82,9 +84,28 @@ footer {
   flex-direction: column;
   align-items: center;
 }
-.footer-col .logo { color: orange; font-size: 2rem; font-weight: bold; margin-bottom: 0.5rem; }
-.footer-col p:first-child { font-size:1.5rem; font-weight:bold; color:#fff; margin-bottom:6px; }
-.footer-col p, .footer-col a { color:#fff; font-size:1.1rem; text-decoration:none; }
+.footer-col .logo { 
+  color: orange; 
+  font-size: 2rem; 
+  font-weight: bold; 
+  margin-bottom: 0.5rem; 
+}
+.footer-col p:first-child { 
+  font-size:1.5rem; 
+  font-weight:bold; 
+  color:#fff; 
+  margin-bottom:6px; 
+}
+.footer-col p, .footer-col a { 
+  color:#fff; 
+  font-size:1.1rem; 
+  text-decoration:none; 
+}
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 
 /* ============= CONTACT PAGE STYLES ============= */
 
@@ -282,6 +303,17 @@ input:focus, textarea:focus{
   gap:8px;
   padding: 4px 0 0 0;
   justify-self:center;
+}
+.contact-side .previous {
+  margin: 0;
+  display: flex;
+  
+}
+
+.contact-side .previous img {
+  width: 12%;
+  height: auto;
+  cursor: pointer;
 }
 
 /* previous link like register */

@@ -275,7 +275,14 @@
     gap: 28px;
     align-items: stretch;
   }
-  
+  .register-layout .left-brand .previous {
+    margin: 0;
+  }
+  .register-layout .left-brand .previous img{
+    width: 12%;
+    height: auto;
+    cursor: pointer;
+  }
   /* Left brand centrada vertical y horizontalmente */
   .left-brand{
     display:flex;
