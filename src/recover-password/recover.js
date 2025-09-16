@@ -9,10 +9,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = emailInput.value.trim();
 
     if (validateEmail(email)) {
-      // Mostrar mensaje de éxito
-      messageBox.textContent = `Se ha enviado un enlace de recuperación a ${email}`;
-      messageBox.style.color = "green";
-      form.reset();
+      // Llamar al backend para recuperar contraseña
+      fetch("http://localhost:8080/api/users/recover-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email })
+      })
+        .then(async (response) => {
+          if (response.ok) {
+            messageBox.textContent = `Se ha enviado un enlace de recuperación a ${email}`;
+            messageBox.style.color = "green";
+            form.reset();
+          } else {
+            const data = await response.json().catch(() => ({}));
+            messageBox.textContent = data.message || "Error al enviar el correo de recuperación.";
+            messageBox.style.color = "red";
+          }
+        })
+        .catch(() => {
+          messageBox.textContent = "No se pudo conectar con el servidor.";
+          messageBox.style.color = "red";
+        });
     } else {
       // Mostrar mensaje de error
       messageBox.textContent = "Por favor ingresa un correo válido.";
