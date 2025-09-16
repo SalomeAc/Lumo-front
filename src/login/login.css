@@ -300,6 +300,11 @@
     align-self:flex-start;
     margin-left: 6px;
   }
+  .side-brand .previous img{
+    width: 12%;
+    height: auto;
+    cursor: pointer;
+  }
   
   /* brand block */
   .side-brand .brand{
