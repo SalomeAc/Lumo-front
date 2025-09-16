@@ -31,10 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (data && data.token) {
         localStorage.setItem("token", data.token);
       }
-      showSpinner("¡Login exitoso! Redirigiendo...");
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 200);
+      showSpinner('¡Login exitoso! Redirigiendo...');
+      setTimeout(() => { window.location.href = '/dashboard/'; }, 1500);
     } catch (err) {
       hideSpinner();
       showMessage(err.message || "No se pudo conectar al servidor.", "error");
