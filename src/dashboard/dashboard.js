@@ -68,3 +68,47 @@ window.addEventListener('resize', function() {
         document.body.style.overflow = '';
     }
 });
+
+/*---------------------------------------------------*/
+
+import { getUserLists } from '../../services/listService.js';
+
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Yzg5ZWZjOTAxMDc0YTEwMTA0MWFiNyIsImVtYWlsIjoic2Fsb21lQHRlc3QuY29tIiwiaWF0IjoxNzU3OTc4OTMyLCJleHAiOjE3NTc5ODI1MzJ9.SGg9ePKLsTSDn8bswV4Vpc4golM4NdKXX6V6bc7gl2s';
+
+// Referencia al contenedor UL
+const listsContainer = document.getElementById('lists-container');
+
+// Función para renderizar listas
+function renderLists(lists) {
+  listsContainer.innerHTML = ''; // Limpiar primero
+
+  lists.forEach(list => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <a href="#/" data-list-id="${list.id}">
+        <span class="list-name">${list.title}</span>
+      </a>
+    `;
+    listsContainer.appendChild(li);
+  });
+}
+
+// Al cargar documento
+document.addEventListener('DOMContentLoaded', async () => {
+  const lists = await getUserLists(token);
+  renderLists(lists);
+});
+
+const createListBtn = document.getElementById('create-list-btn');
+
+if (createListBtn) {
+  createListBtn.addEventListener('click', function(e) {
+    // Prevent default to avoid form submit or unexpected behaviour
+    e.preventDefault();
+    // Redirect to the create-list page 
+    window.location.href = '/create-list/';
+    
+  });
+} else {
+  console.warn('create-list-btn not found in DOM (dashboard.js)');
+}

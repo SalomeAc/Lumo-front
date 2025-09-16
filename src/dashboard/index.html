@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./dashboard.css">
     <meta charset="UTF-8">
-    <title>Lumo Dashboard</title>
+    <title>Dashboard</title>
 </head>
 
 <body>
     <button class="menu-toggle" id="menuToggle">☰</button>
     <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
     <div class="app">
-        <aside class="sidebar" id="sidebar" aria-label="Panel lateral de navegación"> 
+        <aside class="sidebar" id="sidebar" aria-label="Panel lateral de navegación">
             <a href="/user-profile/" class="user-block-link">
                 <div class="user-block">
                     <div class="user-info" id="user-info">
@@ -27,17 +27,15 @@
             </a>
 
             <div class="lists-title">Listas</div>
-            <ul class="lists" id="lists-container"> 
-                <!-- Reemplazar -->
-                <li><a href="#/"><span class="list-name">Lista 1</span></a></li>
-                <li><a href="#/"><span class="list-name">Lista 2</span></a></li>
+            <ul class="lists" id="lists-container">
                 
             </ul>
 
 
-            <button class="btn" id="create-list-btn" onclick="location.href='/create-list/'">
+            <button class="btn" id="create-list-btn">
                 Crear nueva lista
             </button>
+
 
 
 
@@ -60,7 +58,8 @@
                 </div>
             </div>
 
-            <section class="tasks-grid" id="tasks-container" aria-label="Lista de tareas"> <!-- Accesibilidad (heurística)-->
+            <section class="tasks-grid" id="tasks-container" aria-label="Lista de tareas">
+                <!-- Accesibilidad (heurística)-->
 
 
 
@@ -80,10 +79,10 @@
                     <div class="task-actions">
                         <div class="buttons">
                             <a href="/edit-task/" class="edit-btn" id="edit-task">✏️</a>
-                            
+
                             <button class="delete-btn" id="delete-task">🗑️</button>
                         </div>
-                    <div class="task-status doing" id="task-status">Haciendo</div> <!-- Reemplazar -->
+                        <div class="task-status doing" id="task-status">Haciendo</div> <!-- Reemplazar -->
 
                     </div>
     </div>
@@ -97,7 +96,8 @@
     </main>
     </div>
 
-    <script src="./dashboard.js"></script>
+    <script type="module" src="./dashboard.js"></script>
+
 
 </body>
 
