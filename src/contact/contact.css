@@ -304,13 +304,15 @@ input:focus, textarea:focus{
 .micro-note{ margin-top:10px; color:var(--muted); font-size:13px; }
 
 /* ------------------- Side column (info + logo) ------------------- */
-
+.contact-side .contact-side-responsive {
+  background-color: black;
+}
 .contact-side{
   position:relative;
   z-index:2;
   display:flex;
   flex-direction:column;
-  align-items:center;
+  align-content: top;
   gap:8px;
   padding: 4px 0 0 0;
   justify-self:center;
