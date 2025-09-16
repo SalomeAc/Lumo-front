@@ -1,3 +1,12 @@
+@media (max-width: 480px) {
+  .contact-side .previous {
+    width: 40px;
+    height: 40px;
+  }
+  .contact-side .previous img {
+    width: 70%;
+  }
+}
 @media (max-width: 900px) {
   .contact-side-responsive {
     background: #fff;
@@ -295,6 +304,7 @@ input:focus, textarea:focus{
 .micro-note{ margin-top:10px; color:var(--muted); font-size:13px; }
 
 /* ------------------- Side column (info + logo) ------------------- */
+
 .contact-side{
   position:relative;
   z-index:2;
@@ -321,7 +331,29 @@ input:focus, textarea:focus{
 .previous{
   color:#333; text-decoration:none; font-size:14px; opacity:0.9; align-self:flex-start;
 }
+.contact-side .previous {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;        
+  height: 44px;       
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: background 0.2s;
+  align-self: flex-start;   
+}
 
+.contact-side .previous:hover {
+  background: #f7f7f7;
+}
+
+.contact-side .previous img {
+  width: 70%;   
+  height: auto;
+  display: block;
+}
 /* big logo / title on side */
 .side-logo{ display:flex; flex-direction:column; align-items:center; gap:2px; margin-bottom: 0.2em; }
 .side-logo img{ width:140px; height:140px; object-fit:contain; }
@@ -376,6 +408,7 @@ input:focus, textarea:focus{
   .side-logo img{ width:96px; height:96px; }
   .two-col{ grid-template-columns: 1fr; }
 }
+
 @media (max-width: 480px){
   .side-logo img{ width:72px; height:72px; }
   #menu{ padding: 10px 1rem; }
