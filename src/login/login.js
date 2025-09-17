@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (data && data.token) {
         localStorage.setItem("token", data.token);
       }
-
+      
       // Forzar overlay visible y centrado
       let overlay = document.getElementById("spinner-overlay");
       if (overlay) {

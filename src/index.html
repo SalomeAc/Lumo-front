@@ -4,24 +4,26 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-        <link rel="stylesheet" href="/index.css" />
+        <link rel="stylesheet" href="./index.css" />
         <title>Lumo</title>
     </head>
     <body>
         <div id="barnav-container"></div>
         <script type="module">
-          fetch('/components/barnav.html')
-            .then(r => r.text())
-            .then(html => {
-              document.getElementById('barnav-container').innerHTML = html;
-              import('/components/barnav.js');
-            });
+            fetch("/components/barnav.html")
+                .then((r) => r.text())
+                .then((html) => {
+                    document.getElementById("barnav-container").innerHTML =
+                        html;
+                    import("/components/barnav.js");
+                });
         </script>
         <main id="principal">
             <div class="content">
                 <div class="text-left">
                     <h1>
-                        Únete al sitio más eficiente para personalizar tus tareas
+                        Únete al sitio más eficiente para personalizar tus
+                        tareas
                     </h1>
                     <a class="register-btn" href="/register/">Regístrate</a>
                 </div>
@@ -31,7 +33,8 @@
             </div>
             <div class="text-center">
                 <h2>
-                    Regístrate hoy y transforma la manera en que gestionas tu <span class="gradient-text">mundo.</span>
+                    Regístrate hoy y transforma la manera en que gestionas tu
+                    <span class="gradient-text">mundo.</span>
                 </h2>
             </div>
         </main>

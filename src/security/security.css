@@ -1,10 +1,13 @@
-
 body {
   margin: 0;
   font-family: 'Segoe UI', Arial, sans-serif;
   background: #0e232f;
 }
 
+#barnav-container {
+  width: 100%;
+  z-index: 10;
+}
 
 .update-container {
   display: flex;
@@ -12,19 +15,27 @@ body {
   background: #fff;
 }
 
-
 .update-sidebar {
   width: 280px;
   background: #0e232f;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
 }
 
+.footer {
+  font-size: 0.85rem;
+  color: #93a2ad;
+  text-align: center;
+  margin-bottom: 18px;
+}
 
 .update-content {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
-
 
 .update-header {
   background: #fff;
@@ -33,7 +44,23 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  position: relative;
+}
+
+.inline-back {
+  position: absolute;
+  left: 24px;
+  top: 32px;
+}
+.inline-back img {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+.inline-back img:hover {
+  opacity: 1;
 }
 
 .update-header h2 {
@@ -41,8 +68,6 @@ body {
   margin-bottom: 20px;
   text-align: center;
   color: #333;
-  align-items: center;
-  
 }
 
 .header-info {
@@ -97,7 +122,6 @@ body {
   border-bottom: 2px solid #2566d6;
 }
 
-
 .password-main {
   display: flex;
   flex-direction: row;
@@ -138,7 +162,6 @@ body {
   outline: none;
 }
 
-
 .update-btn {
   background: #f57c00;
   color: #fff;
@@ -156,7 +179,6 @@ body {
   background: #e66a00;
 }
 
-
 .password-illustration {
   flex: 1;
   display: flex;
@@ -168,7 +190,6 @@ body {
   max-width: 300px;
   height: auto;
 }
-
 
 @media (max-width: 768px) {
   .update-container {
@@ -190,6 +211,6 @@ body {
   }
 
   .password-illustration img {
-    max-width: 00px;
+    max-width: 200px;
   }
 }
