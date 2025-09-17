@@ -5,20 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/svg+xml" href="/vite.svg" />
         <link rel="stylesheet" href="./register.css" />
+        <link rel="stylesheet" href="/components/barnav.html" />
         <title>Lumo</title>
     </head>
     <body>
-        <div id="barnav-container"></div>
-        <script type="module">
-            fetch("/components/barnav.html")
-                .then((r) => r.text())
-                .then((html) => {
-                    document.getElementById("barnav-container").innerHTML =
-                        html;
-                    import("/components/barnav.js");
-                });
-        </script>
-
         <main class="main-register">
             <!-- Si quieres conservar el título <h1>Registro, puedes dejarlo o quitarlo -->
             <h1 class="sr-only">Registro</h1>
