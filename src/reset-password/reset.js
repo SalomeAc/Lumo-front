@@ -1,7 +1,7 @@
 // Lógica de "Restablecer contraseña"
 // - Lee el token desde la URL (?token=...)
 // - Valida las contraseñas (fuerza y coincidencia)
-// - Hace fetch a: POST /reset-password/:token
+// - Hace fetch a: POST /api/users/reset-password/:token
 // - Muestra mensajes de éxito/error en #reset-message
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,15 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const submitBtn = document.getElementById('reset-submit');
   const msgEl = document.getElementById('reset-message');
 
-  // Ruta del backend solicitada:
-  // router.post("/reset-password/:token", (req, res) => UserController.resetPassword(req, res))
-  // El token va en el path y la nueva contraseña en el body.
-  const RESET_ENDPOINT_BASE = '/reset-password';
+  // 🔑 Base fija de la API (antes estaba con import.meta.env)
+  const API_BASE = "http://localhost:8080";
+  const RESET_ENDPOINT_BASE = `${API_BASE}/api/users/reset-password`;
 
+  // Captura token de la URL (?token=...)
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get('token');
 
- 
   function clearMessage() {
     if (!msgEl) return;
     msgEl.textContent = '';
@@ -110,8 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const res = await fetch(`${RESET_ENDPOINT_BASE}/${encodeURIComponent(token)}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ password }),
-          // credentials: 'include', // descomenta si tu backend requiere cookies/sesión
+          body: JSON.stringify({ password, confirmPassword: confirm }),
         });
 
         let data = null;
