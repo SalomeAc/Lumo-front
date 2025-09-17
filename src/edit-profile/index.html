@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Actualizar perfil | Lumo</title>
+        <link rel="stylesheet" href="edit-profile.css" />
+        <script type="module" src="./edit-profile.js"></script>
+    </head>
+    <body>
+        <div class="update-container">
+            <!-- 🟦 Columna azul vacía -->
+            <aside class="update-sidebar"></aside>
+
+            <!-- 🧱 Contenido principal -->
+            <div class="update-content">
+                <header class="update-header">
+                    <h2>Cambie su información de perfil o contraseña</h2>
+                    <div class="header-info">
+                        <p class="header-name"> </p>
+                        <p class="header-email"> </p>
+                    </div>
+                </header>
+
+                <nav class="tab-navigation">
+                    <a href="/edit-profile/" class="tab active">Perfil</a>
+                    <a href="/security/" class="tab">Seguridad</a>
+                </nav>
+
+                <main>
+                    <form class="update-form">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input
+                                type="text"
+                                id="nombre"
+                                maxlength="10"
+                                placeholder="Menos de 10 caracteres o igual a 10 caracteres"
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="apellidos">Apellidos</label>
+                            <input
+                                type="text"
+                                id="apellidos"
+                                maxlength="10"
+                                placeholder="Menos de 10 caracteres o igual a 10 caracteres"
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edad">Edad</label>
+                            <input
+                                type="number"
+                                id="edad"
+                                min="10"
+                                max="112"
+                                placeholder="Valor natural entre 10 y 112"
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="correo">Correo</label>
+                            <input
+                                type="email"
+                                id="correo"
+                                placeholder="example@domain.com"
+                            />
+                        </div>
+
+                        <button type="submit" class="update-btn">
+                            Actualizar
+                        </button>
+                    </form>
+                </main>
+            </div>
+        </div>
+    </body>
+</html>

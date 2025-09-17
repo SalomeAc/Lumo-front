@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Perfil | Lumo</title>
+        <link rel="stylesheet" href="./user-profile.css" />
+        <script type="module" src="./user-profile.js"></script>
+    </head>
+    <body>
+        <div class="profile-container">
+            <aside class="profile-sidebar">
+            </aside>
+            <main class="profile-main">
+                <h1>Configuración de mi perfil</h1>
+                <div class="profile-content">
+                    <section class="profile-details">
+                        <h2>Detalles del perfil</h2>
+                        <div class="profile-info">
+                            <div id="nombreUsuario">
+                                <strong>Nombre completo:</strong><br />
+                            </div>
+                            <div id="edadUsuario">
+                                <strong>Edad:</strong><br />
+                            </div>
+                            <div id="correoUsuario">
+                                <strong>Correo:</strong><br />
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="profile-actions">
+                            <a href="/edit-profile/" class="profile-link"
+                                >Cambie su información de perfil o contraseña</a
+                            >
+                            <a href="#" class="profile-link danger"
+                                >Eliminar mi perfil</a
+                            >
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>
