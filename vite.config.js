@@ -18,6 +18,8 @@ export default defineConfig({
         dashboard: resolve(ROOT, "dashboard", "index.html"),
         "create-task": resolve(ROOT, "create-task", "index.html"),
         "create-list": resolve(ROOT, "create-list", "index.html"),
+        "recover-password": resolve(ROOT, "recover-password", "index.html"),
+        "reset-password": resolve(ROOT, "reset-password", "index.html"),
       },
     },
   },
