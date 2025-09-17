@@ -1,0 +1,528 @@
+/* Mensaje de error/éxito arriba del formulario */
+#register-message {
+  display: block;
+  margin-bottom: 1em;
+  font-size: 1.1em;
+  font-family: inherit;
+  z-index: 30;
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 0.5em 1em;
+  border-radius: 8px;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+/* Imagen grande y responsive para el registro */
+.brand-img-only {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 0;
+}
+
+/* Separación extra entre imagen y formulario en layouts side-by-side */
+.register-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+@media (max-width: 900px) {
+  .register-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+
+/* Imagen de registro más compacta */
+.brand-img-responsive {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  object-fit: contain;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+}
+@media (max-width: 900px) {
+  .brand-img-only, .brand-img-responsive {
+    display: none !important;
+  }
+}
+
+/* Tooltip estético para inputs */
+.input-desc {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: max-content;
+  min-width: 220px;
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  font-size: 0.97em;
+  padding: 0.5em 1em;
+  border-radius: 6px;
+  margin-top: 0.4em;
+  z-index: 20;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  opacity: 0;
+}
+.field { position: relative; }
+.field input:focus + .input-desc,
+.field input:hover + .input-desc {
+  display: block;
+  opacity: 1;
+}
+@media (max-width: 600px) {
+  .input-desc {
+    min-width: 140px;
+    font-size: 0.93em;
+    padding: 0.4em 0.7em;
+  }
+}
+
+/* Spinner overlay */
+#spinner-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255,255,255,0.85);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.spinner-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5em;
+}
+.spinner-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+.spinner-msg {
+  font-size: 1.2em;
+  color: #333;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .tooltip-error {
+    left: 0;
+    top: 100%;
+    transform: none;
+    margin-left: 0;
+    margin-top: 0.25em;
+    font-size: 0.95em;
+    white-space: normal;
+  }
+  #spinner-overlay .spinner-center {
+    gap: 1em;
+  }
+  .spinner-img {
+    width: 40px;
+    height: 40px;
+  }
+  .spinner-msg {
+    font-size: 1em;
+  }
+}
+
+/* ---------------------------
+   registro.css (ajustado)
+   --------------------------- */
+
+/* Reset / base (copia de index.css) */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#menu {
+  background: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 3rem;
+  border-bottom: 2px solid #f7c873;
+}
+.logo a{
+  font-size: 2rem;
+  color: orange;
+  font-weight: bold;
+  text-decoration: none;
+}
+.links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+.links a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1rem;
+}
+.login-btn a {
+  background: orange;
+  color: #fff;
+  padding: 10px 2rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+body {
+  background: #f3f5f7;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #555;
+  margin: 0;
+}
+
+/* Footer */
+footer {
+  background-color: #152138;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  text-align: center;
+  padding: 2rem 6rem;
+  margin-top: 3rem;
+}
+.footer-col {
+  min-width: 200px;
+  margin-bottom: 1.5rem;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.footer-col .logo {
+  color: orange;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.footer-col p:first-child {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+.footer-col p {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  color: #fff;
+}
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-col a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+/* ---------------------------
+   Estilos del formulario / tarjeta
+   --------------------------- */
+
+:root{
+  --bg: #efefef;
+  --card-bg: #ffffff;
+  --muted: #9aa1a6;
+  --accent: #ff9800;
+  --radius: 14px;
+}
+
+/* Asegura que el fondo y tipografía no se rompan */
+html,body{ height:100%; }
+body{
+  background: var(--bg);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Layout del main de registro */
+.main-register {
+  min-height: calc(100vh - 140px); /* deja espacio para header+footer */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+/* Layout grid: imagen y formulario misma altura */
+.register-layout{
+  width: 100%;
+  max-width: 820px;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 28px;
+  align-items: stretch;
+}
+
+/* Left brand */
+.left-brand{
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* Botón "Volver" consistente con recover-password */
+.left-brand .previous {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.previous-wrapper {
+  align-self: flex-start; /* lo pega a la izquierda de la columna */
+  margin-bottom: 20px;    /* espacio respecto a la imagen */
+}
+.previous:hover {
+  background: #f7f7f7;
+}
+.previous img {
+  width: 60%;
+  height: auto;
+}
+
+/* Marca / logo */
+.brand{
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  gap:8px;
+}
+
+.brand-logo{
+  width: 120px;
+  height: 120px;
+  object-fit:contain;
+  filter: drop-shadow(0 1px 0 rgba(0,0,0,0.03));
+}
+
+.brand-name{
+  font-weight:700;
+  font-size:22px;
+  color: #333;
+}
+
+/* Tarjeta (card) */
+.card.register-card{
+  width:100%;
+  max-width:480px;
+  background: linear-gradient(180deg, var(--card-bg), var(--card-bg));
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow:
+    0 20px 40px rgba(16,24,32,0.12),
+    inset 0 -1px 0 rgba(0,0,0,0.02);
+  display:flex;
+  flex-direction:column;
+  align-items: stretch;
+  justify-self: center;
+}
+
+/* Título */
+.card-title{
+  margin:0 0 18px 0;
+  text-align:center;
+  font-size:22px;
+  font-weight:700;
+  color:#2b2b2b;
+}
+
+/* Form */
+.form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.field-label{
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"]{
+  width:100%;
+  padding:10px 12px;
+  border-radius:8px;
+  border:1px solid rgba(36,41,46,0.08);
+  background: #fff;
+  outline:none;
+  font-size:14px;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset;
+}
+
+input::placeholder{
+  color: #bfc7cb;
+  font-size:13px;
+}
+
+input:focus{
+  border-color: rgba(255,152,0,0.7);
+  box-shadow: 0 6px 18px rgba(255,152,0,0.06);
+}
+
+/* Botón primario */
+.btn{
+  padding:12px 16px;
+  border-radius:10px;
+  border: none;
+  cursor:pointer;
+  font-weight:600;
+  font-size:15px;
+}
+
+.btn.primary{
+  background: linear-gradient(180deg, #ff9f1a, #ff7a00);
+  color:white;
+  box-shadow: 0 6px 18px rgba(255,122,0,0.16);
+  transition: transform .08s ease, box-shadow .08s ease;
+  margin-top:8px;
+}
+
+.btn.primary:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(255,122,0,0.18);
+}
+
+/* utilidad para ocultar visualmente (si mantienes <h1> para accesibilidad) */
+.sr-only{
+  border:0;
+  clip:rect(0 0 0 0);
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height:1px; width:1px;
+  margin:-1px; overflow:hidden; padding:0; position:absolute;
+}
+
+/* ---------------------------
+   Ajustes responsivos (combinados)
+   --------------------------- */
+
+@media (max-width: 1200px) {
+  .register-layout{
+    grid-template-columns: 280px 480px;
+    max-width: 900px;
+  }
+  #menu {
+    padding: 8px 1.5rem;
+  }
+}
+
+@media (max-width: 900px) {
+  footer {
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+
+  .register-layout{
+    grid-template-columns: 1fr;
+    padding: 0 12px;
+    gap: 18px;
+  }
+
+  .brand-logo{
+    width: 96px;
+    height: 96px;
+  }
+  .left-brand{ align-items:center; text-align:center; }
+  .card.register-card{ margin-top: 12px; width: 100%; }
+}
+
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+    text-align: center;
+  }
+  h1 {
+    margin: 1rem 0;
+    font-size: 2rem;
+  }
+  #menu {
+    align-items: center;
+    gap: 1rem;
+  }
+  #menu ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  footer {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 560px) {
+  #menu ul {
+    align-items: center;
+  }
+  footer {
+    margin: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-btn a {
+    padding: 4px 2px;
+  }
+  .logo {
+    padding: 2px 2px;
+  }
+  #menu li {
+    font-size: 0;
+  }
+  h1 {
+    line-height: 2.2rem;
+    font-size: 2rem;
+  }
+  .login-btn a {
+    bottom: 42px;
+    padding: 8px 4px;
+    font-size: 0.9rem;
+  }
+  footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.8rem;
+  }
+}

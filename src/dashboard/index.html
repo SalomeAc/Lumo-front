@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="./dashboard.css">
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <div id="barnav-container"></div>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <div class="app">
+        <aside class="sidebar" id="sidebar" aria-label="Panel lateral de navegación">
+            <a href="/user-profile/" class="user-block-link">
+                <div class="user-block">
+                    <div class="user-info" id="user-info">
+                        <div class="name">Bienvenido, </div>
+                        <div class="name">Usuario</div> <!-- Reemplazar -->
+                        <div class="profile-desc" style="font-size:0.98rem; color:#cbd5e1; margin-top:2px;">Acceder a mi perfil.</div>
+
+                        <div class="last-time" style="margin-top: 1rem;">Última actividad: </div>
+                        <div class="last-time"> dd/mm/yy </div> <!-- Reemplazar -->
+
+                    </div>
+                </div>
+            </a>
+
+            <div class="lists-title">Listas</div>
+            <ul class="lists" id="lists-container">
+                
+            </ul>
+
+
+            <button class="btn" id="create-list-btn">
+                Crear nueva lista
+            </button>
+
+
+
+
+            <div class="footer">© 2025 Lumo</div>
+        </aside>
+
+
+        <main>
+            <div class="topbar">
+                <div class="title">
+                    <h1 id="current-list-title">Selecciona una lista </h1> 
+                    <div id="task-quantity" class="quantity"># tareas</div> <!-- Opcional -->
+                </div>
+                <div class="actions">
+
+
+                    <button class="ghost">Filtrar</button> <!-- Opcional -->
+
+                    <button class="btn" id="new-task-btn" onclick="location.href='/create-task/'">+ Nueva Tarea</button>
+                </div>
+            </div>
+
+            <section class="tasks-grid" id="tasks-container" aria-label="Lista de tareas">
+                <!-- Accesibilidad (heurística)-->
+
+
+
+
+                <article class="task">
+                    <div class="left">
+                        <input type="checkbox" aria-label="Completar tarea">
+                    </div>
+                    <div class="body">
+                        <h3>Título de una tarea </h3> 
+                        <p>Descripción.</p>
+                        
+                        <div class="meta">Creada: 2025-09-01 10:34</div> 
+                    </div>
+                    <div class="task-actions">
+                        <div class="buttons">
+                            <a href="/edit-task/?taskId=${task._id || task.id}" class="edit-btn">✏️</a>
+
+
+                            <button class="delete-btn" id="delete-task">🗑️</button>
+                        </div>
+                        <div class="task-status doing" id="task-status">Haciendo</div> 
+                    </div>
+    </div>
+    </article>
+
+
+
+
+
+    </section>
+    </main>
+    </div>
+
+
+        <script type="module">
+            // Cargar el barnav reutilizable y luego ejecutar su JS
+            fetch('/components/barnav.html')
+                .then(r => r.text())
+                .then(html => {
+                    document.getElementById('barnav-container').innerHTML = html;
+                    // Ejecutar barnav.js manualmente después de insertar el HTML
+                    import('/components/barnav.js');
+                });
+        </script>
+        <script type="module" src="./dashboard.js"></script>
+
+
+</body>
+
+</html>

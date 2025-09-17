@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cerrar sesión</title>
+</head>
+<body>
+  <div id="spinner-overlay" style="position:fixed;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.85);z-index:1000;">
+    <div class="spinner-center" style="display:flex;flex-direction:column;align-items:center;gap:1.5em;">
+      <img src="/spinner.gif" alt="Loading..." class="spinner-img" style="width:60px;height:60px;object-fit:contain;" />
+      <div class="spinner-msg" style="font-size:1.2em;color:#333;text-align:center;">Cerrando sesión...</div>
+    </div>
+  </div>
+  <script type="module" src="logout.js"></script>
+</body>
+</html>
