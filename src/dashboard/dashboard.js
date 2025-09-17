@@ -1,7 +1,3 @@
-/**
- * Dashboard module: handles sidebar, list selection, task rendering, and actions.
- * Initializes UI, fetches lists/tasks, and wires delegated events.
- */
 import { getUserLists } from '../services/listService.js';
 import { getTasks as getTasksByList, deleteTask } from '../services/taskService.js';
 
