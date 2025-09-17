@@ -1,4 +1,4 @@
-import { http } from '../api/http.js';
+import { http } from "../api/http.js";
 
 /**
  * Register a new user in the system.
@@ -26,8 +26,22 @@ import { http } from '../api/http.js';
  *   console.error("Registration failed:", err.message);
  * }
  */
-export async function registerUser({ firstName, lastName, age, email, password, confirmPassword }) {
-	return http.post('/api/users', { firstName, lastName, age, email, password, confirmPassword });
+export async function registerUser({
+  firstName,
+  lastName,
+  age,
+  email,
+  password,
+  confirmPassword,
+}) {
+  return http.post("/api/users", {
+    firstName,
+    lastName,
+    age,
+    email,
+    password,
+    confirmPassword,
+  });
 }
 
 /**
@@ -53,5 +67,44 @@ export async function registerUser({ firstName, lastName, age, email, password, 
  * }
  */
 export async function loginUser({ email, password }) {
-	return http.post('/api/users/login', { email, password });
+  return http.post("/api/users/login", { email, password });
+}
+
+/**
+ * Fetches the authenticated user's profile data.
+ * @param {string} token - JWT token for authorization
+ * @returns {Promise<Object>}
+ */
+export async function getUserProfile({ token }) {
+  return http.get("/api/users/user-profile", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+/**
+ * Updates the authenticated user's profile data.
+ * @param {string} token - JWT token for authorization
+ * @returns {Promise<Object>}
+ */
+export async function updateUserProfile(body, token) {
+  return http.put("/api/users/update-profile", body, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+/**
+ * Deletes the authenticated user's profile data.
+ * @param {string} token - JWT token for authorization
+ * @returns {Promise<Object>}
+ */
+export async function deleteUserProfile({ token }) {
+  return http.del("/api/users/delete-user", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 }

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Perfil | Lumo</title>
+        <link rel="stylesheet" href="./user-profile.css" />
+        <link rel="stylesheet" href="/index.css" />
+        <script type="module" src="./user-profile.js"></script>
+    </head>
+    <body>
+        <!-- Aquí se insertará dinámicamente el header -->
+        <div id="barnav-container"></div>
+
+        <div class="profile-container">
+            <aside class="profile-sidebar">
+                <!-- Puedes agregar navegación lateral aquí si lo necesitas -->
+                <div class="footer">© 2025 Lumo</div>
+            </aside>
+
+            <main class="profile-main">
+                <h1 class="profile-title">
+                    <a
+                        class="inline-back"
+                        href="#"
+                        onclick="history.back(); return false;"
+                        aria-label="Volver"
+                    >
+                        <img src="/previous_black.png" alt="Volver" />
+                    </a>
+                    Configuración de mi perfil
+                </h1>
+
+                <div class="profile-content">
+                    <section class="profile-details">
+                        <h2>Detalles del perfil</h2>
+                        <div class="profile-info">
+                            <div id="nombreUsuario">
+                                <strong>Nombre completo:</strong><br />
+                            </div>
+                            <div id="edadUsuario">
+                                <strong>Edad:</strong><br />
+                            </div>
+                            <div id="correoUsuario">
+                                <strong>Correo:</strong><br />
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="profile-actions">
+                            <a href="/edit-profile/" class="profile-link">
+                                Cambie su información de perfil o contraseña
+                            </a>
+                            <a href="#" class="profile-link danger">
+                                Eliminar mi perfil
+                            </a>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+
+        <!-- Script para cargar el header dinámico y sus estilos -->
+
+        <script type="module">
+            // Cargar el barnav reutilizable y luego ejecutar su JS y CSS
+            fetch("/components/barnav.html")
+                .then((r) => r.text())
+                .then((html) => {
+                    document.getElementById("barnav-container").innerHTML =
+                        html;
+                    // Cargar barnav.css dinámicamente si no está ya cargado
+                    if (!document.getElementById("barnav-css")) {
+                        const link = document.createElement("link");
+                        link.rel = "stylesheet";
+                        link.href = "/components/barnav.css";
+                        link.id = "barnav-css";
+                        document.head.appendChild(link);
+                    }
+                    // Ejecutar barnav.js manualmente después de insertar el HTML
+                    import("/components/barnav.js");
+                });
+        </script>
+        <script type="module" src="./user-profile.js"></script>
+    </body>
+</html>
