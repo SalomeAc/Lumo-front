@@ -1,7 +1,7 @@
 // Bloquear acceso si ya está logeado
-if (localStorage.getItem('token')) {
-  alert('Ya tienes una sesión activa. Cierra sesión para acceder al login.');
-  window.location.href = '/dashboard/';
+if (localStorage.getItem("token")) {
+  alert("Ya tienes una sesión activa. Cierra sesión para acceder al login.");
+  window.location.href = "/dashboard/";
 }
 import { loginUser } from "../services/userServices.js";
 
@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (data && data.token) {
         localStorage.setItem("token", data.token);
       }
+      
       // Forzar overlay visible y centrado
       let overlay = document.getElementById("spinner-overlay");
       if (overlay) {
@@ -49,21 +50,23 @@ document.addEventListener("DOMContentLoaded", () => {
         overlay.style.justifyContent = "center";
         overlay.style.background = "rgba(255,255,255,0.85)";
         overlay.style.zIndex = 1000;
-        const spinnerImg = overlay.querySelector('.spinner-img');
+        const spinnerImg = overlay.querySelector(".spinner-img");
         if (spinnerImg) {
-          spinnerImg.style.width = '60px';
-          spinnerImg.style.height = '60px';
-          spinnerImg.style.objectFit = 'contain';
+          spinnerImg.style.width = "60px";
+          spinnerImg.style.height = "60px";
+          spinnerImg.style.objectFit = "contain";
         }
-        const spinnerMsg = overlay.querySelector('.spinner-msg');
+        const spinnerMsg = overlay.querySelector(".spinner-msg");
         if (spinnerMsg) {
-          spinnerMsg.style.fontSize = '1.2em';
-          spinnerMsg.style.color = '#333';
-          spinnerMsg.style.textAlign = 'center';
-          spinnerMsg.textContent = '¡Login exitoso! Redirigiendo...';
+          spinnerMsg.style.fontSize = "1.2em";
+          spinnerMsg.style.color = "#333";
+          spinnerMsg.style.textAlign = "center";
+          spinnerMsg.textContent = "¡Login exitoso! Redirigiendo...";
         }
       }
-  setTimeout(() => { window.location.href = '/dashboard/'; }, 500);
+      setTimeout(() => {
+        window.location.href = "/dashboard/";
+      }, 500);
     } catch (err) {
       hideSpinner();
       showMessage(err.message || "No se pudo conectar al servidor.", "error");
