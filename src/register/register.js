@@ -1,3 +1,8 @@
+// Bloquear acceso si ya está logeado
+if (localStorage.getItem('token')) {
+  alert('Ya tienes una sesión activa. Cierra sesión para registrarte con otra cuenta.');
+  window.location.href = '/dashboard/';
+}
 import { registerUser } from "../services/userServices.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -69,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
       showSpinner("¡Registrado exitosamente! Redirigiendo...");
       setTimeout(() => {
         window.location.href = "/login/";
-      }, 200);
+      }, 500);
     } catch (err) {
       hideSpinner();
       showMessage(err.message || "No se pudo conectar al servidor.", "error");
