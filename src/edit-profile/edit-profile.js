@@ -1,7 +1,31 @@
-import { updateUserProfile } from "../services/userServices.js"; // ajusta la ruta según tu proyecto
+import { updateUserProfile, getUserProfile } from "../services/userServices.js"; 
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const form = document.querySelector(".update-form");
+
+try {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const user = await getUserProfile({ token });
+
+      const headerNameEl = document.querySelector(".header-name");
+      const headerEmailEl = document.querySelector(".header-email");
+      if (headerNameEl) headerNameEl.textContent = `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim();
+      if (headerEmailEl) headerEmailEl.textContent = user.email ?? "";
+
+      const nombreInput = document.getElementById("nombre");
+      const apellidosInput = document.getElementById("apellidos");
+      const edadInput = document.getElementById("edad");
+      const correoInput = document.getElementById("correo");
+
+      if (nombreInput) nombreInput.value = user.firstName ?? "";
+      if (apellidosInput) apellidosInput.value = user.lastName ?? "";
+      if (edadInput) edadInput.value = user.age ?? "";
+      if (correoInput) correoInput.value = user.email ?? "";
+    }
+  } catch (err) {
+    console.error("Error cargando datos del usuario (precarga header/inputs):", err);
+  }
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -30,5 +54,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-
-
