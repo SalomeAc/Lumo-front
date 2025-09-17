@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Cambiar contraseña | Lumo</title>
         <link rel="stylesheet" href="security.css" />
+        <link rel="stylesheet" href="/index.css" />
         <script type="module" src="./security.js"></script>
     </head>
     <body>
@@ -19,7 +20,9 @@
             <div class="update-content">
                 <header class="update-header">
                     <div class="inline-back">
-                        <a href="/user-profile/"><img src="/previous_black.png" alt="Volver" /></a>
+                        <a href="/user-profile/"
+                            ><img src="/previous_black.png" alt="Volver"
+                        /></a>
                     </div>
                     <h2>Cambie su información de perfil o contraseña</h2>
                     <div class="header-info">
@@ -34,7 +37,9 @@
                 <main class="password-main">
                     <form class="update-form">
                         <div class="form-group">
-                            <label for="nueva">Ingrese la nueva contraseña</label>
+                            <label for="nueva"
+                                >Ingrese la nueva contraseña</label
+                            >
                             <input
                                 type="password"
                                 id="nueva"
@@ -42,7 +47,9 @@
                             />
                         </div>
                         <div class="form-group">
-                            <label for="confirmar">Confirme la nueva contraseña</label>
+                            <label for="confirmar"
+                                >Confirme la nueva contraseña</label
+                            >
                             <input
                                 type="password"
                                 id="confirmar"
@@ -61,22 +68,23 @@
         </div>
         <!-- Script para cargar el header dinámico y sus estilos -->
         <script type="module">
-          // Cargar el barnav reutilizable y luego ejecutar su JS y CSS
-          fetch('/components/barnav.html')
-            .then(r => r.text())
-            .then(html => {
-              document.getElementById('barnav-container').innerHTML = html;
-              // Cargar barnav.css dinámicamente si no está ya cargado
-              if (!document.getElementById('barnav-css')) {
-                const link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.href = '/components/barnav.css';
-                link.id = 'barnav-css';
-                document.head.appendChild(link);
-              }
-              // Ejecutar barnav.js manualmente después de insertar el HTML
-              import('/components/barnav.js');
-            });
+            // Cargar el barnav reutilizable y luego ejecutar su JS y CSS
+            fetch("/components/barnav.html")
+                .then((r) => r.text())
+                .then((html) => {
+                    document.getElementById("barnav-container").innerHTML =
+                        html;
+                    // Cargar barnav.css dinámicamente si no está ya cargado
+                    if (!document.getElementById("barnav-css")) {
+                        const link = document.createElement("link");
+                        link.rel = "stylesheet";
+                        link.href = "/components/barnav.css";
+                        link.id = "barnav-css";
+                        document.head.appendChild(link);
+                    }
+                    // Ejecutar barnav.js manualmente después de insertar el HTML
+                    import("/components/barnav.js");
+                });
         </script>
     </body>
 </html>
