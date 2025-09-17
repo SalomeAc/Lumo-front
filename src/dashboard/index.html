@@ -3,14 +3,12 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/index.css">
     <link rel="stylesheet" href="./dashboard.css">
     <meta charset="UTF-8">
     <title>Dashboard</title>
 </head>
 
 <body>
-    <div id="barnav-container"></div>
     <button class="menu-toggle" id="menuToggle">☰</button>
     <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
     <div class="app">
@@ -18,11 +16,11 @@
             <a href="/user-profile/" class="user-block-link">
                 <div class="user-block">
                     <div class="user-info" id="user-info">
-                        <div class="name">Bienvenido, </div>
-                        <div class="name">Usuario</div> <!-- Reemplazar -->
+                        <div class="name">Bienvenido/a, </div>
+                        <div class="name">Usuario</div> 
 
                         <div class="last-time" style="margin-top: 1rem;">Última actividad: </div>
-                        <div class="last-time"> dd/mm/yy </div> <!-- Reemplazar -->
+                        <div class="last-time"> dd/mm/yy </div> 
 
                     </div>
                 </div>
@@ -96,18 +94,7 @@
     </main>
     </div>
 
-
-        <script type="module">
-            // Cargar el barnav reutilizable y luego ejecutar su JS
-            fetch('/components/barnav.html')
-                .then(r => r.text())
-                .then(html => {
-                    document.getElementById('barnav-container').innerHTML = html;
-                    // Ejecutar barnav.js manualmente después de insertar el HTML
-                    import('/components/barnav.js');
-                });
-        </script>
-        <script type="module" src="./dashboard.js"></script>
+    <script type="module" src="./dashboard.js"></script>
 
 
 </body>

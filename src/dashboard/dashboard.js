@@ -1,6 +1,6 @@
 import { getUserLists } from '../services/listService.js';
 import { getTasks as getTasksByList, deleteTask } from '../services/taskService.js';
-
+import { getUserProfile } from '../services/userServices.js'; 
 
 /* --------- Sidebar toggle --------- */
 /**
@@ -56,6 +56,8 @@ const tasksContainer = document.getElementById('tasks-container');
 const createListBtn = document.getElementById('create-list-btn');
 /** @type {HTMLButtonElement|null} */
 const newTaskBtn = document.getElementById('new-task-btn');
+const userInfo = document.getElementById('user-info');
+
 
 /* ----------------- Helpers ----------------- */
 /**
@@ -278,6 +280,35 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
+    try {
+      const user = await getUserProfile({ token });
+
+      if (userInfo) {
+        const nameEls = userInfo.querySelectorAll('.name');
+        const lastEls = userInfo.querySelectorAll('.last-time');
+
+        if (nameEls[1]) {
+          nameEls[1].textContent = `${user.firstName} ${user.lastName}`;
+        }
+
+        if (lastEls[1]) {
+          const now = new Date();
+          const formatted = now.toLocaleDateString("es-ES", {
+            day: "2-digit", month: "2-digit", year: "2-digit",
+            hour: "2-digit", minute: "2-digit"
+          });
+          lastEls[1].textContent = formatted;
+        }
+
+      }
+    } catch (err) {
+      console.error("Error cargando perfil:", err);
+      if (userInfo) {
+        const nameEls = userInfo.querySelectorAll('.name');
+        if (nameEls[1]) nameEls[1].textContent = "Usuario desconocido";
+      }
+    }
+
     let lists = [];
     try {
       lists = await getUserLists(token);
@@ -317,6 +348,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   } catch (err) {
     console.error('Error en init dashboard:', err);
   }
+
+
 });
 
 /**
