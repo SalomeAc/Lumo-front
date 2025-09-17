@@ -1,7 +1,8 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', Arial, sans-serif;
-  background: #0e232f;
+  background: #0E2A36;
+  font-size: 0.95rem;
 }
 
 .profile-container {
@@ -10,8 +11,20 @@ body {
 }
 
 .profile-sidebar {
-  width: 200px;
+  width: 250px;
   background: #10212b;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.footer {
+    flex-direction: column;
+    font-size: 0.85rem;
+    color: #93a2ad;
+    text-align: center;
+    margin-top: auto;
 }
 
 .profile-main {
@@ -21,12 +34,27 @@ body {
   min-height: 100vh;
 }
 
-.profile-main h1 {
-  text-align: center;
+.profile-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
   font-size: 1.6rem;
   font-weight: 600;
   margin-bottom: 24px;
   color: #222;
+}
+
+.inline-back img {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.inline-back img:hover {
+  opacity: 1;
 }
 
 .profile-content {
@@ -46,10 +74,11 @@ body {
   max-width: 350px;
   display: flex;
   flex-direction: column;
+  font-size: 0.97rem;
 }
 
 .profile-details h2 {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: bold;
   margin-bottom: 18px;
   color: #222;
@@ -58,7 +87,7 @@ body {
 .profile-info > div {
   margin-bottom: 18px;
   color: #222;
-  font-size: 1rem;
+  font-size: 0.97rem;
 }
 
 .profile-password {
@@ -146,10 +175,24 @@ body {
     align-items: center;
     gap: 32px;
   }
+
   .profile-sidebar {
     display: none;
   }
+
   .profile-main {
     padding: 16px 0 0 0;
   }
+
+  .profile-title {
+    font-size: 1.4rem;
+    gap: 8px;
+  }
+
+  .inline-back img {
+    width: 20px;
+    height: 20px;
+  }
+
+  
 }
