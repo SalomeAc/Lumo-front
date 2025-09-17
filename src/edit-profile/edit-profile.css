@@ -5,6 +5,12 @@ body {
   background: #0e232f;
 }
 
+#barnav-container {
+  /* Asegura que el header se vea igual que en user-profile */
+  width: 100%;
+  z-index: 10;
+}
+
 .update-container {
   display: flex;
   min-height: 100vh;
@@ -12,8 +18,19 @@ body {
 }
 
 .update-sidebar {
-  width: 280px;
+  width: 250px;
   background: #0e232f;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.footer {
+  font-size: 0.85rem;
+  color: #93a2ad;
+  text-align: center;
+  margin-bottom: 18px;
 }
 
 
@@ -30,7 +47,23 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+  position: relative;
+}
+
+.inline-back {
+  position: absolute;
+  left: 24px;
+  top: 32px;
+}
+.inline-back img {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+.inline-back img:hover {
+  opacity: 1;
 }
 
 .update-header h2 {

@@ -8,59 +8,75 @@
         <script type="module" src="./security.js"></script>
     </head>
     <body>
+        <!-- Header barnav -->
+        <div id="barnav-container"></div>
         <div class="update-container">
-            <!-- 🟦 Columna azul vacía -->
-            <aside class="update-sidebar"></aside>
-
-            <!-- 🧱 Contenido principal -->
+            <!-- Sidebar azul y footer -->
+            <aside class="update-sidebar">
+                <div class="footer">©2025 Lumo</div>
+            </aside>
+            <!-- Contenido principal -->
             <div class="update-content">
                 <header class="update-header">
+                    <div class="inline-back">
+                        <a href="/user-profile/"><img src="/previous_black.png" alt="Volver" /></a>
+                    </div>
                     <h2>Cambie su información de perfil o contraseña</h2>
                     <div class="header-info">
-                        <p class="header-name"> </p>
-                        <p class="header-email"> </p>
+                        <p class="header-name">Nombre completo</p>
+                        <p class="header-email">example@domain.com</p>
                     </div>
                 </header>
-
                 <nav class="tab-navigation">
                     <a href="/edit-profile/" class="tab">Perfil</a>
                     <a href="/password/" class="tab active">Seguridad</a>
                 </nav>
-
                 <main class="password-main">
                     <form class="update-form">
                         <div class="form-group">
-                            <label for="nueva"
-                                >Ingrese la nueva contraseña</label
-                            >
+                            <label for="nueva">Ingrese la nueva contraseña</label>
                             <input
                                 type="password"
                                 id="nueva"
                                 placeholder="Nueva contraseña"
                             />
                         </div>
-
                         <div class="form-group">
-                            <label for="confirmar"
-                                >Confirme la nueva contraseña</label
-                            >
+                            <label for="confirmar">Confirme la nueva contraseña</label>
                             <input
                                 type="password"
                                 id="confirmar"
                                 placeholder="Confirmar nueva contraseña"
                             />
                         </div>
-
                         <button type="submit" class="update-btn">
                             Actualizar
                         </button>
                     </form>
-
                     <div class="password-illustration">
                         <img src="/help-lumo.png" alt="Lumo con llave roja" />
                     </div>
                 </main>
             </div>
         </div>
+        <!-- Script para cargar el header dinámico y sus estilos -->
+        <script type="module">
+          // Cargar el barnav reutilizable y luego ejecutar su JS y CSS
+          fetch('/components/barnav.html')
+            .then(r => r.text())
+            .then(html => {
+              document.getElementById('barnav-container').innerHTML = html;
+              // Cargar barnav.css dinámicamente si no está ya cargado
+              if (!document.getElementById('barnav-css')) {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = '/components/barnav.css';
+                link.id = 'barnav-css';
+                document.head.appendChild(link);
+              }
+              // Ejecutar barnav.js manualmente después de insertar el HTML
+              import('/components/barnav.js');
+            });
+        </script>
     </body>
 </html>
