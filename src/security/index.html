@@ -4,13 +4,21 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Cambiar contraseña | Lumo</title>
-        <link rel="stylesheet" href="security.css" />
-        <link rel="stylesheet" href="/index.css" />
+        <link rel="stylesheet" href="./security.css" />
         <script type="module" src="./security.js"></script>
     </head>
     <body>
         <!-- Header barnav -->
         <div id="barnav-container"></div>
+        <script type="module">
+            fetch("/components/barnav.html")
+                .then((r) => r.text())
+                .then((html) => {
+                    document.getElementById("barnav-container").innerHTML =
+                        html;
+                    import("/components/barnav.js");
+                });
+        </script>
         <div class="update-container">
             <!-- Sidebar azul y footer -->
             <aside class="update-sidebar">

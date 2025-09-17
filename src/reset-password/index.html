@@ -1,107 +1,135 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/reset-password/index.css" />
-    <title>Restablecer contraseña</title>
-  </head>
-  <body>
-    <header>
-      <nav id="menu">
-        <div class="logo">
-          <a href="/">Lumo</a>
-        </div>
-        <ul class="links">
-          <li><a href="/">Inicio</a></li>
-          <li><a href="/about/">Sobre nosotros</a></li>
-          <li><a href="/contact/">Contáctanos</a></li>
-        </ul>
-        <div class="login-btn">
-          <a href="/login/" role="button">Iniciar sesión</a>
-        </div>
-      </nav>
-    </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./index.css" />
+        <title>Restablecer contraseña</title>
+    </head>
+    <body>
+        <div id="barnav-container"></div>
+        <script type="module">
+            fetch("/components/barnav.html")
+                .then((r) => r.text())
+                .then((html) => {
+                    document.getElementById("barnav-container").innerHTML =
+                        html;
+                    import("/components/barnav.js");
+                });
+        </script>
+        <header>
+            <nav id="menu">
+                <div class="logo">
+                    <a href="/">Lumo</a>
+                </div>
+                <ul class="links">
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="/about/">Sobre nosotros</a></li>
+                    <li><a href="/contact/">Contáctanos</a></li>
+                </ul>
+                <div class="login-btn">
+                    <a href="/login/" role="button">Iniciar sesión</a>
+                </div>
+            </nav>
+        </header>
 
-    <main class="main-reset">
-      <div class="reset-layout">
-        <aside class="left-brand">
-          <div class="previous-wrapper">
-            <a href="/login/" class="previous" aria-label="Volver">
-              <img src="/previous_black.png" alt="Volver" />
-            </a>
-          </div>
+        <main class="main-reset">
+            <div class="reset-layout">
+                <aside class="left-brand">
+                    <div class="previous-wrapper">
+                        <a href="/login/" class="previous" aria-label="Volver">
+                            <img src="/previous_black.png" alt="Volver" />
+                        </a>
+                    </div>
 
-          <div class="brand brand-img-only">
-            <img src="/Lumo1.png" alt="Lumo" class="brand-img-responsive" />
-          </div>
-        </aside>
+                    <div class="brand brand-img-only">
+                        <img
+                            src="/Lumo1.png"
+                            alt="Lumo"
+                            class="brand-img-responsive"
+                        />
+                    </div>
+                </aside>
 
-        <section class="card reset-card" aria-labelledby="reset-title">
-          <h2 id="reset-title" class="card-title">Restablecer contraseña</h2>
-          <p class="card-subtitle">
-            Ingresa tu nueva contraseña y confírmala para completar el proceso.
-          </p>
+                <section class="card reset-card" aria-labelledby="reset-title">
+                    <h2 id="reset-title" class="card-title">
+                        Restablecer contraseña
+                    </h2>
+                    <p class="card-subtitle">
+                        Ingresa tu nueva contraseña y confírmala para completar
+                        el proceso.
+                    </p>
 
-          <div id="reset-message" aria-live="polite"></div>
+                    <div id="reset-message" aria-live="polite"></div>
 
-          <form id="resetForm" class="form" novalidate>
-            <label class="field" for="password">
-              <span class="field-label">Nueva contraseña</span>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                autocomplete="new-password"
-                placeholder="••••••••"
-              />
-              <span class="input-desc">Mínimo 8 caracteres, combina mayúsculas, minúsculas, número y símbolo.</span>
-            </label>
+                    <form id="resetForm" class="form" novalidate>
+                        <label class="field" for="password">
+                            <span class="field-label">Nueva contraseña</span>
+                            <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                required
+                                autocomplete="new-password"
+                                placeholder="••••••••"
+                            />
+                            <span class="input-desc"
+                                >Mínimo 8 caracteres, combina mayúsculas,
+                                minúsculas, número y símbolo.</span
+                            >
+                        </label>
 
-            <label class="field" for="confirmPassword">
-              <span class="field-label">Confirmar contraseña</span>
-              <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                required
-                autocomplete="new-password"
-                placeholder="••••••••"
-              />
-              <span class="input-desc">Debe coincidir con la nueva contraseña.</span>
-            </label>
+                        <label class="field" for="confirmPassword">
+                            <span class="field-label"
+                                >Confirmar contraseña</span
+                            >
+                            <input
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                type="password"
+                                required
+                                autocomplete="new-password"
+                                placeholder="••••••••"
+                            />
+                            <span class="input-desc"
+                                >Debe coincidir con la nueva contraseña.</span
+                            >
+                        </label>
 
-            <button type="submit" class="btn primary" id="reset-submit">
-              Guardar nueva contraseña
-            </button>
-          </form>
-        </section>
-      </div>
-    </main>
+                        <button
+                            type="submit"
+                            class="btn primary"
+                            id="reset-submit"
+                        >
+                            Guardar nueva contraseña
+                        </button>
+                    </form>
+                </section>
+            </div>
+        </main>
 
-    <footer>
-      <div class="footer-col">
-        <div class="logo">Lumo</div>
-        <p>© 2025 JSquad</p>
-        <p>Todos los derechos reservados</p>
-      </div>
-      <div class="footer-col">
-        <p>Creado por JSquad</p>
-        <ul>
-          <li><a href="/about/">Sobre nosotros</a></li>
-          <li><a href="/blog.html">Blog</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <p>Soporte</p>
-        <ul>
-          <li><a href="/contact/">Contáctanos</a></li>
-          <li><a href="/service-terms">Términos de servicio</a></li>
-          <li><a href="/policies">Políticas de privacidad</a></li>
-        </ul>
-      </div>
-    </footer>
-    <script src="./reset.js"></script>
-  </body>
+        <footer>
+            <div class="footer-col">
+                <div class="logo">Lumo</div>
+                <p>© 2025 JSquad</p>
+                <p>Todos los derechos reservados</p>
+            </div>
+            <div class="footer-col">
+                <p>Creado por JSquad</p>
+                <ul>
+                    <li><a href="/about/">Sobre nosotros</a></li>
+                    <li><a href="/blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <p>Soporte</p>
+                <ul>
+                    <li><a href="/contact/">Contáctanos</a></li>
+                    <li><a href="/service-terms">Términos de servicio</a></li>
+                    <li><a href="/policies">Políticas de privacidad</a></li>
+                </ul>
+            </div>
+        </footer>
+        <script src="./reset.js"></script>
+    </body>
 </html>

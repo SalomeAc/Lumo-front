@@ -5,13 +5,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Perfil | Lumo</title>
         <link rel="stylesheet" href="./user-profile.css" />
-        <link rel="stylesheet" href="/index.css" />
         <script type="module" src="./user-profile.js"></script>
     </head>
     <body>
-        <!-- Aquí se insertará dinámicamente el header -->
         <div id="barnav-container"></div>
-
+        <script type="module">
+            fetch("/components/barnav.html")
+                .then((r) => r.text())
+                .then((html) => {
+                    document.getElementById("barnav-container").innerHTML =
+                        html;
+                    import("/components/barnav.js");
+                });
+        </script>
         <div class="profile-container">
             <aside class="profile-sidebar">
                 <!-- Puedes agregar navegación lateral aquí si lo necesitas -->
