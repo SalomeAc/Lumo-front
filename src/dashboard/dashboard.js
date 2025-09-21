@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       console.error("Error cargando perfil:", err);
       if (userInfo) {
         const nameEls = userInfo.querySelectorAll('.name');
-        if (nameEls[1]) nameEls[1].textContent = "Usuario desconocido";
+        if (nameEls[1]) nameEls[1].textContent = "Usuario";
       }
     }
 
