@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (validateEmail(email)) {
       // Llamar al backend para recuperar contraseña
-      fetch("http://localhost:8080/api/users/recover-password", {
+      fetch("https://lumo-back-1.onrender.com/api/users/forgot-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
