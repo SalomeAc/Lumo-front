@@ -4,16 +4,16 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Sobre Nosotros | Lumo</title>
-        <link rel="stylesheet" href="/about/about.css" />
+        <link rel="stylesheet" href="./about.css" />
         <link rel="stylesheet" href="../components/barnav.css" />
     </head>
         <div id="barnav-container"></div>
         <script type="module">
-          fetch('/components/barnav.html')
+          fetch('../components/barnav.html')
             .then(r => r.text())
             .then(html => {
               document.getElementById('barnav-container').innerHTML = html;
-              import('/components/barnav.js');
+              import('../components/barnav.js');
             });
         </script>
         </header>
