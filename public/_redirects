@@ -1,0 +1,14 @@
+/dashboard/* /dashboard/index.html 200
+/user-profile/* /user-profile/index.html 200  
+/security/* /security/index.html 200
+/edit-profile/* /edit-profile/index.html 200
+/about/* /about/index.html 200
+/contact/* /contact/index.html 200
+/login/* /login/index.html 200
+/register/* /register/index.html 200
+/reset-password/* /reset-password/index.html 200
+/create-task/* /create-task/index.html 200
+/create-list/* /create-list/index.html 200
+/recover-password/* /recover-password/index.html 200
+/components/* /components/:splat 200
+/* /index.html 200

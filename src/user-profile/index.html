@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Perfil | Lumo</title>
         <link rel="stylesheet" href="./user-profile.css" />
+        <link rel="stylesheet" href="/components/barnav.css" />
         <script type="module" src="./user-profile.js"></script>
         <link rel="stylesheet" href="/components/barnav.css">
 
@@ -67,27 +68,6 @@
             </main>
         </div>
 
-        <!-- Script para cargar el header dinámico y sus estilos -->
-
-        <script type="module">
-            // Cargar el barnav reutilizable y luego ejecutar su JS y CSS
-            fetch("/components/barnav.html")
-                .then((r) => r.text())
-                .then((html) => {
-                    document.getElementById("barnav-container").innerHTML =
-                        html;
-                    // Cargar barnav.css dinámicamente si no está ya cargado
-                    if (!document.getElementById("barnav-css")) {
-                        const link = document.createElement("link");
-                        link.rel = "stylesheet";
-                        link.href = "/components/barnav.css";
-                        link.id = "barnav-css";
-                        document.head.appendChild(link);
-                    }
-                    // Ejecutar barnav.js manualmente después de insertar el HTML
-                    import("/components/barnav.js");
-                });
-        </script>
         <script type="module" src="./user-profile.js"></script>
     </body>
 </html>

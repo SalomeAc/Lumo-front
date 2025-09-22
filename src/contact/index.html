@@ -5,17 +5,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/svg+xml" href="/vite.svg" />
         <link rel="stylesheet" href="./contact.css" />
+        <link rel="stylesheet" href="../components/barnav.css" />
         <title>Contact — Lumo</title>
     </head>
     <body>
         <div id="barnav-container"></div>
         <script type="module">
-            fetch("/components/barnav.html")
+            fetch("../components/barnav.html")
                 .then((r) => r.text())
                 .then((html) => {
                     document.getElementById("barnav-container").innerHTML =
                         html;
-                    import("/components/barnav.js");
+                    import("../components/barnav.js");
                 });
         </script>
 
