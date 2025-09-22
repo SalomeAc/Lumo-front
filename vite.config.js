@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
-import { copyFileSync, mkdirSync } from "fs";
 
 const ROOT = resolve(__dirname, "src");
 const PUBLIC_DIR = resolve(__dirname, "public");
@@ -29,31 +28,5 @@ export default defineConfig({
         register: resolve(ROOT, "register", "index.html"),
       },
     },
-    copyPublicDir: true,
   },
-  assetsInclude: ['**/*.html'],
-  plugins: [
-    {
-      name: 'copy-components',
-      writeBundle() {
-        try {
-          mkdirSync(resolve(OUT_DIR, 'components'), { recursive: true });
-          copyFileSync(
-            resolve(ROOT, 'components', 'barnav.html'),
-            resolve(OUT_DIR, 'components', 'barnav.html')
-          );
-          copyFileSync(
-            resolve(ROOT, 'components', 'barnav.css'),
-            resolve(OUT_DIR, 'components', 'barnav.css')
-          );
-          copyFileSync(
-            resolve(ROOT, 'components', 'barnav.js'),
-            resolve(OUT_DIR, 'components', 'barnav.js')
-          );
-        } catch (error) {
-          console.warn('Error copying components:', error);
-        }
-      }
-    }
-  ]
 });
