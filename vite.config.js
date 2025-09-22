@@ -24,6 +24,8 @@ export default defineConfig({
         "edit-profile": resolve(ROOT, "edit-profile", "index.html"),
         security: resolve(ROOT, "security", "index.html"),
         contact: resolve(ROOT, "contact", "index.html"),
+        login: resolve(ROOT, "login", "index.html"),
+        register: resolve(ROOT, "register", "index.html"),
       },
     },
   },
