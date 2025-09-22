@@ -122,6 +122,49 @@ aside.sidebar {
     font-size: 1.5rem;
 }
 
+/* Three-dots menu for lists */
+.lists .list-actions { position: relative; margin-left: auto; }
+.lists .list-menu-btn {
+    background: transparent;
+    border: none;
+    color: #cbd5e1;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 6px;
+    font-size: 18px;
+    line-height: 1;
+}
+.lists .list-menu-btn:hover { background: rgba(255,255,255,0.06); color: #fff; }
+.lists .list-menu-btn:focus-visible { outline: none; box-shadow: 0 0 0 2px rgba(12,203,149,0.35); }
+
+.lists .list-menu {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    min-width: 140px;
+    background: #071c24;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 6px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+    display: none;
+    z-index: 5;
+}
+.lists .list-actions.open .list-menu { display: block; }
+.lists .list-menu-item {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    color: #e5e7eb;
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.lists .list-menu-item:hover { background: rgba(255,255,255,0.06); }
+.lists .list-menu-item.delete:hover { background: rgba(220,38,38,0.12); color: #fecaca; }
+
 .kanban-statuses,
 .lists {
     list-style: none;

@@ -1,4 +1,4 @@
-import { getUserLists } from '../services/listService.js';
+import { getUserLists, deleteList as apiDeleteList } from '../services/listService.js';
 import { getTasks as getTasksByList, deleteTask, getKanbanTasks } from '../services/taskService.js';
 import { getUserProfile } from '../services/userServices.js';
 
@@ -109,6 +109,12 @@ function renderLists(lists) {
       <a href="#" class="list-link" data-list-id="${id}" data-list-title="${title}">
         <span class="list-name">${title}</span>
       </a>
+      <div class="list-actions">
+        <button class="list-menu-btn" aria-haspopup="true" aria-expanded="false" aria-label="Abrir menú">⋯</button>
+        <div class="list-menu" role="menu">
+          <button class="list-menu-item delete" role="menuitem" data-list-id="${id}">Borrar</button>
+        </div>
+      </div>
     `;
     fragment.appendChild(li);
   });
@@ -298,7 +304,75 @@ function setupListClickDelegation() {
   if (!listsContainer) return;
 
   listsContainer.addEventListener('click', (e) => {
-    const a = e.target.closest('.list-link');
+    // Close any open menus if clicking outside of actions
+    const insideActions = e.target.closest('.list-actions');
+    if (!insideActions) {
+      listsContainer.querySelectorAll('.list-actions.open').forEach(act => {
+        act.classList.remove('open');
+        const btn = act.querySelector('.list-menu-btn');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    // Open/close menu
+    const menuBtn = e.target.closest('.list-menu-btn');
+    if (menuBtn) {
+      e.preventDefault();
+      const actions = menuBtn.closest('.list-actions');
+      if (!actions) return;
+      // close others
+      listsContainer.querySelectorAll('.list-actions.open').forEach(act => {
+        if (act !== actions) {
+          act.classList.remove('open');
+          const b = act.querySelector('.list-menu-btn');
+          if (b) b.setAttribute('aria-expanded', 'false');
+        }
+      });
+      const isOpen = actions.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+      return;
+    }
+
+    // Delete from menu item
+    const delItem = e.target.closest('.list-menu-item.delete');
+    if (delItem) {
+      e.preventDefault();
+      const listId = delItem.dataset.listId;
+      if (!listId) return;
+      if (!confirm('¿Seguro que deseas eliminar esta lista?\nSe eliminarán también sus tareas.')) return;
+      const token = localStorage.getItem('token');
+      if (!token) return alert('Sesión inválida. Inicia sesión.');
+      (async () => {
+        try {
+          await apiDeleteList(token, listId);
+          showToast('Lista eliminada', 'success');
+          // If deleted current, clear
+          const current = localStorage.getItem('currentListId');
+          if (current === listId) {
+            localStorage.removeItem('currentListId');
+            localStorage.removeItem('currentListTitle');
+            if (currentListTitle) currentListTitle.textContent = 'Selecciona una lista';
+            clearChildren(tasksContainer);
+          }
+          // Refresh lists and select first if any
+          const refreshed = await getUserLists(token);
+          renderLists(refreshed);
+          if (refreshed && refreshed.length) {
+            const first = refreshed[0];
+            await selectList(first._id || first.id, first.title || first.name || 'Sin título', { loadTasks: true });
+          } else {
+            if (currentListTitle) currentListTitle.textContent = 'No hay listas';
+            if (tasksContainer) clearChildren(tasksContainer);
+          }
+        } catch (err) {
+          console.error('Error eliminando lista:', err);
+          showToast('Error eliminando lista', 'error');
+        }
+      })();
+      return;
+    }
+
+  const a = e.target.closest('.list-link');
     if (!a) return;
     e.preventDefault();
     const id = a.dataset.listId;
