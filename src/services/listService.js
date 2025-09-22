@@ -53,3 +53,31 @@ export async function createList(title, token) {
     throw error;
   }
 }
+
+/**
+ * Delete a list by its identifier.
+ * @param {string} token - JWT token for authentication.
+ * @param {string} listId - The list identifier to delete.
+ * @returns {Promise<Object>} API response JSON.
+ */
+export async function deleteList(token, listId) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/${listId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      const text = await response.text();
+      console.error('Error deleting list:', text);
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error deleting list:', error);
+    throw error;
+  }
+}
