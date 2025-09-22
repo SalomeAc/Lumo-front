@@ -138,10 +138,10 @@
 }
 
 /* ---------------------------
-   registro.css (ajustado)
+   registro.css 
    --------------------------- */
 
-/* Reset / base (copia de index.css) */
+/* Reset / base  */
 * {
   padding: 0;
   margin: 0;
@@ -424,7 +424,7 @@ input:focus{
   box-shadow: 0 10px 30px rgba(255,122,0,0.18);
 }
 
-/* utilidad para ocultar visualmente (si mantienes <h1> para accesibilidad) */
+/* utilidad para ocultar visualmente */
 .sr-only{
   border:0;
   clip:rect(0 0 0 0);
@@ -435,7 +435,7 @@ input:focus{
 }
 
 /* ---------------------------
-   Ajustes responsivos (combinados)
+   Ajustes responsivos 
    --------------------------- */
 
 @media (max-width: 1200px) {
