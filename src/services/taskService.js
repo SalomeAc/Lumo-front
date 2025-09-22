@@ -2,7 +2,7 @@
  * Base API endpoint for task-related operations.
  * @type {string}
  */
-const TASKS_API_URL = "https://lumo-back-2.onrender.com/api/tasks";
+const TASKS_API_URL = "https://lumo-back-1.onrender.com/api/tasks";
 
 
 /**
