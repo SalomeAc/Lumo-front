@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const submitBtn = document.getElementById('reset-submit');
   const msgEl = document.getElementById('reset-message');
 
-  // 🔑 Base fija de la API (antes estaba con import.meta.env)
-  const API_BASE = "http://localhost:8080";
+  // 🔑 Api a despliegue
+  const API_BASE = "https://lumo-back-1.onrender.com";
   const RESET_ENDPOINT_BASE = `${API_BASE}/api/users/reset-password`;
 
   // Captura token de la URL (?token=...)

@@ -6,11 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", (e) => {
     e.preventDefault(); // evitar que recargue la página
 
+    const API_BASE_URL = 'https://lumo-back-1.onrender.com';
     const email = emailInput.value.trim();
 
     if (validateEmail(email)) {
       // Llamar al backend para recuperar contraseña
-      fetch("https://lumo-back-1.onrender.com/api/users/forgot-password", {
+      fetch(`${API_BASE_URL}/api/users/recover-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
