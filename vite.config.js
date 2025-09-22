@@ -26,6 +26,7 @@ export default defineConfig({
         contact: resolve(ROOT, "contact", "index.html"),
         login: resolve(ROOT, "login", "index.html"),
         register: resolve(ROOT, "register", "index.html"),
+        logout: resolve(ROOT, "logout", "index.html"),
       },
     },
   },
