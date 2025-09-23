@@ -215,6 +215,9 @@ footer {
         margin-left: 0;
         margin-top: 1rem;
     }
+    .text-left .register-btn {
+        margin-left: 0;
+    }
     h1 {
         margin: 1rem 0;
         font-size: 2rem;
@@ -230,8 +233,19 @@ footer {
         align-self: center;
     }
     #menu {
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
         gap: 1rem;
+    }
+    .login-btn {
+        margin: 0;
+    }
+
+    .login-btn a {
+        display: inline-block;
+        margin: 0 auto;
+        margin-left: 30px;
     }
     #menu ul {
         flex-direction: column;

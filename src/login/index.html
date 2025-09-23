@@ -26,6 +26,13 @@
             <div class="login-layout">
                 <!-- Columna izquierda: tarjeta de login -->
                 <section class="card login-card" aria-labelledby="login-title">
+                    <a
+                        class="previous"
+                        href="#"
+                        onclick="history.back(); return false;"
+                    >
+                        <img src="/previous_black.png" />
+                    </a>
                     <h2 id="login-title" class="card-title">Login</h2>
 
                     <form id="loginForm" class="login-form" novalidate>
@@ -101,14 +108,6 @@
 
                 <!-- Columna derecha: imagen grande igual a registro) -->
                 <aside class="side-brand">
-                    <a
-                        class="previous"
-                        href="#"
-                        onclick="history.back(); return false;"
-                    >
-                        <img src="/previous_black.png" />
-                    </a>
-
                     <div class="brand brand-img-only">
                         <img
                             src="/Lumo2.png"

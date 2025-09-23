@@ -181,6 +181,7 @@ footer {
 
 /* Card (left) */
 .card.login-card {
+    position: relative; /* clave para que .previous se posicione dentro */
     background: var(--card-bg);
     border-radius: var(--radius);
     padding: 28px;
@@ -192,6 +193,31 @@ footer {
     align-items: stretch;
     justify-self: center;
     border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.card.login-card .previous {
+    position: absolute;
+    top: -4rem;
+    left: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.card.login-card .previous:hover {
+    background: #f7f7f7;
+}
+
+.card.login-card .previous img {
+    width: 60%;
+    height: auto;
 }
 
 /* Title centered  */
@@ -290,7 +316,10 @@ footer {
 
 /* Previous link */
 
-.side-brand .previous {
+.previous {
+    position: absolute;
+    top: 20px;
+    left: 20px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -301,21 +330,14 @@ footer {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     cursor: pointer;
     transition: background 0.2s;
-    align-self: flex-start;
+    z-index: 50; /* que quede encima del card */
 }
-
-.side-brand .previous:hover {
+.previous:hover {
     background: #f7f7f7;
 }
-
-.side-brand .previous img {
+.previous img {
     width: 60%;
     height: auto;
-}
-
-.side-brand .previous-wrapper {
-    align-self: flex-start;
-    margin-bottom: 2px;
 }
 
 /* Big logo (match register) */
