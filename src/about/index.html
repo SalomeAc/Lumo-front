@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Sobre Nosotros | Lumo</title>
+        <link rel="stylesheet" href="./about.css" />
+        <link rel="stylesheet" href="../components/barnav.css" />
+    </head>
+        <div id="barnav-container"></div>
+        <script type="module">
+          fetch('../components/barnav.html')
+            .then(r => r.text())
+            .then(html => {
+              document.getElementById('barnav-container').innerHTML = html;
+              import('../components/barnav.js');
+            });
+        </script>
+        </header>
+        <main>
+            <section class="hero">
+                <h1>Somos más que un simple planificador</h1>
+                <div class="hero-content">
+                    <div class="hero-img">
+                        <img
+                            src="/Lumix.png"
+                            alt="Mascota Lumo"
+                            style="max-width: 220px; width: 100%; height: auto"
+                        />
+                    </div>
+                    <div class="hero-text">
+                        <h2 class="hero-subtitle">
+                            Simplifica la forma en que gestionas tus tareas o actividades pendientes
+                        </h2>
+                    </div>
+                </div>
+            </section>
+            <section class="why">
+                <h2>¿Por qué elegir <span class="highlight">Lumo</span>?</h2>
+                <div class="why-content">
+                    <div class="why-item">
+                        <strong>Automatización total:</strong>
+                        <ul>
+                            <li>Despídete de las listas de tareas manuales.</li>
+                        </ul>
+                    </div>
+                    <div class="why-item">
+                        <strong>Interactividad:</strong>
+                        <ul>
+                            <li>
+                                Edita tus actividades y tareas a tu gusto.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="why-item">
+                        <strong>Mantente al día:</strong>
+                        <ul>
+                            <li>
+                                Recibe recordatorios e información sobre tus tareas pendientes.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <div class="footer-col">
+                <div class="logo">Lumo</div>
+                <p>© 2025 JSquad</p>
+                <p>Todos los derechos reservados</p>
+            </div>
+            <div class="footer-col">
+                <p>Creado por JSquad</p>
+                <ul>
+                    <li><a href="/about/">Sobre nosotros</a></li>
+                    <li><a href="/blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <p>Soporte</p>
+                <ul>
+                    <li><a href="/contact/">Contáctanos</a></li>
+                    <li><a href="/service-terms">Términos de servicio</a></li>
+                    <li><a href="/policies">Políticas de privacidad</a></li>
+                </ul>
+            </div>
+        </footer>
+    </body>
+</html>

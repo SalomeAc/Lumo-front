@@ -1,0 +1,476 @@
+
+/* Variables CSS del dashboard */
+:root {
+    --sidebar-bg: #0e2a36;
+    --primary: #0ccb95;
+    --muted: #6b7280;
+    --card: #ffffff;
+    --accent: #ffa500;
+    --radius: 12px;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  background: #f5f5f5;
+}
+
+#barnav-container {
+  /* Asegura que el header se vea igual que en user-profile */
+  width: 100%;
+  z-index: 10;
+}
+
+/* Override existing update-container to work with dashboard structure */
+.update-container {
+  display: none; /* Hide old container */
+}
+
+/* Ensure the app container from dashboard.css takes precedence */
+.app {
+  display: flex !important;
+  min-height: 100vh !important;
+  align-items: stretch !important;
+  width: 100% !important;
+}
+
+/* Override update-sidebar styles to not interfere */
+.update-sidebar {
+  display: none; /* Hide old sidebar */
+}
+
+/* Ensure sidebar styles work correctly */
+aside.sidebar {
+  width: 250px !important;
+  background: var(--sidebar-bg) !important;
+  color: #fff !important;
+  padding: 20px 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+  flex-shrink: 0 !important;
+}
+
+/* Hide hamburger menu button (should be hidden on desktop) */
+.menu-toggle {
+  display: none !important;
+}
+
+/* Sidebar user block styles */
+.user-block {
+  padding: 16px !important;
+  border-radius: var(--radius) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  background-color: #071c24 !important;
+}
+
+.user-block-link {
+  text-decoration: none !important;
+  color: inherit !important;
+  display: block !important;
+}
+
+.user-block-link:hover .user-block {
+  background-color: #040D10 !important;
+}
+
+.user-info .name {
+  font-weight: 600 !important;
+  color: #fff !important;
+}
+
+.user-info .last-time {
+  font-size: 0.85rem !important;
+  color: #cbd5e1 !important;
+}
+
+/* Sidebar lists styles */
+.lists-title {
+  margin-top: 0.7rem !important;
+  margin-left: 0.5rem !important;
+  color: #cbd5e1 !important;
+  font-size: 0.85rem !important;
+}
+
+/* Lists toggle button styling */
+#lists-toggle.sidebar-section {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  padding: 0.55rem 0.6rem !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  cursor: pointer !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease !important;
+}
+
+#lists-toggle.sidebar-section::before {
+  content: '' !important;
+  width: 14px !important;
+  height: 14px !important;
+  border: 3px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 2px rgba(12, 203, 149, 0.15) !important;
+}
+
+#lists-toggle.sidebar-section::after {
+  content: '' !important;
+  margin-left: auto !important;
+  width: 10px !important;
+  height: 10px !important;
+  border-right: 2px solid #cbd5e1 !important;
+  border-bottom: 2px solid #cbd5e1 !important;
+  transform: rotate(45deg) !important;
+  transition: transform 180ms ease, border-color 180ms ease !important;
+}
+
+#lists-toggle.sidebar-section:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+#lists-toggle[aria-expanded="true"].sidebar-section::after {
+  transform: rotate(-135deg) !important;
+  border-color: #ffffff !important;
+}
+
+/* Lists container styling */
+#lists-container {
+  display: none !important;
+  margin-left: 2rem !important;
+  list-style: none !important;
+  padding: 0 !important;
+}
+
+#lists-container.open {
+  display: block !important;
+}
+
+#lists-container li {
+  margin-left: 0 !important;
+  margin-top: 0.15rem !important;
+  margin-bottom: 0.35rem !important;
+  padding: 6px !important;
+  border-radius: 8px !important;
+  list-style: none !important;
+}
+
+#lists-container li:hover {
+  background: #071c24 !important;
+}
+
+#lists-container li a {
+  color: #ffffff !important;
+  text-decoration: none !important;
+  display: block !important;
+  font-weight: 600 !important;
+  font-size: 1.2rem !important;
+  padding: 0.25rem 0.5rem !important;
+  border-radius: 4px !important;
+}
+
+#lists-container li a:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.list-link {
+  color: #ffffff !important;
+  text-decoration: none !important;
+  display: block !important;
+  width: 100% !important;
+}
+
+.list-name {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* Create list button styling */
+.btn {
+  padding: 8px !important;
+  border-radius: 10px !important;
+  background: #ffa500 !important;
+  text-align: center !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  border: none !important;
+  font-size: 1.1rem !important;
+  cursor: pointer !important;
+  display: block !important;
+  width: 100% !important;
+  margin-top: 0.5rem !important;
+}
+
+#create-list-btn {
+  background: #ffa500 !important;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+}
+
+#create-list-btn:hover,
+.btn:hover {
+  background: #FFB733 !important;
+}
+
+.kanban-statuses {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 0 1rem 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+}
+
+.kanban-statuses li a {
+  color: #fff !important;
+  text-decoration: none !important;
+  padding: 0.4rem 0.5rem !important;
+  border-radius: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  transition: background-color 0.2s !important;
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+}
+
+.kanban-statuses li a:hover {
+  background: #081920 !important;
+  border-radius: 4px !important;
+}
+
+/* Kanban status dots */
+.kanban-statuses li a::before {
+  content: '' !important;
+  width: 14px !important;
+  height: 14px !important;
+  border-radius: 50% !important;
+  flex-shrink: 0 !important;
+  border: 3px solid rgba(255, 255, 255, 0.06) !important;
+  background: #9ca3af !important;
+}
+
+.kanban-statuses li a[data-status="unassigned"]::before {
+  background: #3498db !important;
+}
+
+.kanban-statuses li a[data-status="ongoing"]::before {
+  background: #f4ad14 !important;
+}
+
+.kanban-statuses li a[data-status="done"]::before {
+  background: #87cf23 !important;
+}
+
+.btn {
+  background: var(--accent) !important;
+  color: #fff !important;
+  border: none !important;
+  padding: 12px 16px !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  font-weight: 600 !important;
+  transition: background-color 0.2s !important;
+}
+
+.btn:hover {
+  background: #ff8f00 !important;
+}
+
+.sidebar .footer {
+  margin-top: auto !important;
+  padding-top: 16px !important;
+  font-size: 0.85rem !important;
+  color: #93a2ad !important;
+  text-align: center !important;
+}
+
+.update-content {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: #fff !important;
+  min-height: 100vh !important;
+  overflow-y: auto;
+}
+
+.update-header {
+  background: #fff !important;
+  padding: 30px 40px 10px !important;
+  border-bottom: 1px solid #ddd !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  position: relative !important;
+}
+
+.inline-back {
+  position: absolute;
+  left: 24px;
+  top: 32px;
+}
+.inline-back img {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+.inline-back img:hover {
+  opacity: 1;
+}
+
+.update-header h2 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+
+.header-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.header-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  align-items: center;
+  text-align: center;
+}
+
+.header-email {
+  font-size: 0.95rem;
+  color: #666;
+  align-items: center;
+  text-align: center;
+}
+
+.tab-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+}
+
+.tab {
+  background: transparent;
+  border: none;
+  padding: 10px 24px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+.tab:hover {
+  color: #2566d6;
+}
+
+.tab.active {
+  color: #2566d6;
+  font-weight: 600;
+  border-bottom: 2px solid #2566d6;
+}
+
+
+.update-form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 40px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-form label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.update-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.update-form input:focus {
+  border-color: #2566d6;
+  box-shadow: 0 0 0 2px rgba(37, 102, 214, 0.2);
+  outline: none;
+}
+
+
+.update-btn {
+  background: #f57c00;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+.update-btn:hover {
+  background: #e66a00;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .update-container {
+    flex-direction: column;
+  }
+
+  .update-sidebar {
+    width: 100%;
+    height: 60px;
+  }
+
+  .update-content {
+    padding: 0;
+  }
+
+  .update-form {
+    grid-template-columns: 1fr;
+  }
+
+  .tab-navigation {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header-avatar {
+    flex-direction: column;
+    text-align: center;
+  }
+}
