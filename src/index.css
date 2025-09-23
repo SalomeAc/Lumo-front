@@ -13,7 +13,7 @@
     padding: 18px 3rem;
     border-bottom: 2px solid #f7c873;
 }
-.logo a{
+.logo a {
     font-size: 2rem;
     color: orange;
     font-weight: bold;
@@ -37,7 +37,6 @@
     text-decoration: none;
     font-weight: 500;
     font-size: 1rem;
-
 }
 body {
     background: #f3f5f7;
@@ -54,11 +53,10 @@ body {
     align-items: center;
     box-sizing: border-box;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1
-    
+    margin-bottom: 1;
 }
 .text-left .register-btn {
-  margin-left: 15rem;
+    margin-left: 15rem;
 }
 .text-left {
     display: flex;
@@ -95,6 +93,8 @@ h1 {
     font-size: 20px;
     padding: 10px 2rem;
     color: white;
+    font-weight: 700;
+    font-size: 15px;
     background-color: orange;
     border: none;
     border-radius: 4px;
