@@ -286,6 +286,7 @@
     padding-left: 8px;
     padding-right: 8px;
     height: 100%;
+    
   }
   
   /* Previous link */
@@ -302,6 +303,7 @@
   cursor: pointer;
   transition: background 0.2s;
   align-self: flex-start; 
+ 
 
 }
 
@@ -312,6 +314,7 @@
 .side-brand .previous img {
   width: 60%;
   height: auto;
+   
 }
 
 .side-brand .previous-wrapper {
