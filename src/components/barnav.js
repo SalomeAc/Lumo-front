@@ -7,32 +7,34 @@ if (btnDiv && btnContainer) {
     const dashboardBtn = document.createElement("a");
     dashboardBtn.href = "/dashboard/";
     dashboardBtn.textContent = "Dashboard";
-    dashboardBtn.style.background = "#e0e0e0";
+    dashboardBtn.style.background = "#ffffff";
+    dashboardBtn.style.border = "1px solid #222";
     dashboardBtn.style.color = "#222";
     dashboardBtn.style.fontWeight = "bold";
-    dashboardBtn.style.padding = "10px 1.5rem";
+    dashboardBtn.style.padding = "8px 1.2rem";
     dashboardBtn.style.borderRadius = "4px";
     dashboardBtn.style.textDecoration = "none";
     dashboardBtn.style.marginRight = "0.5em";
     dashboardBtn.style.transition = "background 0.2s";
-    dashboardBtn.onmouseover = () => (dashboardBtn.style.background = "#bdbdbd");
-    dashboardBtn.onmouseout = () => (dashboardBtn.style.background = "#e0e0e0");
+    dashboardBtn.onmouseover = () => (dashboardBtn.style.background = "#f0f0f0ff");
+    dashboardBtn.onmouseout = () => (dashboardBtn.style.background = "#ffffff");
     btnContainer.insertBefore(dashboardBtn, btnDiv);
 
     // Botón Editar perfil
     const profileBtn = document.createElement("a");
     profileBtn.href = "/user-profile/";
-    profileBtn.textContent = "Editar perfil";
-    profileBtn.style.background = "#e0e0e0";
+    profileBtn.textContent = "Ver perfil";
+    profileBtn.style.background = "#ffffffff";
+    profileBtn.style.border = "1px solid #222";
     profileBtn.style.color = "#222";
     profileBtn.style.fontWeight = "bold";
-    profileBtn.style.padding = "10px 1.5rem";
+    profileBtn.style.padding = "8px 1.2rem";
     profileBtn.style.borderRadius = "4px";
     profileBtn.style.textDecoration = "none";
     profileBtn.style.marginRight = "0.5em";
     profileBtn.style.transition = "background 0.2s";
-    profileBtn.onmouseover = () => (profileBtn.style.background = "#bdbdbd");
-    profileBtn.onmouseout = () => (profileBtn.style.background = "#e0e0e0");
+    profileBtn.onmouseover = () => (profileBtn.style.background = "#f0f0f0ff");
+    profileBtn.onmouseout = () => (profileBtn.style.background = "#ffffff");
     btnContainer.insertBefore(profileBtn, btnDiv);
 
     btnDiv.innerHTML = '<a href="/logout/" role="button">Cerrar sesión</a>';
