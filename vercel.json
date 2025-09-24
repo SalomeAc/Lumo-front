@@ -106,6 +106,10 @@
     {
       "source": "/recover-password/",
       "destination": "/recover-password/index.html"
+    },
+    {
+      "source": "/edit-tasks/",
+      "destination": "/edit-tasks/index.html"
     }
   ]
 }
