@@ -430,7 +430,7 @@ aside.sidebar {
 }
 
 .update-btn {
-  background: #f57c00;
+  background: #FFA90A;
   color: #fff;
   border: none;
   padding: 12px 20px;
@@ -443,7 +443,7 @@ aside.sidebar {
 }
 
 .update-btn:hover {
-  background: #e66a00;
+  background: #FFB833;
 }
 
 .password-illustration {

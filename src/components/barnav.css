@@ -54,7 +54,7 @@
 
 /* Botón Dashboard (gris) */
 .dashboard-btn {
-  background: #e0e0e0;
+  background: #ffffff;
   color: #222;
   font-weight: bold;
   padding: 8px 1.2rem;
@@ -67,7 +67,7 @@
   box-shadow: none;
 }
 .dashboard-btn:hover {
-  background: #bdbdbd;
+  background: #f0f0f0ff;
 }
 
 /* Botón Cerrar sesión (naranja) */
@@ -90,7 +90,8 @@
 
 /* Botón Iniciar sesión (gris, igual que dashboard) */
 a[role="button"]:not(.logout):not(.dashboard-btn) {
-  background: #e0e0e0;
+  background: #FFA500;
+  border: 1px solid #222;
   color: #222;
   font-weight: bold;
   padding: 8px 1.2rem;
@@ -103,7 +104,7 @@ a[role="button"]:not(.logout):not(.dashboard-btn) {
   box-shadow: none;
 }
 a[role="button"]:not(.logout):not(.dashboard-btn):hover {
-  background: #bdbdbd;
+  background: #FFB833;
 }
 
 #barnav-auth-btn {
