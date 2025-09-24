@@ -1,0 +1,111 @@
+{
+  "framework": "vite",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/logout",
+      "destination": "/logout/index.html"
+    },
+    {
+      "source": "/logout/",
+      "destination": "/logout/index.html"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/dashboard/index.html"
+    },
+    {
+      "source": "/dashboard/",
+      "destination": "/dashboard/index.html"
+    },
+    {
+      "source": "/user-profile",
+      "destination": "/user-profile/index.html"
+    },
+    {
+      "source": "/user-profile/",
+      "destination": "/user-profile/index.html"
+    },
+    {
+      "source": "/security",
+      "destination": "/security/index.html"
+    },
+    {
+      "source": "/security/",
+      "destination": "/security/index.html"
+    },
+    {
+      "source": "/edit-profile",
+      "destination": "/edit-profile/index.html"
+    },
+    {
+      "source": "/edit-profile/",
+      "destination": "/edit-profile/index.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about/index.html"
+    },
+    {
+      "source": "/about/",
+      "destination": "/about/index.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact/index.html"
+    },
+    {
+      "source": "/contact/",
+      "destination": "/contact/index.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/login/index.html"
+    },
+    {
+      "source": "/login/",
+      "destination": "/login/index.html"
+    },
+    {
+      "source": "/register",
+      "destination": "/register/index.html"
+    },
+    {
+      "source": "/register/",
+      "destination": "/register/index.html"
+    },
+    {
+      "source": "/reset-password",
+      "destination": "/reset-password/index.html"
+    },
+    {
+      "source": "/reset-password/",
+      "destination": "/reset-password/index.html"
+    },
+    {
+      "source": "/create-task",
+      "destination": "/create-task/index.html"
+    },
+    {
+      "source": "/create-task/",
+      "destination": "/create-task/index.html"
+    },
+    {
+      "source": "/create-list",
+      "destination": "/create-list/index.html"
+    },
+    {
+      "source": "/create-list/",
+      "destination": "/create-list/index.html"
+    },
+    {
+      "source": "/recover-password",
+      "destination": "/recover-password/index.html"
+    },
+    {
+      "source": "/recover-password/",
+      "destination": "/recover-password/index.html"
+    }
+  ]
+}

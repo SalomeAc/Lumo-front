@@ -4,11 +4,22 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-        <link rel="stylesheet" href="/components/barnav.html" />
         <link rel="stylesheet" href="./login.css" />
+        <link rel="stylesheet" href="../components/barnav.css" />
         <title>Lumo</title>
     </head>
     <body>
+        <div id="barnav-container"></div>
+        <script type="module">
+            fetch("../components/barnav.html")
+                .then((r) => r.text())
+                .then((html) => {
+                    document.getElementById("barnav-container").innerHTML =
+                        html;
+                    import("../components/barnav.js");
+                });
+        </script>
+
         <main class="main-login">
             <h1 class="sr-only">Login</h1>
 
@@ -82,7 +93,7 @@
                     </form>
                 </section>
 
-                <!-- Columna derecha: imagen grande (Lumo2.png) igual a registro, sin texto) -->
+                <!-- Columna derecha: imagen grande igual a registro) -->
                 <aside class="side-brand">
                     <a
                         class="previous"

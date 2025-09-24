@@ -5,14 +5,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/svg+xml" href="/vite.svg" />
         <link rel="stylesheet" href="./contact.css" />
-        <link rel="stylesheet" href="/components/barnav.html" />
+        <link rel="stylesheet" href="../components/barnav.css" />
         <title>Contact — Lumo</title>
     </head>
     <body>
+        <div id="barnav-container"></div>
+        <script type="module">
+            fetch("../components/barnav.html")
+                .then((r) => r.text())
+                .then((html) => {
+                    document.getElementById("barnav-container").innerHTML =
+                        html;
+                    import("../components/barnav.js");
+                });
+        </script>
+
         <!-- MAIN: Contact page -->
         <main class="contact-main">
             <div class="contact-wrap">
-                <!-- Animated decorative blob (no content, solo visual) -->
+                <!-- Animated decorative blob -->
                 <div class="decor-blob" aria-hidden="true"></div>
 
                 <!-- Card: formulario -->
@@ -21,7 +32,6 @@
                     aria-labelledby="contact-title"
                 >
                     <div class="card-top">
-                        <!-- Imagen eliminada, sin texto de Lumo -->
                     </div>
 
                     <h1 id="contact-title" class="contact-title">
@@ -105,8 +115,8 @@
 
                         <div class="micro-note">
                             También puedes escribirnos directamente a
-                            <a href="mailto:info@example.com"
-                                >info@example.com</a
+                            <a href="mailto:lumo.notreplay@gmail.com"
+                                >lumo.notreplay@gmail.com</a
                             >
                         </div>
                     </form>

@@ -3,8 +3,9 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <link rel="icon" type="image/png" href="/lumo-logo.png" />
         <link rel="stylesheet" href="./index.css" />
+        <link rel="stylesheet" href="/components/barnav.css" />
         <title>Lumo</title>
     </head>
     <body>
@@ -15,7 +16,7 @@
                 .then((html) => {
                     document.getElementById("barnav-container").innerHTML =
                         html;
-                    import("/components/barnav.js");
+                    import("./components/barnav.js");
                 });
         </script>
         <main id="principal">
@@ -60,5 +61,20 @@
                 </ul>
             </div>
         </footer>
+        
+        <!-- Script para ocultar el botón Regístrate si hay sesión activa -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Verificar si hay un token de sesión activa
+                const token = localStorage.getItem('token');
+                const registerBtn = document.querySelector('.register-btn');
+                
+                if (token && registerBtn) {
+                    // Si hay token, ocultar el botón de registro
+                    registerBtn.style.display = 'none';
+                    console.log('Usuario con sesión activa - botón de registro ocultado');
+                }
+            });
+        </script>
     </body>
 </html>

@@ -22,7 +22,7 @@ if (btnDiv && btnContainer) {
     // Botón Editar perfil
     const profileBtn = document.createElement("a");
     profileBtn.href = "/user-profile/";
-    profileBtn.textContent = "Editar perfil";
+    profileBtn.textContent = "Ver  perfil";
     profileBtn.style.background = "#e0e0e0";
     profileBtn.style.color = "#222";
     profileBtn.style.fontWeight = "bold";

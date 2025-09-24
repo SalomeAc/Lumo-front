@@ -1,6 +1,6 @@
-import { getUserLists } from '../services/listService.js';
-import { getTasks as getTasksByList, deleteTask } from '../services/taskService.js';
-import { getUserProfile } from '../services/userServices.js'; 
+import { getUserLists, deleteList as apiDeleteList } from '../services/listService.js';
+import { getTasks as getTasksByList, deleteTask, getKanbanTasks } from '../services/taskService.js';
+import { getUserProfile } from '../services/userServices.js';
 
 /* --------- Sidebar toggle --------- */
 /**
@@ -57,6 +57,9 @@ const createListBtn = document.getElementById('create-list-btn');
 /** @type {HTMLButtonElement|null} */
 const newTaskBtn = document.getElementById('new-task-btn');
 const userInfo = document.getElementById('user-info');
+const listsToggle = document.getElementById('lists-toggle');
+const kanbanStatuses = document.getElementById('kanban-statuses');
+const createTaskBtn = document.getElementById('new-task-btn');
 
 
 /* ----------------- Helpers ----------------- */
@@ -106,6 +109,12 @@ function renderLists(lists) {
       <a href="#" class="list-link" data-list-id="${id}" data-list-title="${title}">
         <span class="list-name">${title}</span>
       </a>
+      <div class="list-actions">
+        <button class="list-menu-btn" aria-haspopup="true" aria-expanded="false" aria-label="Abrir menú">⋯</button>
+        <div class="list-menu" role="menu">
+          <button class="list-menu-item delete" role="menuitem" data-list-id="${id}">Borrar</button>
+        </div>
+      </div>
     `;
     fragment.appendChild(li);
   });
@@ -150,8 +159,61 @@ async function selectList(listId, listTitle, { loadTasks = true } = {}) {
       console.error('Error al cargar tareas de la lista:', err);
       if (tasksContainer) tasksContainer.innerHTML = '<p>Error cargando tareas.</p>';
     }
+    updateCreateTaskBtnVisibility();
   }
 }
+
+async function loadKanbanByStatus(status) {
+  const token = localStorage.getItem('token');
+  if (!token) return;
+  try {
+    const { ongoingTasks, unassignedTasks, doneTasks } = await getKanbanTasks(token);
+
+    
+    let tasks = [];
+    if (status === 'unassigned') tasks = unassignedTasks;
+    if (status === 'ongoing') tasks = ongoingTasks;
+    if (status === 'done') tasks = doneTasks;
+
+    renderTasks(tasks);
+
+    let circleClass = '';
+    switch (status) {
+      case 'unassigned': circleClass = 'status-dot todo'; break;
+      case 'ongoing': circleClass = 'status-dot doing'; break;
+      case 'done': circleClass = 'status-dot done'; break;
+    }
+
+    if (currentListTitle) {
+      // clean text
+      const label =
+        status === 'unassigned'
+          ? 'Por hacer'
+          : status === 'ongoing'
+            ? 'Haciendo'
+            : 'Completadas';
+      currentListTitle.innerHTML = `<span class="${circleClass}"></span> ${label}`;
+    }
+
+
+    // Unmark any selected list in the sidebar
+    if (listsContainer) {
+      listsContainer.querySelectorAll('.list-link').forEach(a => {
+        a.classList.remove('active');
+        if (a.parentElement) a.parentElement.classList.remove('active');
+      });
+    }
+
+    // Clear current list selection
+    localStorage.removeItem('currentListId');
+    localStorage.removeItem('currentListTitle');
+    updateCreateTaskBtnVisibility();
+  } catch (err) {
+    console.error('Error en loadKanbanByStatus:', err);
+    if (tasksContainer) tasksContainer.innerHTML = '<p>Error cargando tareas.</p>';
+  }
+}
+
 
 /* ----------------- Render tasks ----------------- */
 /**
@@ -177,6 +239,10 @@ function renderTasks(tasks) {
     const desc = safeText(task.description || '');
     const status = safeText(task.status || '');
     const due = safeText(task.dueDate || task.createdAt || '');
+    const listIdForTaskRaw = (task && typeof task.list === 'object')
+      ? (task.list._id || task.list.id || '')
+      : (task.list || task.listId || task.list_id || '');
+    const listIdForTask = listIdForTaskRaw || localStorage.getItem('currentListId') || '';
 
     const article = document.createElement('article');
     article.classList.add('task');
@@ -189,15 +255,15 @@ function renderTasks(tasks) {
         case 'done':
           return { label: 'Completada', css: 'done' };
         default:
-          return { label: status, css: '' }; 
+          return { label: status, css: '' };
 
       }
     }
-    
+
     const { label, css } = mapStatus(status);
 
     article.innerHTML = `
-      <div class="left"><input type="checkbox" aria-label="Completar tarea"></div>
+      <div class="left"></div>
       <div class="body">
         <h3>${title}</h3>
         <p>${desc}</p>
@@ -205,7 +271,7 @@ function renderTasks(tasks) {
       </div>
       <div class="task-actions">
         <div class="buttons">
-          <a href="/edit-task/" class="edit-btn" data-task-id="${task._id || task.id}">✏️</a>
+          <a href="/edit-task/" class="edit-btn" data-task-id="${task._id || task.id}" data-list-id="${listIdForTask}">✏️</a>
           <button class="delete-btn" data-task-id="${task._id || task.id}">🗑️</button>
         </div>
         <div class="task-status ${css}">${label}</div>
@@ -219,8 +285,12 @@ function renderTasks(tasks) {
     /** On edit click, store task id and navigate to edit page. */
     btn.addEventListener('click', (e) => {
       const taskId = btn.dataset.taskId;
-      localStorage.setItem('editTaskId', taskId); 
-      window.location.href = '/edit-task/';       
+      const listId = btn.dataset.listId;
+      localStorage.setItem('editTaskId', taskId);
+      if (listId) {
+        localStorage.setItem('currentListId', listId);
+      }
+      window.location.href = '/edit-task/';
     });
   });
 
@@ -234,7 +304,75 @@ function setupListClickDelegation() {
   if (!listsContainer) return;
 
   listsContainer.addEventListener('click', (e) => {
-    const a = e.target.closest('.list-link');
+    // Close any open menus if clicking outside of actions
+    const insideActions = e.target.closest('.list-actions');
+    if (!insideActions) {
+      listsContainer.querySelectorAll('.list-actions.open').forEach(act => {
+        act.classList.remove('open');
+        const btn = act.querySelector('.list-menu-btn');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    // Open/close menu
+    const menuBtn = e.target.closest('.list-menu-btn');
+    if (menuBtn) {
+      e.preventDefault();
+      const actions = menuBtn.closest('.list-actions');
+      if (!actions) return;
+      // close others
+      listsContainer.querySelectorAll('.list-actions.open').forEach(act => {
+        if (act !== actions) {
+          act.classList.remove('open');
+          const b = act.querySelector('.list-menu-btn');
+          if (b) b.setAttribute('aria-expanded', 'false');
+        }
+      });
+      const isOpen = actions.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+      return;
+    }
+
+    // Delete from menu item
+    const delItem = e.target.closest('.list-menu-item.delete');
+    if (delItem) {
+      e.preventDefault();
+      const listId = delItem.dataset.listId;
+      if (!listId) return;
+      if (!confirm('¿Seguro que deseas eliminar esta lista?\nSe eliminarán también sus tareas.')) return;
+      const token = localStorage.getItem('token');
+      if (!token) return alert('Sesión inválida. Inicia sesión.');
+      (async () => {
+        try {
+          await apiDeleteList(token, listId);
+          showToast('Lista eliminada', 'success');
+          // If deleted current, clear
+          const current = localStorage.getItem('currentListId');
+          if (current === listId) {
+            localStorage.removeItem('currentListId');
+            localStorage.removeItem('currentListTitle');
+            if (currentListTitle) currentListTitle.textContent = 'Selecciona una lista';
+            clearChildren(tasksContainer);
+          }
+          // Refresh lists and select first if any
+          const refreshed = await getUserLists(token);
+          renderLists(refreshed);
+          if (refreshed && refreshed.length) {
+            const first = refreshed[0];
+            await selectList(first._id || first.id, first.title || first.name || 'Sin título', { loadTasks: true });
+          } else {
+            if (currentListTitle) currentListTitle.textContent = 'No hay listas';
+            if (tasksContainer) clearChildren(tasksContainer);
+          }
+        } catch (err) {
+          console.error('Error eliminando lista:', err);
+          showToast('Error eliminando lista', 'error');
+        }
+      })();
+      return;
+    }
+
+  const a = e.target.closest('.list-link');
     if (!a) return;
     e.preventDefault();
     const id = a.dataset.listId;
@@ -268,6 +406,24 @@ function setupButtons() {
  * Wire events, validate token, fetch and render lists, restore selection.
  */
 document.addEventListener('DOMContentLoaded', async () => {
+  
+  if (listsToggle && listsContainer) {
+    listsToggle.addEventListener('click', () => {
+      const isOpen = listsContainer.classList.toggle('open');
+      listsToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
+
+  if (kanbanStatuses) {
+    kanbanStatuses.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const status = a.dataset.status; // unassigned / ongoing / done
+        await loadKanbanByStatus(status);
+      });
+    });
+  }
+
   try {
     setupListClickDelegation();
     setupButtons();
@@ -305,7 +461,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       console.error("Error cargando perfil:", err);
       if (userInfo) {
         const nameEls = userInfo.querySelectorAll('.name');
-        if (nameEls[1]) nameEls[1].textContent = "Usuario desconocido";
+        if (nameEls[1]) nameEls[1].textContent = "Usuario";
       }
     }
 
@@ -340,6 +496,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const id = first._id || first.id;
       const title = first.title || first.name || 'Sin título';
       await selectList(id, title, { loadTasks: true });
+      updateCreateTaskBtnVisibility();
     } else {
       if (currentListTitle) currentListTitle.textContent = 'No hay listas';
       if (tasksContainer) tasksContainer.innerHTML = '<p>No hay listas para mostrar tareas.</p>';
@@ -348,7 +505,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   } catch (err) {
     console.error('Error en init dashboard:', err);
   }
-
+  updateCreateTaskBtnVisibility();
 
 });
 
@@ -413,8 +570,21 @@ function setupTaskActionsDelegation() {
       e.preventDefault();
       const taskId = editBtn.dataset.taskId;
       if (!taskId) return;
-
-      window.location.href = `/edit-task/?taskId=${taskId}`;
+      const listId = editBtn.dataset.listId;
+      localStorage.setItem('editTaskId', taskId);
+      if (listId) {
+        localStorage.setItem('currentListId', listId);
+      }
+      window.location.href = '/edit-task/';
     }
   });
+}
+
+function updateCreateTaskBtnVisibility() {
+  const listId = localStorage.getItem('currentListId');
+  if (createTaskBtn) {
+    // If there is a listId → we are in a normal list → show
+    // If there is NO listId → we are in Kanban → hide
+    createTaskBtn.style.display = listId ? 'block' : 'none';
+  }
 }
