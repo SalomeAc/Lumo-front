@@ -13,6 +13,13 @@
     padding: 18px 3rem;
     border-bottom: 2px solid #f7c873;
 }
+.register-btn {
+    background: #FFA90A;
+   
+}
+.register-btn:hover {
+    background: #FFB833;
+}
 .logo a {
     font-size: 2rem;
     color: orange;
