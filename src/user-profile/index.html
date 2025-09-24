@@ -3,11 +3,12 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Cambiar contraseña | Lumo</title>
+        <title>Perfil | Lumo</title>
         <link rel="stylesheet" href="/components/barnav.css" />
         <link rel="stylesheet" href="/src/dashboard/dashboard.css" />
-        <link rel="stylesheet" href="./security.css" />
-        <script type="module" src="./security.js"></script>
+        <link rel="stylesheet" href="./user-profile.css" />
+        <script type="module" src="./user-profile.js"></script>
+
     </head>
     <body>
         <!-- Header/Navbar -->
@@ -96,57 +97,48 @@
                 <div class="footer">© 2025 Lumo</div>
             </aside>
 
-            <!-- Contenido principal -->
-            <main class="update-content">
-                <header class="update-header">
-                    <div class="inline-back">
-                        <a href="/user-profile/"
-                            ><img src="/previous_black.png" alt="Volver"
-                        /></a>
-                    </div>
-                    <h2>Cambie su información de perfil o contraseña</h2>
-                    <div class="header-info">
-                        <p class="header-name">Nombre completo</p>
-                        <p class="header-email">example@domain.com</p>
-                    </div>
-                </header>
-                <nav class="tab-navigation">
-                    <a href="/edit-profile/" class="tab">Perfil</a>
-                    <a href="/password/" class="tab active">Seguridad</a>
-                </nav>
-                <main class="password-main">
-                    <form class="update-form">
-                        <div class="form-group">
-                            <label for="nueva"
-                                >Ingrese la nueva contraseña</label
-                            >
-                            <input
-                                type="password"
-                                id="nueva"
-                                placeholder="Nueva contraseña"
-                            />
+            <main class="profile-main">
+                <h1 class="profile-title">
+                    <a
+                        class="inline-back"
+                        href="#"
+                        onclick="history.back(); return false;"
+                        aria-label="Volver"
+                    >
+                        <img src="/previous_black.png" alt="Volver" />
+                    </a>
+                    Configuración de mi perfil
+                </h1>
+
+                <div class="profile-content">
+                    <section class="profile-details">
+                        <h2>Detalles del perfil</h2>
+                        <div class="profile-info">
+                            <div id="nombreUsuario">
+                                <strong>Nombre completo:</strong><br />
+                            </div>
+                            <div id="edadUsuario">
+                                <strong>Edad:</strong><br />
+                            </div>
+                            <div id="correoUsuario">
+                                <strong>Correo:</strong><br />
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="confirmar"
-                                >Confirme la nueva contraseña</label
-                            >
-                            <input
-                                type="password"
-                                id="confirmar"
-                                placeholder="Confirmar nueva contraseña"
-                            />
+                        <hr />
+                        <div class="profile-actions">
+                            <a href="/edit-profile/" class="profile-link">
+                                Cambie su información de perfil o contraseña
+                            </a>
+                            <a href="#" class="profile-link danger">
+                                Eliminar mi perfil
+                            </a>
                         </div>
-                        <button type="submit" class="update-btn">
-                            Actualizar
-                        </button>
-                    </form>
-                    <div class="password-illustration">
-                        <img src="/help-lumo.png" alt="Lumo con llave roja" />
-                    </div>
-                </main>
+                    </section>
+                </div>
             </main>
         </div>
-        
-        <script type="module" src="/user-profile/sidebar-dashboard.js"></script>
+
+        <script type="module" src="./user-profile.js"></script>
+        <script type="module" src="./sidebar-dashboard.js"></script>
     </body>
 </html>
