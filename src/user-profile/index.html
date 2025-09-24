@@ -4,25 +4,96 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Perfil | Lumo</title>
-        <link rel="stylesheet" href="./user-profile.css" />
         <link rel="stylesheet" href="/components/barnav.css" />
+        <link rel="stylesheet" href="/src/dashboard/dashboard.css" />
+        <link rel="stylesheet" href="./user-profile.css" />
         <script type="module" src="./user-profile.js"></script>
-        <link rel="stylesheet" href="../components/barnav.css">
 
     </head>
     <body>
-        <div id="barnav-container"></div>
+        <!-- Header/Navbar -->
+        <div id="barnav-container">
+            <header>
+                <nav id="menu">
+                    <div class="logo">
+                        <a href="/" style="font-weight: 850;">Lumo</a>
+                    </div>
+                    <ul class="links">
+                        <li><a href="/">Inicio</a></li>
+                        <li><a href="/about/">Sobre nosotros</a></li>
+                        <li><a href="/contact/">Contáctanos</a></li>
+                    </ul>
+                    <div
+                        class="login-btn"
+                        id="barnav-auth-btn-container"
+                        style="display: flex; gap: 0.7em; align-items: center"
+                    >
+                        <div id="barnav-auth-btn"></div>
+                    </div>
+                </nav>
+            </header>
+        </div>
         <script type="module">
-            fetch("/components/barnav.html")
-                .then((r) => r.text())
-                .then((html) => {
-                    document.getElementById("barnav-container").innerHTML =
-                        html;
-                    import("../components/barnav.js");
-                });
+            // barnav.js: Cambia el botón de login/logout según el token
+            const btnDiv = document.getElementById("barnav-auth-btn");
+            const btnContainer = document.getElementById("barnav-auth-btn-container");
+            if (btnDiv && btnContainer) {
+              if (localStorage.getItem("token")) {
+                const dashboardBtn = document.createElement("a");
+                dashboardBtn.href = "/dashboard/";
+                dashboardBtn.textContent = "Dashboard";
+                dashboardBtn.style.background = "#e0e0e0";
+                dashboardBtn.style.color = "#222";
+                dashboardBtn.style.fontWeight = "bold";
+                dashboardBtn.style.padding = "10px 1.5rem";
+                dashboardBtn.style.borderRadius = "4px";
+                dashboardBtn.style.textDecoration = "none";
+                dashboardBtn.style.marginRight = "0.5em";
+                dashboardBtn.style.transition = "background 0.2s";
+                dashboardBtn.onmouseover = () =>
+                  (dashboardBtn.style.background = "#bdbdbd");
+                dashboardBtn.onmouseout = () => (dashboardBtn.style.background = "#e0e0e0");
+                btnContainer.insertBefore(dashboardBtn, btnDiv);
+                btnDiv.innerHTML = '<a href="/logout/" role="button">Cerrar sesión</a>';
+              } else {
+                btnDiv.innerHTML = '<a href="/login/" role="button">Iniciar sesión</a>';
+              }
+            }
         </script>
-        <div class="profile-container">
-            <aside class="profile-sidebar">
+        
+        <!-- Dashboard structure with sidebar -->
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        <div class="app">
+            <aside class="sidebar" id="sidebar" aria-label="Panel lateral de navegación">
+                <a href="/user-profile/" class="user-block-link">
+                    <div class="user-block">
+                        <div class="user-info" id="user-info">
+                            <div class="name">Bienvenido/a, </div>
+                            <div class="name"></div>
+                            <div class="last-time" style="margin-top: 1rem;">Última actividad: </div>
+                            <div class="last-time"> dd/mm/yy </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Kanban por estado -->
+                <div class="lists-title">Kanban</div>
+                <ul class="kanban-statuses" id="kanban-statuses">
+                    <li><a href="#" data-status="unassigned">Por hacer</a></li>
+                    <li><a href="#" data-status="ongoing">Haciendo</a></li>
+                    <li><a href="#" data-status="done">Completadas</a></li>
+                </ul>
+
+                <!-- Lists -->
+                <div>
+                    <button id="lists-toggle" class="sidebar-section" aria-expanded="false"
+                        aria-controls="lists-container">Listas</button>
+                </div>
+                <ul class="lists" id="lists-container"></ul>
+
+                <button class="btn" id="create-list-btn">Crear nueva lista</button>
+
                 <div class="footer">© 2025 Lumo</div>
             </aside>
 
@@ -68,5 +139,6 @@
         </div>
 
         <script type="module" src="./user-profile.js"></script>
+        <script type="module" src="./sidebar-dashboard.js"></script>
     </body>
 </html>
