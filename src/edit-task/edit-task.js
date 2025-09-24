@@ -125,6 +125,7 @@ form.addEventListener('submit', async (e) => {
     showToast("Tarea actualizada con éxito", "success");
 
     localStorage.removeItem('editTaskId');
+    localStorage.setItem('taskEdited', 'success');
 
     setTimeout(() => {
       window.location.href = '/dashboard/';
@@ -132,6 +133,7 @@ form.addEventListener('submit', async (e) => {
   } catch (err) {
     console.error("Error actualizando tarea:", err);
     showToast("Error actualizando tarea", "error");
+    localStorage.setItem('taskEdited', 'error');
   }
 });
 

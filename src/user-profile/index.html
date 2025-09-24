@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="./user-profile.css" />
         <link rel="stylesheet" href="/components/barnav.css" />
         <script type="module" src="./user-profile.js"></script>
-        <link rel="stylesheet" href="/components/barnav.css">
+        <link rel="stylesheet" href="../components/barnav.css">
 
     </head>
     <body>
@@ -18,7 +18,7 @@
                 .then((html) => {
                     document.getElementById("barnav-container").innerHTML =
                         html;
-                    import("/components/barnav.js");
+                    import("../components/barnav.js");
                 });
         </script>
         <div class="profile-container">
