@@ -40,15 +40,7 @@
       "destination": "/edit-profile/index.html"
     },
     {
-      "source": "/edit-profile/",
-      "destination": "/edit-profile/index.html"
-    },
-    {
       "source": "/about",
-      "destination": "/about/index.html"
-    },
-    {
-      "source": "/about/",
       "destination": "/about/index.html"
     },
     {
@@ -56,23 +48,11 @@
       "destination": "/contact/index.html"
     },
     {
-      "source": "/contact/",
-      "destination": "/contact/index.html"
-    },
-    {
       "source": "/login",
       "destination": "/login/index.html"
     },
     {
-      "source": "/login/",
-      "destination": "/login/index.html"
-    },
-    {
       "source": "/register",
-      "destination": "/register/index.html"
-    },
-    {
-      "source": "/register/",
       "destination": "/register/index.html"
     },
     {
@@ -88,24 +68,16 @@
       "destination": "/create-task/index.html"
     },
     {
-      "source": "/create-task/",
-      "destination": "/create-task/index.html"
-    },
-    {
-      "source": "/create-list",
-      "destination": "/create-list/index.html"
-    },
-    {
       "source": "/create-list/",
       "destination": "/create-list/index.html"
     },
     {
-      "source": "/recover-password",
+      "source": "/recover-password/",
       "destination": "/recover-password/index.html"
     },
     {
-      "source": "/recover-password/",
-      "destination": "/recover-password/index.html"
+      "source": "/edit-task/",
+      "destination": "/edit-task/index.html"
     }
   ]
 }
