@@ -291,6 +291,22 @@ aside.sidebar {
   text-align: center !important;
 }
 
+.footer-links {
+  margin-top: 8px !important;
+}
+
+.footer-link {
+  color: #93a2ad !important;
+  text-decoration: none !important;
+  font-size: 0.8rem !important;
+  transition: color 0.3s ease !important;
+}
+
+.footer-link:hover {
+  color: var(--primary) !important;
+  text-decoration: underline !important;
+}
+
 .profile-main {
   flex: 1 !important;
   background: #fff !important;
