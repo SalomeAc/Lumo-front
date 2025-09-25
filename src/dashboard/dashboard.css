@@ -343,6 +343,22 @@ aside.sidebar {
     margin-top: auto;
 }
 
+.footer-links {
+    margin-top: 8px;
+}
+
+.footer-link {
+    color: #93a2ad;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
 /* Main content */
 main {
     flex: 1;

@@ -28,6 +28,7 @@ export default defineConfig({
         register: resolve(ROOT, "register", "index.html"),
         logout: resolve(ROOT, "logout", "index.html"),
         "edit-task": resolve(ROOT, "edit-task", "index.html"),
+        sitemap: resolve(ROOT, "sitemap", "index.html"),
       },
     },
   },

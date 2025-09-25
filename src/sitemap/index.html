@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapa del Sitio - Lumo</title>
+    <link rel="stylesheet" href="/src/components/barnav.css" />
+    <link rel="stylesheet" href="sitemap.css" />
+</head>
+<body>
+    <header>
+        <nav id="menu">
+            <div class="logo">
+                <a href="/" aria-label="Ir al dashboard de Lumo">
+                    <img src="/lumo-dashboard.png" alt="Logo de Lumo" style="width: 12rem"/>
+                </a>
+            </div>
+            <ul class="links">
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/about/">Sobre nosotros</a></li>
+                <li><a href="/contact/">Contáctanos</a></li>
+            </ul>
+            <div class="login-btn" id="barnav-auth-btn-container" style="display: flex; gap: 0.7em; align-items: center">
+                <div id="barnav-auth-btn"></div>
+            </div>
+        </nav>
+    </header>
+    
+    <main class="sitemap-main">
+        <div class="sitemap-container">
+            <h1>Mapa del Sitio</h1>
+            <p class="sitemap-description">
+                Encuentra fácilmente todas las páginas y secciones disponibles en Lumo
+            </p>
+            
+            <!-- Páginas Públicas -->
+            <section class="sitemap-section">
+                <h2>Páginas Públicas</h2>
+                <div class="sitemap-grid">
+                    <div class="sitemap-card">
+                        <h3>Inicio</h3>
+                        <p>Página principal de Lumo</p>
+                        <a href="/" class="sitemap-link">Ir a Inicio</a>
+                    </div>
+                    
+                    <div class="sitemap-card">
+                        <h3>Sobre Nosotros</h3>
+                        <p>Conoce más sobre el equipo de Lumo</p>
+                        <a href="/about/" class="sitemap-link">Ir a Sobre Nosotros</a>
+                    </div>
+                    
+                    <div class="sitemap-card">
+                        <h3>Contáctanos</h3>
+                        <p>Ponte en contacto con nosotros</p>
+                        <a href="/contact/" class="sitemap-link">Ir a Contáctanos</a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Autenticación -->
+            <section class="sitemap-section">
+                <h2>Autenticación</h2>
+                <div class="sitemap-grid">
+                    <div class="sitemap-card">
+                        <h3>Iniciar Sesión</h3>
+                        <p>Accede a tu cuenta de Lumo</p>
+                        <a href="/login/" class="sitemap-link">Ir a Login</a>
+                    </div>
+                    
+                    <div class="sitemap-card">
+                        <h3>Registro</h3>
+                        <p>Crea una nueva cuenta</p>
+                        <a href="/register/" class="sitemap-link">Ir a Registro</a>
+                    </div>
+                    
+                    <div class="sitemap-card">
+                        <h3>Olvidé mi Contraseña</h3>
+                        <p>Recupera tu contraseña</p>
+                        <a href="/recover-password/" class="sitemap-link">Ir a Recuperar Contraseña</a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Páginas Privadas (Requieren autenticación) -->
+            <section class="sitemap-section">
+                <h2>Área de Usuario</h2>
+                <p class="auth-required">⚠️ Las siguientes páginas requieren iniciar sesión</p>
+                <div class="sitemap-grid">
+                    <div class="sitemap-card protected">
+                        <h3>Dashboard</h3>
+                        <p>Panel principal de usuario</p>
+                        <a href="/dashboard/" class="sitemap-link protected-link" data-requires-auth="true">Ir a Dashboard</a>
+                    </div>
+                    
+                    <div class="sitemap-card protected">
+                        <h3>Perfil de Usuario</h3>
+                        <p>Ve tu información personal</p>
+                        <a href="/user-profile/" class="sitemap-link protected-link" data-requires-auth="true">Ir a Perfil</a>
+                    </div>
+                    
+                    <div class="sitemap-card protected">
+                        <h3>Editar Perfil</h3>
+                        <p>Modifica tu información personal</p>
+                        <a href="/edit-profile/" class="sitemap-link protected-link" data-requires-auth="true">Ir a Editar Perfil</a>
+                    </div>
+                    
+                    <div class="sitemap-card protected">
+                        <h3>Seguridad</h3>
+                        <p>Configuraciones de seguridad</p>
+                        <a href="/security/" class="sitemap-link protected-link" data-requires-auth="true">Ir a Seguridad</a>
+                    </div>
+                    
+                    <div class="sitemap-card protected">
+                        <h3>Crear Lista</h3>
+                        <p>Crea nuevas listas de tareas</p>
+                        <a href="/create-list/" class="sitemap-link protected-link" data-requires-auth="true">Ir a Crear Lista</a>
+                    </div>
+                    
+                    <div class="sitemap-card protected">
+                        <h3>Crear Tarea</h3>
+                        <p>Añade nuevas tareas</p>
+                        <a href="/create-task/" class="sitemap-link protected-link" data-requires-auth="true">Ir a Crear Tarea</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-col">
+            <div class="logo">Lumo</div>
+            <p>© 2025 JSquad</p>
+            <p>Todos los derechos reservados</p>
+        </div>
+        <div class="footer-col">
+            <p>Creado por JSquad</p>
+            <ul>
+                <li><a href="/about/">Sobre nosotros</a></li>
+                <li><a href="/blog.html">Blog</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <p>Soporte</p>
+            <ul>
+                <li><a href="/contact/">Contáctanos</a></li>
+                <li><a href="/service-terms">Términos de servicio</a></li>
+                <li><a href="/policies">Políticas de privacidad</a></li>
+                <li><a href="/sitemap/">Mapa del Sitio</a></li>
+            </ul>
+        </div>
+    </footer>
+    
+    <!-- Modal de error para páginas protegidas -->
+    <div id="auth-error-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Acceso Restringido</h2>
+            <p>Debes iniciar sesión para acceder a esta página.</p>
+            <div class="modal-actions">
+                <button id="go-to-login" class="btn-primary">Ir a Login</button>
+                <button id="close-modal" class="btn-secondary">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="sitemap.js"></script>
+</body>
+</html>
