@@ -60,6 +60,50 @@ const userInfo = document.getElementById('user-info');
 const listsToggle = document.getElementById('lists-toggle');
 const kanbanStatuses = document.getElementById('kanban-statuses');
 const createTaskBtn = document.getElementById('new-task-btn');
+const kanbanToggleBtn = document.getElementById('kanban-toggle-btn');
+const kanbanBoard = document.getElementById('kanban-board');
+const kanbanCols = {
+  unassigned: document.getElementById('kanban-col-unassigned'),
+  ongoing: document.getElementById('kanban-col-ongoing'),
+  done: document.getElementById('kanban-col-done')
+};
+
+/**
+ * Switch to the standard list/status task view (hide Kanban board).
+ * Ensures task container is visible, Kanban board hidden and create task button visibility updated.
+ */
+function showListView() {
+  if (kanbanBoard) {
+    kanbanBoard.setAttribute('hidden', '');
+    kanbanBoard.style.display = 'none';
+  }
+  if (tasksContainer) {
+    tasksContainer.removeAttribute('hidden');
+    tasksContainer.style.display = '';
+  }
+  if (kanbanToggleBtn) kanbanToggleBtn.textContent = 'Vista Kanban';
+  if (listsContainer) listsContainer.style.display = '';
+  updateCreateTaskBtnVisibility();
+}
+
+/**
+ * Switch to the full Kanban board view (hide the linear task list).
+ * Hides list task container, shows Kanban board and renders its content.
+ */
+function showKanbanView() {
+  if (tasksContainer) {
+    tasksContainer.setAttribute('hidden', '');
+    tasksContainer.style.display = 'none';
+  }
+  if (kanbanBoard) {
+    kanbanBoard.removeAttribute('hidden');
+    kanbanBoard.style.display = '';
+  }
+  if (kanbanToggleBtn) kanbanToggleBtn.textContent = 'Ver Lista';
+  if (createTaskBtn) createTaskBtn.style.display = 'none';
+  if (currentListTitle) currentListTitle.textContent = 'Kanban';
+  renderKanbanBoard();
+}
 
 
 /* ----------------- Helpers ----------------- */
@@ -82,8 +126,8 @@ function clearChildren(el) {
 
 /* ----------------- Render lists ----------------- */
 /**
- * Render the list of user lists into the sidebar container.
- * @param {Array<{_id?:string,id?:string,title?:string,name?:string}>} lists
+ * Render all user lists into the sidebar. Falls back to an empty-state message if none.
+ * @param {Array<{_id?:string,id?:string,title?:string,name?:string}>} lists - Raw list objects returned by API.
  */
 function renderLists(lists) {
   if (!listsContainer) {
@@ -122,13 +166,16 @@ function renderLists(lists) {
 }
 
 /**
- * Select a list, persist selection, update header and active styles, and optionally load tasks.
- * @param {string} listId
- * @param {string} listTitle
- * @param {{loadTasks?: boolean}} [options]
+ * Handle list selection: persist IDs in localStorage, update active UI state and optionally load tasks.
+ * Also forces exit from Kanban mode (always shows list view).
+ * @param {string} listId - The list identifier.
+ * @param {string} listTitle - The human readable title.
+ * @param {{loadTasks?: boolean}} [options] - Optional flags (default: load tasks immediately).
  */
 async function selectList(listId, listTitle, { loadTasks = true } = {}) {
   if (!listId) return;
+
+  showListView();
   localStorage.setItem('currentListId', listId);
   localStorage.setItem('currentListTitle', listTitle || '');
 
@@ -163,17 +210,26 @@ async function selectList(listId, listTitle, { loadTasks = true } = {}) {
   }
 }
 
+/**
+ * Load tasks filtered by a Kanban status (unassigned, ongoing, done) but display them in list view style.
+ * Clears any selected list context and updates the header with the status indicator.
+ * @param {"unassigned"|"ongoing"|"done"} status - Target status bucket.
+ */
 async function loadKanbanByStatus(status) {
   const token = localStorage.getItem('token');
   if (!token) return;
   try {
-    const { ongoingTasks, unassignedTasks, doneTasks } = await getKanbanTasks(token);
+    showListView();
+    const data = await getKanbanTasks(token);
+    const ongoingTasks = data.ongoingTasks || data.ongoing || [];
+    const unassignedTasks = data.unassignedTasks || data.unassigned || [];
+    const doneTasks = data.doneTasks || data.done || [];
 
     
-    let tasks = [];
-    if (status === 'unassigned') tasks = unassignedTasks;
-    if (status === 'ongoing') tasks = ongoingTasks;
-    if (status === 'done') tasks = doneTasks;
+  let tasks = [];
+  if (status === 'unassigned') tasks = unassignedTasks;
+  if (status === 'ongoing') tasks = ongoingTasks;
+  if (status === 'done') tasks = doneTasks;
 
     renderTasks(tasks);
 
@@ -185,7 +241,6 @@ async function loadKanbanByStatus(status) {
     }
 
     if (currentListTitle) {
-      // clean text
       const label =
         status === 'unassigned'
           ? 'Por hacer'
@@ -217,14 +272,19 @@ async function loadKanbanByStatus(status) {
 
 /* ----------------- Render tasks ----------------- */
 /**
- * Render tasks for the currently selected list.
- * @param {Array<{_id?:string,id?:string,title?:string,description?:string,status?:string,dueDate?:string,createdAt?:string}>} tasks
+ * Render a collection of tasks in the vertical list layout.
+ * If Kanban is visible it is forcibly hidden to maintain exclusive view.
+ * @param {Array<{_id?:string,id?:string,title?:string,description?:string,status?:string,dueDate?:string,createdAt?:string,list?:any,listId?:string,list_id?:string}>} tasks - Task objects for the current context.
  */
 function renderTasks(tasks) {
   if (!tasksContainer) {
     tasksContainer.innerHTML = '';
     console.warn('No tasksContainer en DOM');
     return;
+  }
+
+  if (kanbanBoard && !kanbanBoard.hasAttribute('hidden')) {
+    showListView();
   }
 
   clearChildren(tasksContainer);
@@ -282,7 +342,6 @@ function renderTasks(tasks) {
   });
   tasksContainer.appendChild(fragment);
   tasksContainer.querySelectorAll('.edit-btn').forEach(btn => {
-    /** On edit click, store task id and navigate to edit page. */
     btn.addEventListener('click', (e) => {
       const taskId = btn.dataset.taskId;
       const listId = btn.dataset.listId;
@@ -298,7 +357,8 @@ function renderTasks(tasks) {
 
 /* ----------------- Delegated events: list click ----------------- */
 /**
- * Setup delegated click handling on the lists container to select lists.
+ * Attach delegated handlers for list item interactions (selection, contextual menu open/close, deletion).
+ * Uses event delegation to support dynamic list refreshes.
  */
 function setupListClickDelegation() {
   if (!listsContainer) return;
@@ -314,13 +374,11 @@ function setupListClickDelegation() {
       });
     }
 
-    // Open/close menu
     const menuBtn = e.target.closest('.list-menu-btn');
     if (menuBtn) {
       e.preventDefault();
       const actions = menuBtn.closest('.list-actions');
       if (!actions) return;
-      // close others
       listsContainer.querySelectorAll('.list-actions.open').forEach(act => {
         if (act !== actions) {
           act.classList.remove('open');
@@ -383,7 +441,7 @@ function setupListClickDelegation() {
 
 /* ----------------- Setup buttons create/new task ----------------- */
 /**
- * Attach handlers for creating lists and starting new task creation.
+ * Wire click events for create-list and new-task buttons, performing navigation.
  */
 function setupButtons() {
   if (createListBtn) {
@@ -403,7 +461,8 @@ function setupButtons() {
 }
 
 /**
- * Wire events, validate token, fetch and render lists, restore selection.
+ * Application bootstrap: validate token, fetch user + lists, restore previous selection or select first.
+ * Also wires all interaction handlers (lists, tasks, kanban, buttons).
  */
 document.addEventListener('DOMContentLoaded', async () => {
   
@@ -418,8 +477,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     kanbanStatuses.querySelectorAll('a').forEach(a => {
       a.addEventListener('click', async (e) => {
         e.preventDefault();
-        const status = a.dataset.status; // unassigned / ongoing / done
-        await loadKanbanByStatus(status);
+        const status = a.dataset.status; // board | unassigned | ongoing | done
+        if (status === 'board') {
+          localStorage.removeItem('currentListId');
+          localStorage.removeItem('currentListTitle');
+          showKanbanView();
+        } else {
+          showListView();
+          await loadKanbanByStatus(status);
+        }
       });
     });
   }
@@ -428,6 +494,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupListClickDelegation();
     setupButtons();
     setupTaskActionsDelegation();
+  setupKanbanInteractions();
 
     const token = localStorage.getItem('token');
     if (!token) {
@@ -476,7 +543,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     renderLists(lists);
 
-    // If there is a saved currentListId, restore it; otherwise select the first available list
     const savedListId = localStorage.getItem('currentListId');
     const savedListTitle = localStorage.getItem('currentListTitle');
 
@@ -509,10 +575,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  const edited = localStorage.getItem('taskEdited');
+  if (edited) {
+    showToast(edited === 'success' ? 'Tarea actualizada con éxito' : 'Error actualizando tarea', edited === 'success' ? 'success' : 'error');
+    localStorage.removeItem('taskEdited');
+  }
+});
+
 /**
- * Display a temporary toast notification.
- * @param {string} message
- * @param {"info"|"success"|"error"} [type="info"]
+ * Show a transient toast notification.
+ * @param {string} message - Text to display.
+ * @param {"info"|"success"|"error"} [type="info"] - Visual style variant.
  */
 function showToast(message, type = "info") {
   let container = document.querySelector('.toast-container');
@@ -536,7 +610,8 @@ function showToast(message, type = "info") {
 
 /* ----------------- Delegated events: task actions ----------------- */
 /**
- * Setup delegated task action handlers (delete/edit) on the tasks container.
+ * Delegate task list actions (edit / delete) within the linear tasks container.
+ * Safely ignores interactions if token is missing.
  */
 function setupTaskActionsDelegation() {
   if (!tasksContainer) return;
@@ -580,11 +655,135 @@ function setupTaskActionsDelegation() {
   });
 }
 
+/**
+ * Toggle visibility of the "create task" button depending on whether a list context is active.
+ */
 function updateCreateTaskBtnVisibility() {
   const listId = localStorage.getItem('currentListId');
   if (createTaskBtn) {
-    // If there is a listId → we are in a normal list → show
-    // If there is NO listId → we are in Kanban → hide
+
     createTaskBtn.style.display = listId ? 'block' : 'none';
+  }
+}
+
+/* ----------------- Kanban full board ----------------- */
+/**
+ * Remove all cards from each Kanban column.
+ */
+function clearKanban() {
+  Object.values(kanbanCols).forEach(col => { if (col) clearChildren(col); });
+}
+
+/**
+ * Build a Kanban card DOM element for a given task.
+ * @param {{_id?:string,id?:string,title?:string,description?:string,dueDate?:string,createdAt?:string,list?:any}} task - Task object.
+ * @returns {HTMLDivElement} The constructed card element.
+ */
+function buildKanbanCard(task) {
+  const title = safeText(task.title || 'Sin título');
+  const desc = safeText(task.description || '');
+  const due = safeText(task.dueDate || task.createdAt || '');
+  const taskId = task._id || task.id;
+  const listId = (task.list && (task.list._id || task.list.id)) || task.list || task.listId || task.list_id || localStorage.getItem('currentListId') || '';
+  const card = document.createElement('div');
+  card.className = 'kanban-card';
+  card.innerHTML = `
+    <h4>${title}</h4>
+    ${desc ? `<p>${desc}</p>` : ''}
+    <div class="meta">${due ? `Fecha: ${due}` : ''}</div>
+    <div class="card-actions">
+      <a href="/edit-task/" class="edit" data-task-id="${taskId}" data-list-id="${listId}" aria-label="Editar tarea" title="Editar">
+        ✏️
+      </a>
+      <button class="delete delete-card" data-task-id="${taskId}" aria-label="Borrar tarea" title="Borrar">
+        🗑️
+      </button>
+    </div>
+  `;
+  return card;
+}
+
+/**
+ * Fetch grouped tasks (by status) and render them into the Kanban columns.
+ * Clears existing column content before inserting new cards.
+ */
+async function renderKanbanBoard() {
+  const token = localStorage.getItem('token');
+  if (!token) return;
+  try {
+    clearKanban();
+    const { ongoingTasks = [], unassignedTasks = [], doneTasks = [] } = await getKanbanTasks(token);
+    unassignedTasks.forEach(t => { if (kanbanCols.unassigned) kanbanCols.unassigned.appendChild(buildKanbanCard(t)); });
+    ongoingTasks.forEach(t => { if (kanbanCols.ongoing) kanbanCols.ongoing.appendChild(buildKanbanCard(t)); });
+    doneTasks.forEach(t => { if (kanbanCols.done) kanbanCols.done.appendChild(buildKanbanCard(t)); });
+  } catch (err) {
+    console.error('Error renderKanbanBoard:', err);
+  }
+}
+
+/**
+ * Legacy toggle function to switch between list and Kanban views when using the toggle button.
+ * Maintained for backward compatibility if the button is present.
+ */
+function toggleKanbanView() {
+  if (!kanbanBoard) return;
+  const showingKanban = !kanbanBoard.hasAttribute('hidden');
+  if (showingKanban) {
+    kanbanBoard.setAttribute('hidden', '');
+    tasksContainer?.removeAttribute('hidden');
+    kanbanToggleBtn.textContent = 'Vista Kanban';
+    if (listsContainer) listsContainer.style.display = '';
+    updateCreateTaskBtnVisibility();
+  } else {
+    tasksContainer?.setAttribute('hidden', '');
+    kanbanBoard.removeAttribute('hidden');
+    kanbanToggleBtn.textContent = 'Ver Lista';
+
+    if (createTaskBtn) createTaskBtn.style.display = 'none';
+    if (currentListTitle) currentListTitle.textContent = 'Kanban';
+    renderKanbanBoard();
+  }
+}
+
+/**
+ * Attach interaction handlers for Kanban board (edit/delete card) and optional toggle button.
+ */
+function setupKanbanInteractions() {
+  if (kanbanToggleBtn) {
+    kanbanToggleBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleKanbanView();
+    });
+  }
+  if (kanbanBoard) {
+    kanbanBoard.addEventListener('click', async (e) => {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+      const editLink = e.target.closest('a.edit');
+      if (editLink) {
+        e.preventDefault();
+        const taskId = editLink.dataset.taskId;
+        const listId = editLink.dataset.listId;
+        if (taskId) localStorage.setItem('editTaskId', taskId);
+        if (listId) localStorage.setItem('currentListId', listId);
+        window.location.href = '/edit-task/';
+        return;
+      }
+      const delBtn = e.target.closest('button.delete-card');
+      if (delBtn) {
+        e.preventDefault();
+        const taskId = delBtn.dataset.taskId;
+        if (!taskId) return;
+        if (!confirm('¿Eliminar esta tarea?')) return;
+        try {
+          await deleteTask(token, taskId);
+          showToast('Tarea eliminada', 'success');
+          renderKanbanBoard();
+        } catch (err) {
+          console.error('Error eliminando tarea Kanban:', err);
+          showToast('Error eliminando', 'error');
+        }
+      }
+    });
   }
 }

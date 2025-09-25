@@ -35,9 +35,11 @@
                 </div>
             </a>
 
-            <!-- Kanban por estado -->
-            <div class="lists-title">Kanban</div>
+            <!-- Kanban -->
             <ul class="kanban-statuses" id="kanban-statuses">
+                <li><a href="#" id="kanban-board-link" data-status="board" style="font-size: 1.5rem;">Kanban</a></li>
+                <div class="lists-title">Ver por:</div>
+
                 <li><a href="#" data-status="unassigned">Por hacer</a></li>
                 <li><a href="#" data-status="ongoing">Haciendo</a></li>
                 <li><a href="#" data-status="done">Completadas</a></li>
@@ -67,22 +69,38 @@
                     <button class="btn" id="new-task-btn" onclick="location.href='/create-task/'">+ Nueva Tarea</button>
                 </div>
             </div>
-
             <section class="tasks-grid" id="tasks-container" aria-label="Lista de tareas"></section>
-    </section>
-    </main>
+            <div id="kanban-board" class="kanban-board" aria-label="Tablero Kanban" hidden>
+                <div class="kanban-column" data-status="unassigned">
+                    <div class="kanban-column-header">
+                        <span class="status-dot todo"></span> Por hacer
+                    </div>
+                    <div class="kanban-cards" id="kanban-col-unassigned"></div>
+                </div>
+                <div class="kanban-column" data-status="ongoing">
+                    <div class="kanban-column-header">
+                        <span class="status-dot doing"></span> Haciendo
+                    </div>
+                    <div class="kanban-cards" id="kanban-col-ongoing"></div>
+                </div>
+                <div class="kanban-column" data-status="done">
+                    <div class="kanban-column-header">
+                        <span class="status-dot done"></span> Completadas
+                    </div>
+                    <div class="kanban-cards" id="kanban-col-done"></div>
+                </div>
+            </div>
+        </main>
     </div>
 
 
     <script type="module">
 
-        // Cargar el barnav reutilizable y luego ejecutar su JS
         fetch('../components/barnav.html')
 
             .then(r => r.text())
             .then(html => {
                 document.getElementById('barnav-container').innerHTML = html;
-                // Ejecutar barnav.js manualmente después de insertar el HTML
                 import('../components/barnav.js');
             });
     </script>

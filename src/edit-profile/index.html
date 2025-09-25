@@ -17,7 +17,9 @@
         <header>
             <nav id="menu">
                 <div class="logo">
-                    <a href="/" style="font-weight: 850;">Lumo</a>
+                    <a href="/" aria-label="Ir al dashboard de Lumo">
+                <img src="/lumo-dashboard.png" alt="Logo de Lumo" style="width: 12rem"/>
+            </a>
                 </div>
                 <ul class="links">
                     <li><a href="/">Inicio</a></li>
@@ -43,8 +45,9 @@
             const dashboardBtn = document.createElement("a");
             dashboardBtn.href = "/dashboard/";
             dashboardBtn.textContent = "Dashboard";
-            dashboardBtn.style.background = "#e0e0e0";
+            dashboardBtn.style.background = "#ffffff";
             dashboardBtn.style.color = "#222";
+            dashboardBtn.style.border = "1px solid #222";
             dashboardBtn.style.fontWeight = "bold";
             dashboardBtn.style.padding = "10px 1.5rem";
             dashboardBtn.style.borderRadius = "4px";
@@ -52,8 +55,8 @@
             dashboardBtn.style.marginRight = "0.5em";
             dashboardBtn.style.transition = "background 0.2s";
             dashboardBtn.onmouseover = () =>
-              (dashboardBtn.style.background = "#bdbdbd");
-            dashboardBtn.onmouseout = () => (dashboardBtn.style.background = "#e0e0e0");
+              (dashboardBtn.style.background = "#f0f0f0ff");
+            dashboardBtn.onmouseout = () => (dashboardBtn.style.background = "#ffffff");
             btnContainer.insertBefore(dashboardBtn, btnDiv);
             btnDiv.innerHTML = '<a href="/logout/" role="button">Cerrar sesión</a>';
           } else {
