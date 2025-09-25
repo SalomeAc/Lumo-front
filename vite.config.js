@@ -27,6 +27,7 @@ export default defineConfig({
         login: resolve(ROOT, "login", "index.html"),
         register: resolve(ROOT, "register", "index.html"),
         logout: resolve(ROOT, "logout", "index.html"),
+        "edit-task": resolve(ROOT, "edit-task", "index.html"),
       },
     },
   },
